@@ -1,6 +1,6 @@
 site_name: AI OnDemand (AIoD)
 site_description: AIoD is a framework for running any AI model on bioimages at scale.
-site_url: https://example.com
+site_url: https://franciscrickinstitute.github.io/aiod_docs/
 repo_name: AIoD Docs
 repo_url: https://github.com/FrancisCrickInstitute/aiod_docs
 copyright: Copyright &copy; 2026 Cameron Shand
