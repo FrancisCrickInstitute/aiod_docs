@@ -2,6 +2,56 @@
 
 Our [Nextflow pipeline](https://github.com/FrancisCrickInstitute/Segment-Flow) is where the actual code and processes for running models, and orchestrating the parallelization happens.
 
+## Pipeline Structure
+
+The pipeline is roughly structured as:
+
+
+```mermaid
+flowchart LR
+    A[Download<br>Model]
+    B[Preprocess<br>Data]
+    C[Split into<br>Substacks]
+    D[Run Model]
+    E[Postprocessing]
+
+    B --> C
+    C e1@--> D
+    C e2@--> D
+    C e3@--> D
+    C e4@--> D
+    C e5@--> D
+    A --> D
+    D e6@--> E
+    D e7@--> E
+    D e8@--> E
+    D e9@--> E
+    D e10@--> E
+    e1@{ animation: fast }
+    e2@{ animation: fast }
+    e3@{ animation: fast }
+    e4@{ animation: fast }
+    e5@{ animation: fast }
+    e6@{ animation: slow }
+    e7@{ animation: slow }
+    e8@{ animation: slow }
+    e9@{ animation: slow }
+    e10@{ animation: slow }
+```
+
+The sections below will briefly outline each section, and any considerations for input parameters.
+
+### Preprocess Data
+
+### Split into Substacks
+
+### Download Model
+
+### Run Model
+
+### Postprocessing
+
+
 ## Running the Pipeline Directly
 The Nextflow pipeline can be run directly, allowing headless use and avoiding Napari or any other front-end. Although more work is required in specifying the input parameters, 
 

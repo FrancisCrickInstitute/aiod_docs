@@ -7,9 +7,14 @@ This page will cover a few key concepts of AIoD, illustrating it's power, as wel
     As a general user of AIoD, you do not need to know everything on this page. The "Key Parameter" sections highlight the important things on this page you may need to know for setting parameters.
 
 ## Segmenting at Scale
+One of the key features of AIoD is the seamless ability to run models on large and/or many images, in a maximally parallel way. That is, the pipeline will try to do this as efficiently and quickly as possible with the compute available, e.g. creating many small jobs on a HPC system.
 
 ### Parallelising "substacks"
-TODO
+Each image is split into "substacks", which are effectively tiles (2D) or sub-volumes (3D+) of an image. This splitting occurs dynamically to the available resources of the system (in conjunction with the specified inputs), to simultaneously maximize parallelisation and utilization of each individual job.
+
+Similar to Dask's default chunk size, this splitting will create appropriately sized cubes to parallelize running the model over. The user can, however, modify this splitting through adjusting the `??` parameters.
+
+Additionally, the **overlap** between these substacks can be controlled through ??. This can help with models that struggle to segment on image boundaries. Note that for overlapping substacks, options in how to reconcile differences are discussed in our [processing]() section.
 
 
 ## Model Registry
