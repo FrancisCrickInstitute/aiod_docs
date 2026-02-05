@@ -6,7 +6,6 @@ Our [Nextflow pipeline](https://github.com/FrancisCrickInstitute/Segment-Flow) i
 
 The pipeline is roughly structured as:
 
-
 ```mermaid
 flowchart LR
     A[Download<br>Model]
@@ -42,34 +41,91 @@ flowchart LR
 The sections below will briefly outline each section, and any considerations for input parameters.
 
 ### Preprocess Data
+This step will run any specified preprocess functions (from the [available functions in our utils package](https://github.com/FrancisCrickInstitute/aiod_utils/blob/main/aiod_utils/preprocess.py)) across each of the input images.
+
+!!! note "Temporary Copy"
+
+    At present, this will create a copy of the data within the [cache](../concepts/index.md#caching). For large input data, it is recommend to [periodically clear the cache]() to avoid issues.
 
 ### Split into Substacks
+<!-- DIAGRAM -->
+
 
 ### Download Model
+The model will be downloaded (if a URL) or copied into the cache (if a filepath) for use by the pipeline.
 
 ### Run Model
+The specified model will run (in it's own environment) on each of the substacks. Depending on the [executor/profile](), this will be done as parallel as possible on the given system.
+
+If run via the Napari plugin, as each individual job finishes intermediate results will be loaded in, allowing for quick inspection and potentially early exit to adjust parameters.
 
 ### Postprocessing
+Each of the parallelised-substacks needs to be stitched back together to create the final result. This process ensures a consistent labelling to the masks across substacks through a simple connected components.
+
+If `overlap>0` for any dimension, then the postprocessing will combine overlapping masks. In a coming version, there will be various input parameters to allow for customization in the voting mechanism for this combination.
+
+If `iou_threshold>0`, then masks will only be labelled the same over Z-slices if they overlap with the specified minimum [IoU](https://en.wikipedia.org/wiki/Jaccard_index). At present, this is only applied to the Segment Anything models (1 & 2) due to their high density of mask output and conflicting information.
 
 
 ## Running the Pipeline Directly
 The Nextflow pipeline can be run directly, allowing headless use and avoiding Napari or any other front-end. Although more work is required in specifying the input parameters, 
 
-
-An example run script may look like:
+An example run command may look like:
 
 ```
-??
+nextflow -log /Users/shandc/.nextflow/aiod/nextflow.log run FrancisCrickInstitute/Segment-Flow -latest -w /Users/shandc/.nextflow/aiod/work -profile local -params-file /Users/shandc/.nextflow/aiod/aiod_cache/nxf_params_43e45ccf52a1503556b86df6e8b47959.yml
 ```
 
-Where the `??` params file looks like:
+Where the [params-file](https://www.nextflow.io/docs/latest/cli.html#pipeline-parameters) looks like:
 
-```yaml
-??
+```yaml title="Nextflow params-file Example"
+img_dir: /Users/shandc/.nextflow/aiod/aiod_cache/all_img_paths.csv
+iou_threshold: 0.8
+model: empanada
+model_chkpt_fname: MitoNet_v1.pth
+model_chkpt_loc: https://zenodo.org/record/6861565/files/MitoNet_v1.pth?download=1
+model_chkpt_type: url
+model_config: /Users/shandc/.nextflow/aiod/configs/mito-empanada-MitoNet-v1_config_e92afea9536c4ab53e377fb8c6ffe01c.yaml
+model_type: MitoNet-v1
+num_substacks: auto,auto,auto
+overlap: 0.0,0.0,0.0
+param_hash: 43e45ccf52a1503556b86df6e8b47959
+postprocess: false
+preprocess: null
+root_dir: /Users/shandc/.nextflow/aiod
+task: mito
 ```
+
+!!! info "What's wrong with your filenames?"
+
+    In the example above, the files were generated automatically by the Napari plugin to maximize [reproducibility](../concepts/index.md#reproducibility-hashing).
+
+    For running the pipeline directly, we recommended using some clear, traceable naming system, whether that's using datetime or some other format.
+
+#### Parameters Explained
+
+!!! note
+
+    This will be simplified in an uncoming release!
+
+- `img_dir`:
+- `iou_threshold`:
+- `model`:
+- `model_chkpt_fname`:
+- `model_chkpt_loc`:
+- `model_chkpt_type`:
+- `model_config`:
+- `model_type`:
+- `num_substacks`:
+- `overlap`:
+- `param_hash`:
+- `postprocess`:
+- `preprocess`:
+- `root_dir`:
+- `task`:
 
 ### Creating the Input CSV
-The input CSV file provides a definitive source of truth for the dimensions of the input data, which can be useful in the cases of missing, incorrect or misunderstood metadata.
+The input CSV file (e.g. `all_img_paths.csv` [above](#__codelineno-1-1)) provides a definitive source of truth for the dimensions of the input data, which can be useful in the cases of missing, incorrect or misunderstood metadata.
 
 You can use `aiod_utils.??` to more easily create this CSV, though it requires providing a `dict` specifying the size of each dimension. Missing dimensions will be guessed, so it is important to review the generated CSV afterwards.
 
@@ -90,8 +146,13 @@ img_path,num_slices,height,width,channels
 ### Pipeline-/Institutional-Level
 The [dynamic resource requests functionality of Nextflow](https://www.nextflow.io/docs/latest/process.html#dynamic-task-resources) allows us to be efficient in our requests on HPC, such that we are not requesting far more memory than is needed. This works well for memory requests, but requesting the required time is often very dependent on the hardware itself, and can be hard to estimate ahead of time.
 
-The [current "crick" Nextflow profile](https://github.com/FrancisCrickInstitute/Segment-Flow/blob/master/profiles/crick.conf) is a good starting point, but when making your own [institutional profile](CONTRIB)
+The [current "crick" Nextflow profile](https://github.com/FrancisCrickInstitute/Segment-Flow/blob/master/profiles/crick.conf) is a good starting point, but when making your own [institutional profile](CONTRIB) then there will be an initial period of experimentation to adjust the base time requests to minimize over-requesting on your system. The [Nextflow resource usage reports](https://www.nextflow.io/docs/latest/reports.html#resource-usage) are a fantastic place to start!
 
 ### Individual-Level
 Beyond tuning the processes, a user has a certain level of control over how to run the pipeline through how the [substacks](../concepts/index.md#parallelising-substacks) are created (their size and number).
 
+In the [parameters](#parameters-explained) section above, we can see that `num_substacks` and `overlap` are the two input parameters that control this. Adjusting these values will provide control over how the images are split and parallelized. For instance, with some models it may be preferable to increase the splitting over Z and reduce the amount of splitting in XY. This may require experimentation, but the default (`auto`) is a good starting point.
+
+!!! warning "Limited Control"
+
+    Although these parameters can be changed to control the splitting, it would be very easy to create values that (on larger data) would create substacks that simply cannot be loaded onto a GPU. As a result, the splitting process will try to get as close as possible to the user requested values, with an upper bound of what has been [determined is possible with your given GPU/hardware](../concepts/index.md#parallelising-substacks-to-maximize-gpu-usage).

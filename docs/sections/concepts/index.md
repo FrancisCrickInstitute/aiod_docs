@@ -9,8 +9,8 @@ This page will cover a few key concepts of AIoD, illustrating it's power, as wel
 ## Segmenting at Scale
 One of the key features of AIoD is the seamless ability to run models on large and/or many images, in a maximally parallel way. That is, the pipeline will try to do this as efficiently and quickly as possible with the compute available, e.g. creating many small jobs on a HPC system.
 
-### Parallelising "substacks"
-Each image is split into "substacks", which are effectively tiles (2D) or sub-volumes (3D+) of an image. This splitting occurs dynamically to the available resources of the system (in conjunction with the specified inputs), to simultaneously maximize parallelisation and utilization of each individual job.
+### Parallelising "substacks" to maximize GPU usage
+Each image is split into "substacks", which are effectively tiles (2D) or sub-volumes (3D+) of an image. **This splitting occurs dynamically to the available resources of the system** (in conjunction with the specified inputs), to simultaneously maximize parallelisation and utilization of each individual job.
 
 Similar to Dask's default chunk size, this splitting will create appropriately sized cubes to parallelize running the model over. The user can, however, modify this splitting through adjusting the `??` parameters.
 
@@ -41,6 +41,8 @@ Each [model manifest](https://github.com/FrancisCrickInstitute/AIoD-Model-Regist
 
 ##### Task
 What the model is used for, e.g. segmenting mitochondria.
+
+TODO: ADD MODEL FAMILY STUFF
 
 ##### Model Version
 The specific model. For example, `cyto3` is a specific version of the Cellpose model family.
@@ -87,6 +89,9 @@ By default, the cache is in the `.nextflow` folder in your home directory (`~`/`
 !!! warning "Key Parameter"
     
     For some HPC setups (including the Crick), your default home directory will have very little space. For non-local usage, we recommend changing this parameter. Guidance on choosing where can be found [here](../front_ends/napari_plugin.md).
+
+
+<!-- TODO: ADD NOTE ON CACHE CLEANING THROUGH NEXTFLOW CLEAN -->
 
 #### Directory Explanation
 ##### `aiod_cache`
