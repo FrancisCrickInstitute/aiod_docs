@@ -1,0 +1,103 @@
+site_name: AI OnDemand (AIoD)
+site_description: AIoD is a framework for running any AI model on bioimages at scale.
+site_url: https://example.com
+repo_name: AIoD Docs
+repo_url: https://github.com/FrancisCrickInstitute/aiod_docs
+copyright: Copyright &copy; 2026 Cameron Shand
+
+theme:
+  name: material
+  favicon: assets/CRICK_Logotype_black_RGB.jpg
+  logo: assets/CRICK_Brandmark_01_transparent.png
+  icon:
+    repo: fontawesome/brands/github
+  font:
+    text: Roboto
+    code: Roboto Mono
+  palette:
+    # Palette toggle for automatic mode
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    # Dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    # Light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.path
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    # - navigation.footer
+    - toc.follow
+    - search.suggest
+    - search.share
+    - content.tooltips
+    - content.tabs.link
+  
+nav:
+  - Overview:
+    - index.md
+  - Getting Started:
+    - sections/getting_started/index.md
+  - AIoD Framework:
+    - Concepts:
+      - sections/concepts/index.md
+    - User Interface(s):
+      - sections/front_ends/index.md
+      - Napari Plugin: sections/front_ends/napari_plugin.md
+    - Model Registry:
+      - sections/model_registry/index.md
+    - Nextflow Pipeline:
+      - sections/nextflow/index.md
+  - Contributing:
+    - sections/contributing/index.md
+  - Future Development:
+    - sections/development/index.md
+
+
+markdown_extensions:
+  - pymdownx.inlinehilite
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+  - abbr
+  - def_list
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - toc:
+      title: On this page
+      permalink: true
+      toc_depth: 4
+
+plugins:
+  - search
+
+extra_css:
+  - stylesheets/extra.css
+
+validation:
+  omitted_files: warn
+  absolute_links: warn
+  unrecognized_links: warn
+  anchors: warn
+  not_found: warn
