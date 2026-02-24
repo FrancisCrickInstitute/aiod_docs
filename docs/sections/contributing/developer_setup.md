@@ -1,4 +1,3 @@
-
 # Developer setup guide
 
 This page serves as a guide for setting up your development environment for contributing to code across the AIoD project.
@@ -67,7 +66,22 @@ The `--recurse-submodules` flag is required to also clone Segment-Flow, which is
 
 Note that `pip install -e .` will not reinstall `aiod_utils` since it is already installed, regardless of the git URL specified in `pyproject.toml`.
 
-By default the plugin will run the pipeline from the [published GitHub repository](https://github.com/FrancisCrickInstitute/Segment-Flow). 
+From your base directory, the project structure should look like this:
+
+```txt
+.
+├── ai-on-demand/
+│   └── src/ai_on_demand/Segment-Flow/  ← submodule
+└── aiod_utils/
+```
+
+Install other AIoD project components as required in the same manner.
+
+## Testing local changes
+
+### Segment-Flow (Nextflow pipeline)
+
+By default the plugin will run the pipeline from the [published GitHub repository](https://github.com/FrancisCrickInstitute/Segment-Flow).
 To use your local Segment-Flow submodule instead (e.g. to test local changes), set the `AIOD_NXF_REPO` environment variable to its path.
 Run the following from the `ai-on-demand` directory:
 
@@ -81,13 +95,23 @@ To revert to using the published pipeline, unset the variable:
 (c-aiod) $ unset AIOD_NXF_REPO
 ```
 
-From your base directory, the project structure should look like this:
+Note that `AIOD_NXF_REPO` is not persisted — it applies only to the current shell session, so the published pipeline is always used by default.
 
-```txt
-.
-├── ai-on-demand/
-│   └── src/ai_on_demand/Segment-Flow/  ← submodule
-└── aiod_utils/
+### `aiod_utils` in pipeline steps
+
+The Nextflow pipeline steps each run in their own conda environment, defined by the YAML files in `Segment-Flow/modules/models/envs/`. These install `aiod_utils` directly from GitHub, so local edits to `aiod_utils` are not automatically picked up.
+
+There is no clean automated mechanism for this. The pragmatic approach is to temporarily edit the relevant YAML file(s) to replace the git URL with a local editable install, run the pipeline, then revert before committing:
+
+```yaml
+# Replace this:
+- git+https://github.com/FrancisCrickInstitute/aiod_utils.git
+# With this:
+- -e /path/to/your/aiod_utils
 ```
 
-Install other AIoD project components as required in the same manner.
+!!! tip
+    Nextflow hashes the YAML file contents to determine the cache directory name, so changing the YAML automatically triggers a fresh environment build — no need to manually clear the cache.
+
+!!! warning
+    Remember to revert these YAML changes before committing — they should never be merged into the repository.
