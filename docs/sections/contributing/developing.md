@@ -1,41 +1,37 @@
-# Developer setup guide
+# Developing AIoD
 
-This page serves as a guide for setting up your development environment for contributing to code across the AIoD project.
-It is intended for core developers and goes beyond what the majority of users need to know.
+This page serves as a guide for setting up your development environment for contributing to code across the AIoD project. If you just want to add models to AIoD, see our [contributing page](./expanding.md).
 
-## Codebase overview
+It is intended for core developers and goes beyond what the majority of users need to know. We assume that _what_ you're developing has been discussed in a specific issue in the relevant repository. See our page on [raising an issue](../support/index.md#raising-an-issue) for this first step!
 
-### Subprojects
 
-AI on Demand comprises several separate interdependent codebases, which are developed in separate repositories.
+## Framework Repo Overview
 
-1. [ai-on-demand](https://github.com/FrancisCrickInstitute/ai-on-demand), the Napari plugin and main user interface
-2. [Segment-Flow](https://github.com/FrancisCrickInstitute/Segment-Flow), the Nextflow pipeline
-3. [aiod_utils](https://github.com/FrancisCrickInstitute/aiod_utils), which contains shared utility code
-4. [aiod_registry](https://github.com/FrancisCrickInstitute/AIoD-Model-Registry), the [model registry](../model_registry/index.md).
-5. [aiod_docs](https://github.com/FrancisCrickInstitute/aiod_docs), which contains the documentation (this site!)
+AIoD comprises several separate interdependent codebases, which are developed in separate repositories as shown on the [home page](../../index.md#repositories).
 
-Depending on your level of involvement, you may only need to setup one or two of these repositories.
+Depending on what you are developing, you may only need to setup one or two of these repositories.
 
 ### Interdependencies
 
-`aiod_utils` is a dependency for both `ai-on-demand` and `Segment-Flow` (for the latter, via the conda environments built for the Nextflow pipeline steps).
+`aiod_utils` is a dependency for both `aiod_napari` and `Segment-Flow` (for the latter, via the conda environments built for the Nextflow pipeline steps).
 
-## Project set up
+`aiod_registry` is also a dependency for both `aiod_napari` and `Segment-Flow` (for a subset of the conda environments).
+
+
+## Project Setup
 
 ### Prerequisites
 
 - [Git](https://git-scm.com/downloads)
 - [Conda](https://www.anaconda.com/docs/getting-started/miniconda/install) (strongly recommended — see warning below)
 - [Nextflow](https://www.nextflow.io/docs/latest/install.html)
-- SSH access to the [FrancisCrickInstitute](https://github.com/FrancisCrickInstitute) GitHub organisation with SSO enabled — contact a maintainer to be added if needed
 
 ### Environment
-
-Create an isolated Python environment using an environment manager of your choice
-
 !!! warning
+
     Due to Segment-Flow's use of conda environments for running pipeline steps, past experience has shown it exceedingly difficult to use an environment manager other than conda (such as the Python `venv` module) for this project.
+
+Create an isolated conda environment:
 
 ```bash
 # Conda (recommended)
@@ -46,6 +42,7 @@ $ conda activate c-aiod
 ### Installation
 
 Pick a top level directory to install the AIoD subprojects into, which can be your home or general development directory or a dedicated AIoD folder.
+
 Install `aiod_utils` first, as it is a dependency for the other components.
 
 ```bash
@@ -55,7 +52,7 @@ Install `aiod_utils` first, as it is a dependency for the other components.
 (c-aiod) $ cd ..
 ```
 
-Next install `ai-on-demand` in editable mode.
+Next install `aiod_napari` in editable mode.
 The `--recurse-submodules` flag is required to also clone Segment-Flow, which is included as a git submodule:
 
 ```bash
@@ -77,13 +74,16 @@ From your base directory, the project structure should look like this:
 
 Install other AIoD project components as required in the same manner.
 
+
 ## Testing local changes
 
-### Segment-Flow (Nextflow pipeline)
+### `Segment-Flow` (Nextflow pipeline)
 
 By default the plugin will run the pipeline from the [published GitHub repository](https://github.com/FrancisCrickInstitute/Segment-Flow).
+
 To use your local Segment-Flow submodule instead (e.g. to test local changes), set the `AIOD_NXF_REPO` environment variable to its path.
-Run the following from the `ai-on-demand` directory:
+
+Run the following from the `aiod_napari` directory:
 
 ```bash
 (c-aiod) $ export AIOD_NXF_REPO=$(realpath src/ai_on_demand/Segment-Flow)
@@ -95,7 +95,7 @@ To revert to using the published pipeline, unset the variable:
 (c-aiod) $ unset AIOD_NXF_REPO
 ```
 
-Note that `AIOD_NXF_REPO` is not persisted — it applies only to the current shell session, so the published pipeline is always used by default.
+Note that `AIOD_NXF_REPO` does not persist — it applies only to the current shell session, so the published pipeline is always used by default.
 
 ### `aiod_utils` in pipeline steps
 
@@ -114,4 +114,4 @@ There is no clean automated mechanism for this. The pragmatic approach is to tem
     Nextflow hashes the YAML file contents to determine the cache directory name, so changing the YAML automatically triggers a fresh environment build — no need to manually clear the cache.
 
 !!! warning
-    Remember to revert these YAML changes before committing — they should never be merged into the repository.
+    Remember to revert these YAML changes before committing — they should never be merged into the repository!

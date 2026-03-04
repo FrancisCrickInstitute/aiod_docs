@@ -1,5 +1,5 @@
 site_name: AI OnDemand (AIoD)
-site_description: AIoD is a framework for running any AI model on bioimages at scale.
+site_description: AIoD is a framework for running any AI model on images at scale.
 site_url: https://franciscrickinstitute.github.io/aiod_docs/
 repo_name: AIoD Docs
 repo_url: https://github.com/FrancisCrickInstitute/aiod_docs
@@ -59,15 +59,24 @@ nav:
       - sections/concepts/index.md
     - User Interface(s):
       - sections/front_ends/index.md
-      - Napari Plugin: sections/front_ends/napari_plugin.md
+      - Napari Plugin:
+        - sections/front_ends/napari_plugin/index.md
+        - Inference: sections/front_ends/napari_plugin/inference.md
+        - Postprocessing: sections/front_ends/napari_plugin/postprocess.md
+        - Evaluation: sections/front_ends/napari_plugin/evaluation.md
     - Model Registry:
       - sections/model_registry/index.md
     - Nextflow Pipeline:
       - sections/nextflow/index.md
   - Contributing:
     - sections/contributing/index.md
+    - Adding Models: sections/contributing/expanding.md
+    - Developer Guide: sections/contributing/developing.md
+    - Adding UIs: sections/contributing/front_ends.md
   - Future Development:
     - sections/development/index.md
+  - Contact/Support:
+    - sections/support/index.md
 
 
 markdown_extensions:
@@ -91,6 +100,7 @@ markdown_extensions:
   - abbr
   - def_list
   - attr_list
+  - md_in_html
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
@@ -101,6 +111,7 @@ markdown_extensions:
 
 plugins:
   - search
+  - glightbox
 
 extra_css:
   - stylesheets/extra.css

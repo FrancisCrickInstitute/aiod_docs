@@ -13,8 +13,9 @@ Below are a few general, guiding principles in the design and implementation of 
 !!! quote ""
     More models, more use cases, more data formats, more data size, more analysis, more interfaces, more users.
 
-Models are released all the time. Data continues to grow in size and complexity. More . AIoD needs to .
+Models are released all the time. Data continues to grow in size and complexity. It all just keeps increasing! AIoD is built ans fundamentally modular, and automates as much as possible to expand in key directions.
 
+Any development that is for a specific model or could limit generalisation should be avoided.
 
 !!! example "Examples"
 
@@ -22,24 +23,23 @@ Models are released all the time. Data continues to grow in size and complexity.
 
         Automatically constructing the UI in our Napari plugin for the [models](https://github.com/FrancisCrickInstitute/ai-on-demand/blob/c2cd950237b0bab0aedb4a2c75ced8eab30e3391/src/ai_on_demand/inference/model_selection.py#L386-L444) and [preprocessing functions](https://github.com/FrancisCrickInstitute/ai-on-demand/blob/c2cd950237b0bab0aedb4a2c75ced8eab30e3391/src/ai_on_demand/inference/preprocess.py#L75).
 
-    === "??"
+        Further details can be found in my [SwissBIAS talk](https://zenodo.org/records/17312286).
 
-        ??
+    === "Compute Infrastructure"
+
+        Our choice of Nextflow directly allows AIoD to be ported across compute environments. Although our use of conda environments within this may be limiting, the use of containers would maximise portability across users/institutes.
 
 #### AIoD is a Computational Platform
 !!! quote ""
-    AIoD is a paltform to run models at scale; interative at use but not at compute.
+    AIoD is a platform to run models at scale; interactive at use but not at compute.
 
+The separation of AIoD between any number of front-ends and the Nextflow pipeline has the benefit of separating the computation 
 
 !!! example "Examples"
 
     === "Execution over SSH"
 
-        ??
-
-    === "Finetuning"
-
-        ??
+        The ability to still use the Napari plugin and [execute over SSH] is a direct benefit of our front-end/Nextflow separation. This is only possible as the heavy computation is separated from where the user interacts with the data.
 
 #### Guardrailing
 !!! quote ""
@@ -51,11 +51,7 @@ AIoD is for wet-lab scientists with minimal computational experience **and** adv
 
     === "Hiding Advanced Features"
 
-        Limiting model parameter visibility in the Napari plugin to the current model only **and** hiding it behind a box ensures a cleaner UI without an overwhelming number of options. Similarly, hiding the ability to control how Segment-Flow breaks volumes into substacks ensures sensible defaults are used, but that things can be changed as/when needed (e.g. minizing YX boundary effects in a 2D model by reducing Z split).
-
-    === "Project Config Files"
-
-        ??
+        Limiting model parameter visibility in the Napari plugin to the current model only **and** hiding it behind a box ensures a cleaner UI without an overwhelming number of options. Similarly, hiding the ability to control how Segment-Flow breaks volumes into substacks ensures sensible defaults are used, but that things can be changed as/when needed (e.g. minimizing YX boundary effects in a 2D model by reducing Z split).
 
     === "Model Registry Expansion"
 
@@ -65,6 +61,7 @@ AIoD is for wet-lab scientists with minimal computational experience **and** adv
 
         At present, this is only possible by editing a JSON file and making a PR. This already presents too large a barrier, and thus the [registry API](#model-registry-api) feature needs to address this.
 
+
 ## Roadmap
 Below is a rough roadmap of broad features either planned or in development, with a link to the appropriate issue on GitHub if one exists.
 
@@ -72,19 +69,20 @@ The priority of development of this roadmap is based on (in order):
 
 1. Demand from users at the Crick
 2. External interest from the community
-3. Current resource availability of the SEAI team
+3. Current availability of the SEAI team
 
 
 ### Model Registry API
+We will improve the ability to programmatically interact with the model registry, simplifying the process for adding new models. This will be needed when [finetuning](#finetuning-any-model) is implemented!
 
 
 ### Full OME-NGFF Integration
 More data necessitates NGFFs, for performance and practicalities. Standardisation and tooling necessitates OME-NGFF.
 
-AIoD needs to move to a OME-NGFF*-first* setup, moving away from ever loading whole images in to memory, as well as providing utilities to write labels (with appropriate metadata around model etc.) to the data from our [custom `.rle` format](RLEFORMAT) as required.
+AIoD needs to move to a OME-NGFF*-first* setup, moving away from ever loading whole images in to memory, as well as providing utilities to write labels (with appropriate metadata around model etc.) to the data from our [custom `.rle` format](https://github.com/FrancisCrickInstitute/aiod_utils/blob/main/aiod_utils/rle.py) as required.
 
 ### Finetuning *any model*
-
+In development is another workflow in `Segment-Flow`, but providing a unified way of finetuning all models within the AIoD platform, allowing users to go beyond the provided models and finetune them to their specific data, improving performance. This is a difficult thing to generalise, but this is well underway and we will be working alongside users to make this easy-to-use, but with advanced options as needed for those that understand them.
 
 ### Wider Accessibility
 Some people don't use or like Napari, but they still like to view their images so don't want to use the terminal directly. Ergo, we need more front-ends, for e.g. ImageJ, QuPath etc.
@@ -101,6 +99,6 @@ Expanding to classification, object detection etc. therefore only requires a new
 
 ## Contributing
 
-Our [contribution](../contributing/index.md) sections covers how to contribute to the various parts of AIoD, but these are generally smaller components that feed in to the capabilities of AIoD, but are not *new fearures* per se.
+Our [contribution](../contributing/index.md) sections covers how to contribute to the various parts of AIoD.
 
-If you wish to help contribute to anything on the [roadmap](#roadmap), then you are very welcome to either get in contact with us directly, or to engage/create an issue on the [relevant repo](REPOLINKS) as needed. Note that the above roadmap links to existing issues where one already exists.
+If you wish to help contribute to anything on the [roadmap](#roadmap), then you are very welcome to either get in contact with us directly, or to engage/create an issue on the [relevant repo](../../index.md#repositories) as needed. Note that the above roadmap links to existing issues where one already exists (this may be none at the moment as our issues are internal!).
