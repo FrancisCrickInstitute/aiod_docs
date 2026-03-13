@@ -1,0 +1,65 @@
+:root  > * {
+    /* Primary color shades */
+    --md-primary-fg-color:        #4565AE;
+    --md-primary-fg-color--light: #94CEF2;
+    --md-primary-fg-color--dark:  #4565AE;
+
+    /* Secondary color shades */
+    --md-accent-fg-color:         #BB90C1;
+    --md-accent-fg-color--dark:   #BB90C1;
+    --md-accent-fg-color--light:  #FBDBDB;
+}
+
+.model-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 0.5rem;
+}
+
+.model-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0.75rem;
+  gap: 0.5rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.25rem;
+  text-decoration: none;
+  color: var(--md-typeset-color);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.model-card:hover {
+  border-color: var(--md-primary-fg-color);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.model-card > * {
+  flex: 0 0 auto;
+}
+
+.model-card img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+:root {
+  --md-admonition-icon--shovel: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m15.1 1.81-2.83 2.83c-.77.78-.77 2.05 0 2.83l1.41 1.41-4.55 4.55-2.82-2.83L4.89 12c-4.95 5-1.39 8.5-1.39 8.5S7 24 12 19.09l1.41-1.41-2.8-2.8 4.54-4.54 1.39 1.39c.78.77 2.05.77 2.83 0L22.2 8.9zm2.83 8.47L16.55 8.9l-1.44-1.44-1.4-1.4 1.41-1.41 4.23 4.23z"/></svg>')
+}
+.md-typeset .admonition.under-construction,
+.md-typeset details.under-construction {
+  border-color: rgb(255, 231, 10);
+}
+.md-typeset .under-construction > .admonition-title,
+.md-typeset .under-construction > summary {
+  background-color: rgba(255, 231, 10, 0.1);
+}
+.md-typeset .under-construction > .admonition-title::before,
+.md-typeset .under-construction > summary::before {
+  background-color: rgb(255, 231, 10);
+  -webkit-mask-image: var(--md-admonition-icon--shovel);
+          mask-image: var(--md-admonition-icon--shovel);
+}
