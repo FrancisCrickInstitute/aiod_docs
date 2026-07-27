@@ -3,7 +3,7 @@
 This page covers how to add models to AIoD. If you want to contribute to the codebase, then see our [developer guide](./developing.md) for advice!
 
 ## Model Registry
-The model registry contains the [manifests/schemas](https://github.com/FrancisCrickInstitute/AIoD-Model-Registry/tree/main/aiod_registry/manifests) that provide the basic information about a model, and is the starting point when adding new models to AIoD.
+The model registry contains the [manifests/schemas](https://github.com/FrancisCrickInstitute/aiod_registry/tree/main/aiod_registry/manifests) that provide the basic information about a model, and is the starting point when adding new models to AIoD.
 
 The process of adding a model depends whether it represents a new model family, or new version to an existing model, as the following sections will explain.
 
@@ -17,7 +17,7 @@ The process of adding a model depends whether it represents a new model family, 
 
 To add a new [model family](../concepts/index.md#model-family) to the registry, you will need to create a new manifest file for that model. Note that the name of this model should reflect the group of models, and should therefore refer to the library/framework accordingly.
 
-It is recommended to look at the [existing manifests](https://github.com/FrancisCrickInstitute/AIoD-Model-Registry/tree/main/aiod_registry/manifests) and our [Pydantic schema](https://github.com/FrancisCrickInstitute/AIoD-Model-Registry/blob/main/aiod_registry/schema.py) in order to understand what is required. It is quite lightweight, however, and should be a quick, simple process. If you encounter any issues, see our [contact us](../support/index.md#contact-us) section.
+It is recommended to look at the [existing manifests](https://github.com/FrancisCrickInstitute/aiod_registry/tree/main/aiod_registry/manifests) and our [Pydantic schema](https://github.com/FrancisCrickInstitute/aiod_registry/blob/main/aiod_registry/schema.py) in order to understand what is required. It is quite lightweight, however, and should be a quick, simple process. If you encounter any issues, see our [contact us](../support/index.md#contact-us) section.
 
 Each new schema needs:
 
@@ -28,24 +28,24 @@ Each new schema needs:
 **You will then need to add the relevant script & environment to the Nextflow pipeline (see the [section below](#add-a-new-model-family-1)).**
 
 ### Add a New Model Version
-To add a new [model version](../concepts/index.md#model-version), you simply need to add a new entry within the existing manifest. Looking at a simple case like the [`empanada` model versions](https://github.com/FrancisCrickInstitute/AIoD-Model-Registry/blob/a1f49db85674b6e5405f1d29145c71dc1f0adbd3/aiod_registry/manifests/empanada.json#L23) should help indicate how to do it!
+To add a new [model version](../concepts/index.md#model-version), you simply need to add a new entry within the existing manifest. Looking at a simple case like the [`empanada` model versions](https://github.com/FrancisCrickInstitute/aiod_registry/blob/a1f49db85674b6e5405f1d29145c71dc1f0adbd3/aiod_registry/manifests/empanada.json#L23) should help indicate how to do it!
 
 A model version must contain:
 
 - A name
 - A task the model is used for
 - A location (filepath or URL — see [here](../concepts/index.md#model-location) for the implications of each)
-- (Optional) a filepath/URL to a config file, which depending on how the model is interacted with might be necessary ([example](https://github.com/FrancisCrickInstitute/AIoD-Model-Registry/blob/a1f49db85674b6e5405f1d29145c71dc1f0adbd3/aiod_registry/manifests/seai_unet.json#L42))
+- (Optional) a filepath/URL to a config file, which depending on how the model is interacted with might be necessary ([example](https://github.com/FrancisCrickInstitute/aiod_registry/blob/a1f49db85674b6e5405f1d29145c71dc1f0adbd3/aiod_registry/manifests/seai_unet.json#L42))
 
 If this model version represents a new task that does not exist, see the [add a new task](#add-a-new-task) section below.
 
-If the model has different parameter inputs or additional metadata beyond the global, model family-level settings, these can be added for specific versions as indicated in the [Pydantic schema](https://github.com/FrancisCrickInstitute/AIoD-Model-Registry/blob/a1f49db85674b6e5405f1d29145c71dc1f0adbd3/aiod_registry/schema.py#L165-L173).
+If the model has different parameter inputs or additional metadata beyond the global, model family-level settings, these can be added for specific versions as indicated in the [Pydantic schema](https://github.com/FrancisCrickInstitute/aiod_registry/blob/a1f49db85674b6e5405f1d29145c71dc1f0adbd3/aiod_registry/schema.py#L165-L173).
 
 #### Add a New Model Location
-As discussed in our [Concepts section](../concepts/index.md#model-location) you may wish to keep a model private prior to publication, but have it used by multiple individuals in different locations. In this case, simply append a new file location to the schema ([example](https://github.com/FrancisCrickInstitute/AIoD-Model-Registry/blob/a1f49db85674b6e5405f1d29145c71dc1f0adbd3/aiod_registry/manifests/seai_unet.json#L41)), and then the model will be available to users that have read-access to that location.
+As discussed in our [Concepts section](../concepts/index.md#model-location) you may wish to keep a model private prior to publication, but have it used by multiple individuals in different locations. In this case, simply append a new file location to the schema ([example](https://github.com/FrancisCrickInstitute/aiod_registry/blob/a1f49db85674b6e5405f1d29145c71dc1f0adbd3/aiod_registry/manifests/seai_unet.json#L41)), and then the model will be available to users that have read-access to that location.
 
 ### Add a New Task
-If you add a model with a task that does not exist in our current list defined in the [schema](https://github.com/FrancisCrickInstitute/AIoD-Model-Registry/blob/main/aiod_registry/schema.py) (`TASK_NAME` dict), then you can [make a pull request](https://github.com/FrancisCrickInstitute/AIoD-Model-Registry/pulls) with the new key:value (short name: long name) pair alongside the new/updated model schema you are adding.
+If you add a model with a task that does not exist in our current list defined in the [schema](https://github.com/FrancisCrickInstitute/aiod_registry/blob/main/aiod_registry/schema.py) (`TASK_NAME` dict), then you can [make a pull request](https://github.com/FrancisCrickInstitute/aiod_registry/pulls) with the new key:value (short name: long name) pair alongside the new/updated model schema you are adding.
 
 
 ## Nextflow Pipeline
@@ -81,7 +81,7 @@ Once done, see our section on [tuning the pipeline](../nextflow/index.md#tuning-
 
 You will need to add 2 things to the pipeline:
 
-1. A `run_<MODEL NAME>.py` script (where `<MODEL NAME>` matches the [`short_name`](https://github.com/FrancisCrickInstitute/AIoD-Model-Registry/blob/a1f49db85674b6e5405f1d29145c71dc1f0adbd3/aiod_registry/schema.py#L217) of the new schema)
+1. A `run_<MODEL NAME>.py` script (where `<MODEL NAME>` matches the [`short_name`](https://github.com/FrancisCrickInstitute/aiod_registry/blob/a1f49db85674b6e5405f1d29145c71dc1f0adbd3/aiod_registry/schema.py#L217) of the new schema)
 2. A `conda_<MODEL NAME>.yml` environment file to run the model
 
 #### Python Script

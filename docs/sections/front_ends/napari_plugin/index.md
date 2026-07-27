@@ -1,6 +1,6 @@
 # AIoD Napari Plugin
 
-To easily visualise your data, and select the different models, parameters, and other options within AIoD, we have developed a [Napari plugin](https://github.com/FrancisCrickInstitute/ai-on-demand).
+To easily visualise your data, and select the different models, parameters, and other options within AIoD, we have developed a [Napari plugin](https://github.com/FrancisCrickInstitute/aiod_napari).
 
 ## Installation
 
@@ -20,7 +20,7 @@ To easily visualise your data, and select the different models, parameters, and 
     
     For the most recent version:
     ```
-    pip install git+https://github.com/FrancisCrickInstitute/ai-on-demand.git
+    pip install git+https://github.com/FrancisCrickInstitute/aiod_napari.git
     ```
 
 === "Crick HPC (NEMO)"

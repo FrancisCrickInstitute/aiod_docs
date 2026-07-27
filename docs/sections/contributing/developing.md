@@ -56,8 +56,8 @@ Next install `aiod_napari` in editable mode.
 The `--recurse-submodules` flag is required to also clone Segment-Flow, which is included as a git submodule:
 
 ```bash
-(c-aiod) $ git clone --recurse-submodules git@github.com:FrancisCrickInstitute/ai-on-demand.git
-(c-aiod) $ cd ai-on-demand
+(c-aiod) $ git clone --recurse-submodules git@github.com:FrancisCrickInstitute/aiod_napari.git
+(c-aiod) $ cd aiod_napari
 (c-aiod) $ pip install -e .
 ```
 
@@ -67,7 +67,7 @@ From your base directory, the project structure should look like this:
 
 ```txt
 .
-├── ai-on-demand/
+├── aiod_napari/
 │   └── src/ai_on_demand/Segment-Flow/  ← submodule
 └── aiod_utils/
 ```

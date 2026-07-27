@@ -31,8 +31,8 @@ AIoD as a whole is designed to be easily extended, allowing for the addition of 
 
 The location of the model defined by the schema determines who can see and run it:
 
-- **URL:** All users can see and run the model ([Cellpose example](https://github.com/FrancisCrickInstitute/AIoD-Model-Registry/blob/main/aiod_registry/manifests/cellpose.json#L71))
-- **Filepath:** Only users that have (read-)access to the filepath will see the model in the Napari plugin and be able to run it in the Segment-Flow pipeline ([internal U-Net example](https://github.com/FrancisCrickInstitute/AIoD-Model-Registry/blob/main/aiod_registry/manifests/seai_unet.json#L25))
+- **URL:** All users can see and run the model ([Cellpose example](https://github.com/FrancisCrickInstitute/aiod_registry/blob/main/aiod_registry/manifests/cellpose.json#L71))
+- **Filepath:** Only users that have (read-)access to the filepath will see the model in the Napari plugin and be able to run it in the Segment-Flow pipeline ([internal U-Net example](https://github.com/FrancisCrickInstitute/aiod_registry/blob/main/aiod_registry/manifests/seai_unet.json#L25))
 
 The schema allows for multiple locations to be defined, allowing for custom, cross-institute usage for models that cannot yet be fully public. This is also useful in the case where an institute has decentralised workstations.
 
@@ -41,7 +41,7 @@ The schema allows for multiple locations to be defined, allowing for custom, cro
     In general, we believe in making models publicly available for use by all, so we expect this feature is most useful for developmental/unpublished work, or when models are finetuned on proprietary/not-yet-public data.
 
 ### Model Versions/Variants & Tasks
-Each [model manifest](https://github.com/FrancisCrickInstitute/AIoD-Model-Registry/tree/main/aiod_registry/manifests) represents a "top-level" model family, something like [Cellpose](https://github.com/MouseLand/cellpose), [StarDist](https://github.com/stardist/stardist), [Segment Anything](https://github.com/facebookresearch/segment-anything), [Empanada](https://empanada.readthedocs.io/en/latest/index.html) etc. Each of these models may consist of many versions, but the key is that they can be run within a [single environment](#conda-environments) and Python script.
+Each [model manifest](https://github.com/FrancisCrickInstitute/aiod_registry/tree/main/aiod_registry/manifests) represents a "top-level" model family, something like [Cellpose](https://github.com/MouseLand/cellpose), [StarDist](https://github.com/stardist/stardist), [Segment Anything](https://github.com/facebookresearch/segment-anything), [Empanada](https://empanada.readthedocs.io/en/latest/index.html) etc. Each of these models may consist of many versions, but the key is that they can be run within a [single environment](#conda-environments) and Python script.
 
 #### Model Family 
 !!! info ""

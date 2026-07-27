@@ -33,7 +33,7 @@ name: "Model Registry Documentation Updater"
   workflow_dispatch:
     inputs:
       pr_number:
-        description: PR number from AIoD-Model-Registry to process
+        description: PR number from aiod_registry to process
         required: true
         type: string
 

@@ -21,7 +21,7 @@
 #
 # For more information: https://github.github.com/gh-aw/introduction/overview/
 #
-# Monitor FrancisCrickInstitute/AIoD-Model-Registry for merged pull requests and raise documentation update issues in this repository.
+# Monitor FrancisCrickInstitute/aiod_registry for merged pull requests and raise documentation update issues in this repository.
 #
 # gh-aw-metadata: {"schema_version":"v1","frontmatter_hash":"9c1bfa703bd5991825ef077568c059ba9e16442657bb58c3a968fd8b6fc20a5f","compiler_version":"v0.50.4"}
 
@@ -870,7 +870,7 @@ jobs:
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
         env:
           WORKFLOW_NAME: "Model Registry Documentation Reminder"
-          WORKFLOW_DESCRIPTION: "Monitor FrancisCrickInstitute/AIoD-Model-Registry for merged pull requests and raise documentation update issues in this repository."
+          WORKFLOW_DESCRIPTION: "Monitor FrancisCrickInstitute/aiod_registry for merged pull requests and raise documentation update issues in this repository."
           HAS_PATCH: ${{ steps.collect_output.outputs.has_patch }}
         with:
           script: |

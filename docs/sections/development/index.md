@@ -21,7 +21,7 @@ Any development that is for a specific model or could limit generalisation shoul
 
     === "Automatic UI Construction"
 
-        Automatically constructing the UI in our Napari plugin for the [models](https://github.com/FrancisCrickInstitute/ai-on-demand/blob/c2cd950237b0bab0aedb4a2c75ced8eab30e3391/src/ai_on_demand/inference/model_selection.py#L386-L444) and [preprocessing functions](https://github.com/FrancisCrickInstitute/ai-on-demand/blob/c2cd950237b0bab0aedb4a2c75ced8eab30e3391/src/ai_on_demand/inference/preprocess.py#L75).
+        Automatically constructing the UI in our Napari plugin for the [models](https://github.com/FrancisCrickInstitute/aiod_napari/blob/c2cd950237b0bab0aedb4a2c75ced8eab30e3391/src/ai_on_demand/inference/model_selection.py#L386-L444) and [preprocessing functions](https://github.com/FrancisCrickInstitute/aiod_napari/blob/c2cd950237b0bab0aedb4a2c75ced8eab30e3391/src/ai_on_demand/inference/preprocess.py#L75).
 
         Further details can be found in my [SwissBIAS talk](https://zenodo.org/records/17312286).
 

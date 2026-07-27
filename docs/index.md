@@ -93,9 +93,9 @@ If you want to use a model that is not currently available, see [how to add a mo
 <div class="grid cards" markdown>
 
 - [:simple-github: __Segment-Flow__](https://github.com/FrancisCrickInstitute/Segment-Flow) — Nextflow pipeline that scalably, reproducibly distributes data over models
-- [:simple-github: __Model Registry__](https://github.com/FrancisCrickInstitute/AIoD-Model-Registry) — Pydantic schema and model manifests for each model in AIoD
+- [:simple-github: __Model Registry__](https://github.com/FrancisCrickInstitute/aiod_registry) — Pydantic schema and model manifests for each model in AIoD
 - [:simple-github: __AIoD Utils__](https://github.com/FrancisCrickInstitute/aiod_utils) — Centralized I/O, custom RLE mask encoding, preprocessing functions...anything needed across front-ends and the Nextflow pipeline!
-- [:simple-github: __Napari Plugin__](https://github.com/FrancisCrickInstitute/ai-on-demand) — Our plugin for Napari to make using the pipeline easier, with [additional functionality for users](./sections/front_ends/napari_plugin/index.md)!
+- [:simple-github: __Napari Plugin__](https://github.com/FrancisCrickInstitute/aiod_napari) — Our plugin for Napari to make using the pipeline easier, with [additional functionality for users](./sections/front_ends/napari_plugin/index.md)!
 - [:simple-github: __AIoD Documentation__](https://github.com/FrancisCrickInstitute/aiod_docs) — This documentation!
 
 </div>
