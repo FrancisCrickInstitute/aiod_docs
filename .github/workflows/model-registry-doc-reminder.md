@@ -1,5 +1,5 @@
 ---
-description: Monitor FrancisCrickInstitute/AIoD-Model-Registry for merged pull requests and raise documentation update issues in this repository.
+description: Monitor FrancisCrickInstitute/aiod_registry for merged pull requests and raise documentation update issues in this repository.
 on:
   schedule: weekly on friday around 07:00
   workflow_dispatch:
@@ -17,7 +17,7 @@ safe-outputs:
 
 # Model Registry Documentation Reminder
 
-You are an AI agent that monitors the `FrancisCrickInstitute/AIoD-Model-Registry` repository for recently merged pull requests and raises documentation update issues in this repository (`FrancisCrickInstitute/aiod_docs`) to ensure the docs are kept up to date with new or updated models.
+You are an AI agent that monitors the `FrancisCrickInstitute/aiod_registry` repository for recently merged pull requests and raises documentation update issues in this repository (`FrancisCrickInstitute/aiod_docs`) to ensure the docs are kept up to date with new or updated models.
 
 ## Your Task
 
@@ -27,7 +27,7 @@ Read `cache-memory` to retrieve the key `last_checked_at`. This is an ISO 8601 t
 
 ### Step 2: Find newly merged pull requests
 
-Using the GitHub `pull_requests` toolset, list merged pull requests in `FrancisCrickInstitute/AIoD-Model-Registry` that were merged **after** the `last_checked_at` timestamp. Use the full repository notation `FrancisCrickInstitute/AIoD-Model-Registry`.
+Using the GitHub `pull_requests` toolset, list merged pull requests in `FrancisCrickInstitute/aiod_registry` that were merged **after** the `last_checked_at` timestamp. Use the full repository notation `FrancisCrickInstitute/aiod_registry`.
 
 ### Step 3: Deduplicate — avoid creating duplicate issues
 
@@ -39,14 +39,14 @@ For each merged PR that does not already have an open issue, create a new issue 
 
 Use the following format:
 
-**Title**: `📋 Docs update needed: [PR Title] (#<number>) merged into AIoD-Model-Registry`
+**Title**: `📋 Docs update needed: [PR Title] (#<number>) merged into aiod_registry`
 
 **Body**:
 
 ```
 ## Documentation Update Required
 
-A pull request has been merged into the [AIoD-Model-Registry](https://github.com/FrancisCrickInstitute/AIoD-Model-Registry) repository that may introduce a new model or update an existing one. Please review the changes and update the documentation in this repository accordingly.
+A pull request has been merged into the [aiod_registry](https://github.com/FrancisCrickInstitute/aiod_registry) repository that may introduce a new model or update an existing one. Please review the changes and update the documentation in this repository accordingly.
 
 ### Merged PR Details
 - **PR**: [#<number> — <title>](<url>)
@@ -69,12 +69,12 @@ Write the current UTC timestamp (ISO 8601 format) to `cache-memory` under the ke
 ### Step 6: Report outcome
 
 - If you created one or more issues, your work is done — the `create-issue` safe output handles the output.
-- If no new merged PRs were found (or all were already tracked), call the `noop` safe output with a brief message such as: "No new merged PRs found in AIoD-Model-Registry since <last_checked_at>. No action required."
+- If no new merged PRs were found (or all were already tracked), call the `noop` safe output with a brief message such as: "No new merged PRs found in aiod_registry since <last_checked_at>. No action required."
 
 ## Guidelines
 
-- Always use the full repository notation `FrancisCrickInstitute/AIoD-Model-Registry` when calling GitHub tools.
-- The `GH_AW_CROSS_REPO_PAT` secret must have `repo` read access to `FrancisCrickInstitute/AIoD-Model-Registry` and `issues: write` access to `FrancisCrickInstitute/aiod_docs`.
+- Always use the full repository notation `FrancisCrickInstitute/aiod_registry` when calling GitHub tools.
+- The `GH_AW_CROSS_REPO_PAT` secret must have `repo` read access to `FrancisCrickInstitute/aiod_registry` and `issues: write` access to `FrancisCrickInstitute/aiod_docs`.
 - Process a maximum of 5 new PRs per run to stay within the `create-issue` limit.
 - If a PR was a draft PR that was merged, still create an issue — it may still introduce model changes.
 - Attribute the PR to the human who merged it, not to any bot that may have opened it.
@@ -83,5 +83,5 @@ Write the current UTC timestamp (ISO 8601 format) to `cache-memory` under the ke
 
 This workflow runs automatically every Friday and can also be triggered manually via `workflow_dispatch`. To activate it:
 
-1. Create a GitHub Personal Access Token (PAT) with read access to `FrancisCrickInstitute/AIoD-Model-Registry` and write access to `FrancisCrickInstitute/aiod_docs`, then store it as a repository secret named `GH_AW_CROSS_REPO_PAT` in `FrancisCrickInstitute/aiod_docs`.
+1. Create a GitHub Personal Access Token (PAT) with read access to `FrancisCrickInstitute/aiod_registry` and write access to `FrancisCrickInstitute/aiod_docs`, then store it as a repository secret named `GH_AW_CROSS_REPO_PAT` in `FrancisCrickInstitute/aiod_docs`.
 2. Commit and push both this file and the compiled `.lock.yml` file to the `main` branch.
