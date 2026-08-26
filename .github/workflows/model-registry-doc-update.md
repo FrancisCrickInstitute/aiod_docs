@@ -84,6 +84,16 @@ Using the `edit` tool, read the contents of `docs/index.md` in this repository t
 
 For each model extracted in Step 3, check whether a model card for that model **already exists** in the `<div class="model-grid">` section of `docs/index.md`. A card already exists if there is an `<a>` element whose `<span>` text closely matches the model `name` (case-insensitive).
 
+Some existing cards deliberately use a label that differs from the manifest `name`, either because one card covers several manifests or because we prefer a more widely recognised name. Treat each of the following manifest names as **already having a card**:
+
+| Manifest `name` | Existing card label |
+|---|---|
+| `Cellpose`, `Cellpose-SAM` | `Cellpose (1-3 + SAM)` |
+| `Segment Anything`, `Segment Anything 2` | `Segment Anything (1+2)` |
+| `SEAI U-Net` | `Etch-a-Cell Models` |
+
+Do not add a second card for any of these, and do not rename an existing card to match a manifest `name`.
+
 Only prepare cards for models that are **not** already present.
 
 If all models already have cards, call `noop` with message "All models from PR #<pr_number> already have documentation cards." and stop.
