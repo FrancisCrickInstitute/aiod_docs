@@ -68,6 +68,8 @@ nav:
       - sections/model_registry/index.md
     - Nextflow Pipeline:
       - sections/nextflow/index.md
+    - Utilities:
+      - sections/utilities/index.md
   - Contributing:
     - sections/contributing/index.md
     - Adding Models: sections/contributing/expanding.md
