@@ -57,7 +57,7 @@ Currently, the following models are integrated:
 <div class="model-grid">
   <a href="https://github.com/MouseLand/cellpose" class="model-card">
     <img src="assets/cellpose_logo.png" alt="Cellpose logo">
-    <span>Cellpose</span>
+    <span>Cellpose<br>(1-3 + SAM)</span>
   </a>
   <a href="https://github.com/stardist/stardist" class="model-card">
     <img src="assets/stardist_logo.jpg" alt="Stardist logo">
@@ -66,13 +66,13 @@ Currently, the following models are integrated:
   <a href="https://github.com/facebookresearch/sam2" class="model-card">
     <span>Segment Anything (1+2)</span>
   </a>
-  <a href="https://github.com/stardist/stardist" class="model-card">
+  <a href="https://empanada.readthedocs.io/en/latest/index.html" class="model-card">
     <img src="assets/empanada_logo_icon.png" alt="Empanada logo">
     <span>Empanada</span>
   </a>
-  <a href="https://github.com/stardist/stardist" class="model-card">
-    <img src="assets/plantseg_logo.png" alt="PlantSeg logo">
-    <span>PlantSeg</span>
+  <a href="https://github.com/kreshuklab/panseg" class="model-card">
+    <img src="assets/panseg_logo.png" alt="PanSeg logo">
+    <span>PanSeg</span>
   </a>
   <a href="https://github.com/FrancisCrickInstitute/em-segment-pytorch/" class="model-card">
     <img src="assets/etchacell_logo.jpeg" alt="Etch-a-cell logo">
