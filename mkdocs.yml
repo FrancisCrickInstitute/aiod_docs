@@ -54,6 +54,7 @@ nav:
     - index.md
   - Getting Started:
     - sections/getting_started/index.md
+    - Your First Segmentation: sections/getting_started/first_segmentation.md
   - AIoD Framework:
     - Concepts:
       - sections/concepts/index.md

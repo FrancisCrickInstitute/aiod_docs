@@ -57,12 +57,10 @@ We have several tutorials to guide users through installation and usage of the m
 
 !!! under-construction "Under Construction!"
 
-    Video tutorials coming soon!
-
-### Napari Plugin Installation
-<!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/rIehsqqYFEM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+    Video tutorials coming soon! Until then, please find links to our written tutorials below.
 
 ### Running Models (via Napari)
+For a step-by-step written walkthrough of a first run, see [Your First Segmentation](./first_segmentation.md).
 
 
 ### Running Models (via Nextflow only)
