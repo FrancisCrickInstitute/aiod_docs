@@ -68,6 +68,22 @@ If all have been cloned, your base directory structure should look like this:
 └── Segment-Flow/
 ```
 
+!!! tip "`uv sync` picks up your sibling clones"
+
+    For plugin development you do not need to install `aiod_utils` and `aiod_registry` separately. `aiod_napari` declares them as editable [`uv` sources](https://docs.astral.sh/uv/concepts/projects/dependencies/) pointing at `../aiod_utils` and `../aiod_registry`, so with the layout above, running the following from the `aiod_napari` directory:
+
+    ```bash
+    (c-aiod) $ uv sync
+    ```
+
+    installs the plugin *and* both sibling packages in editable mode — changes to any of the three are picked up immediately, with no reinstall.
+
+    This relies on the directory names matching exactly as above. To ignore your local clones and resolve the pinned released versions from PyPI instead:
+
+    ```bash
+    (c-aiod) $ uv sync --no-sources
+    ```
+
 
 ## Testing local changes
 
