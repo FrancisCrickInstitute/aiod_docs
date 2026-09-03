@@ -2,7 +2,7 @@
 
 Almost every part of AIoD needs to do the same handful of low-level things: open an image, split it up, encode the resulting masks, and preprocess the data on the way in. To ensure everything behaves the same no matter where it happens (i.e. the [Napari plugin](../front_ends/napari_plugin/index.md) or the [Nextflow pipeline](../nextflow/index.md)), we have a centralised utilities package [`aiod_utils`](https://github.com/FrancisCrickInstitute/aiod_utils).
 
-It is a small, dependency-light package that holds this shared behaviour in one place, and it is installed by the front-ends *and* by [every model environment](../contributing/expanding.md#conda-environment) in [`Segment-Flow`]((../nextflow/index.md)).
+It is a small, dependency-light package that holds this shared behaviour in one place, and it is installed by the front-ends *and* by [every model environment](../contributing/expanding.md#conda-environment) in [`Segment-Flow`](../nextflow/index.md).
 
 It can also be used standalone, if any of the features are useful in other projects. This page will outline the main capabilities of `aiod_utils` so you can decide if it's useful to you!
 

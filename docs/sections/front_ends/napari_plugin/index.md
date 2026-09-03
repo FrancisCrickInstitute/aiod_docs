@@ -1,4 +1,4 @@
-# AIoD Napari Plugin
+# AIoD Napari Plugin ([`aiod_napari`](https://pypi.org/project/aiod-napari/))
 
 To easily visualise your data, and select the different models, parameters, and other options within AIoD, we have developed a [Napari plugin](https://github.com/FrancisCrickInstitute/aiod_napari).
 

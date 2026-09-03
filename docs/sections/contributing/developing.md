@@ -31,7 +31,7 @@ Depending on what you are developing, you may only need to setup one or two of t
 
     Due to Segment-Flow's use of conda environments for running pipeline steps, past experience has shown it exceedingly difficult to use an environment manager other than conda (such as the Python `venv` module) for this project.
 
-Create an isolated conda environment:
+Create an isolated conda environment. All AIoD packages require Python `>=3.11,<3.13`:
 
 ```bash
 # Conda (recommended)

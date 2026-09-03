@@ -1,4 +1,4 @@
-# Model Registry
+# Model Registry ([`aiod_registry`](https://pypi.org/project/aiod-registry/))
 
 The model registry of AIoD contains information *about* the models, enabling us to pull and use this information across the [front-ends](../front_ends/index.md) and [Nextflow pipeline](../nextflow/index.md). Through this, we can allow for anyone to add models to the registry and propagate these changes through the framework with minimal user/developer effort.
 
@@ -6,7 +6,7 @@ Each *manifest* in the registry defines a [**model family**](../concepts/index.m
 
 
 ## Schema
-The [schema](https://github.com/FrancisCrickInstitute/aiod_registry/blob/main/aiod_registry/schema.py) for model manifests in AIoD is intended to be lightweight, as similar efforts in the past have created too much of a burden on users and thus inhibited adoption. Our schema is defined by a [Pydantic model](https://docs.pydantic.dev/latest/), allowing us to not only validate manifests, but to ensure that when read into Python all inputs are of the appropriate type (this is useful for [automatic ingest](#automatic-ingest)).
+The [schema](https://github.com/FrancisCrickInstitute/aiod_registry/blob/main/aiod_registry/schema.py) for model manifests in AIoD is intended to be lightweight, as similar efforts in the past have created too much of a burden on users and thus inhibited adoption. Our schema is defined by a [Pydantic model](https://docs.pydantic.dev/latest/), allowing us to not only validate manifests, but to ensure that when read into Python all inputs are of the appropriate type (this is useful for [automatic ingest](#automatic-ingest)). Validation is strict — a field name that is not in the schema is an error rather than being silently ignored.
 
 As mentioned, each manifest itself represents a [**model family**](../concepts/index.md#model-family). In short, the schema defines:
 

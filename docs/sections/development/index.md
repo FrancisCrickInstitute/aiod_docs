@@ -21,7 +21,7 @@ Any development that is for a specific model or could limit generalisation shoul
 
     === "Automatic UI Construction"
 
-        Automatically constructing the UI in our Napari plugin for the [models](https://github.com/FrancisCrickInstitute/aiod_napari/blob/c2cd950237b0bab0aedb4a2c75ced8eab30e3391/src/ai_on_demand/inference/model_selection.py#L386-L444) and [preprocessing functions](https://github.com/FrancisCrickInstitute/aiod_napari/blob/c2cd950237b0bab0aedb4a2c75ced8eab30e3391/src/ai_on_demand/inference/preprocess.py#L75).
+        Automatically constructing the UI in our Napari plugin for the [models](https://github.com/FrancisCrickInstitute/aiod_napari/blob/main/src/aiod_napari/inference/model_selection.py) and [preprocessing functions](https://github.com/FrancisCrickInstitute/aiod_napari/blob/main/src/aiod_napari/inference/preprocess.py).
 
         Further details can be found in my [SwissBIAS talk](https://zenodo.org/records/17312286).
 
@@ -33,13 +33,13 @@ Any development that is for a specific model or could limit generalisation shoul
 !!! quote ""
     AIoD is a platform to run models at scale; interactive at use but not at compute.
 
-The separation of AIoD between any number of front-ends and the Nextflow pipeline has the benefit of separating the computation 
+The separation of AIoD between any number of front-ends and the Nextflow pipeline has the benefit of separating the computation, allowing for everything heavy (i.e. requiring a GPU) to happen somewhere else. This maximises portability, and as more front-ends are developed, creates a universal, reproducible compute backend the whole community can build upon.
 
 !!! example "Examples"
 
     === "Execution over SSH"
 
-        The ability to still use the Napari plugin and [execute over SSH] is a direct benefit of our front-end/Nextflow separation. This is only possible as the heavy computation is separated from where the user interacts with the data.
+        The ability to still use the Napari plugin and [execute over SSH](../front_ends/napari_plugin/inference.md#execution-over-ssh) is a direct benefit of our front-end/Nextflow separation. This is only possible as the heavy computation is separated from where the user interacts with the data.
 
 #### Guardrailing
 !!! quote ""

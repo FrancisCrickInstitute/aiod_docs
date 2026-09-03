@@ -40,7 +40,7 @@ You can:
 The pipeline will run on *every saved set*!
 
 ### Pipeline Setup
-Before running the pipeline, make sure your cache shows a location where you have some space. Advice on selecting a cache location can be found here, but in short try to place it as centrally as possible if you are part of a group. Note that the location will be remembered between sessions.
+Before running the pipeline, make sure your cache shows a location where you have some space. Advice on selecting a cache location can be found [below](#basecache-directory), but in short try to place it as centrally as possible if you are part of a group. Note that the location will be remembered between sessions.
 
 You then have options to open the cache and selectively delete different parts, if you have run a lot of experiments and can remove old results.
 
@@ -56,7 +56,7 @@ After clicking the "Run Pipeline!" button, the progress bar will update as each 
 
 ??? tip "Advanced Options"
 
-    This dropdown allows you to adjust how the images are split. As the default biases towards a cuboid shape, for some models+data (particularly 2D models) you may prefer to create substacks with a larger XY and smaller Z.
+    This dropdown allows you to adjust how the images are split. As the default keeps each substack proportional to the shape of your image, for some models+data (particularly 2D models) you may prefer to create substacks with a larger XY and smaller Z.
 
     As discussed [here](../../nextflow/index.md#individual-level), users do not have complete control over the shapes to avoid overloading available hardware. The substack size number of jobs that will be submitted with the current settings is shown at the bottom.
 
@@ -135,6 +135,10 @@ Note that, as discussed [here](../../concepts/index.md#project_configs), these f
 
 ## Execution over SSH
 
+!!! under-construction "In Development!"
+
+    This is currently [work in progress](https://github.com/FrancisCrickInstitute/aiod_napari/tree/AIOD-352) that you can try, as we are trying to make sure it works across a range of setups at different institutions. Please [contact us](../../support/index.md#contact-us) if you are interested and unsure where to start.
+
 !!! warning
 
     This is a more advanced feature that requires you to have SSH keys setup with access to your HPC (or to wherever the computation is taking place, e.g. a workstation).
@@ -181,9 +185,9 @@ The parameters are as follows:
 
     === "Crick"
 
-        4. Create an interactive session, which you can do via an OnDemand session or an `nint` session.
-        5. Ensure that you have NEMO mounted locally. Change your ["Base directory"](#basecache-directory) to an appropriate location in the mounted drive (i.e. somewhere on NEMO with space, or wherever your current AIoD cache is).
-        6. Configure the SSH settings:
+        1. Create an interactive session, which you can do via an OnDemand session or an `nint` session.
+        2. Ensure that you have NEMO mounted locally. Change your ["Base directory"](#basecache-directory) to an appropriate location in the mounted drive (i.e. somewhere on NEMO with space, or wherever your current AIoD cache is).
+        3. Configure the SSH settings:
             - _"Hostname"_: `login.nemo.thecrick.org`
             - _"Target node"_: The node assigned in step 1, e.g. `cn093`
             - _"Username"_: Your NEMO username
@@ -192,4 +196,4 @@ The parameters are as follows:
             - _"Mounted path prefix"_: `/Volumes/` (for Mac; for Windows use the appropriate letter where you have mounted the drive)
             - _"Command prepend"_: `ml Nextflow/24.04.1`
             - Then select the SSH key you have authenticated for NEMO
-        7. Run the pipeline as normal!
+        4. Run the pipeline as normal!

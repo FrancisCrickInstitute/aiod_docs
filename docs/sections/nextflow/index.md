@@ -1,4 +1,4 @@
-# Nextflow Pipeline (`Segment-Flow`)
+# Nextflow Pipeline ([`Segment-Flow`](https://github.com/FrancisCrickInstitute/Segment-Flow))
 
 Our [Nextflow pipeline](https://github.com/FrancisCrickInstitute/Segment-Flow) is where the actual code and processes for running models, and orchestrating the parallelization happens.
 
@@ -81,7 +81,7 @@ If `iou_threshold>0`, then masks will only be labelled the same over Z-slices if
 
 
 ## Running the Pipeline Directly
-The Nextflow pipeline can be run directly, allowing headless use and avoiding Napari or any other front-end. Although more work is required in specifying the input parameters, 
+The Nextflow pipeline can be run directly, allowing headless use and avoiding Napari or any other front-end. Although more work is required in specifying the input parameters, this can be significantly faster for users who are happy with model performance and just want to segment a lot of data without wanting to keep Napari open!
 
 An example run command may look like:
 
@@ -116,7 +116,7 @@ task: mito
     For running the pipeline directly, we recommended using some clear, traceable naming system, whether that's using datetime or some other format.
 
 #### Command Explained
-Brief explanation of the arguments used in the command above:
+Brief explanation of the arguments used in the execution/run command above:
 
 - `-log`: Path for the log file
 - `-latest`: Pulls the latest version of the [repo](https://github.com/FrancisCrickInstitute/Segment-Flow) before running
@@ -168,7 +168,7 @@ For other arguments, see the [Nextflow documentation](https://www.nextflow.io/do
     ...
     ```
 
-2. Two sets of preprocessing parameters (the pipeline will be run twice for each set of preprocessing parameters)
+2. Two sets of preprocessing parameters (the pipeline will be run twice, once for each set of preprocessing parameters)
     ```yaml
     ...
     preprocess:
@@ -204,8 +204,8 @@ You can use [`aiod_utils.image_paths_to_csv`](https://github.com/FrancisCrickIns
 
 The resulting CSV should look like:
 ```csv
-img_path,num_slices,height,width,channels
-<path>,5,1000,1000,3
+img_path,num_slices,height,width,channels,dtype
+<path>,5,1000,1000,3,uint16
 ...
 ```
 
