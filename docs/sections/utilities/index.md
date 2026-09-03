@@ -33,7 +33,7 @@ BioIO can often read a given file with more than one plugin, and its default ord
     While `bioformats` covers many file formats, it is a much heavier dependency, and so is an optional install:
     
     ```
-    pip install aiod_utils[bioformats]
+    uv pip install aiod_utils[bioformats]
     ```
 
     For deployed AIoD solutions, this may not within your control. In that case, we recommend converting your data up front with e.g. [`bioformats2raw`](https://github.com/glencoesoftware/bioformats2raw).

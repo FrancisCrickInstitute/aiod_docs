@@ -6,21 +6,27 @@ To easily visualise your data, and select the different models, parameters, and 
 
 === "Local"
 
-    1. Create a virtual environment using your favourite tool (`venv`, `uv`, `conda`, `pixi` etc.)
+    1. Create a virtual environment — we recommend [`uv`](https://docs.astral.sh/uv/getting-started/installation/), though `venv`, `conda`, or `pixi` all work:
+
+    ```
+    uv venv aiod-env
+    source aiod-env/bin/activate
+    ```
+
     2. Install Napari: [Official guide](https://napari.org/stable/tutorials/fundamentals/installation.html)
-    3. In your environment, install our plugin via `pip`:
+    3. In your environment, install our plugin.
 
     For the latest published version:
 
     ```
-    pip install aiod_napari
+    uv pip install aiod_napari
     ```
 
     or [install through Napari directly](https://napari.org/dev/plugins/start_using_plugins/finding_and_installing_plugins.html).
-    
+
     For the most recent version:
     ```
-    pip install git+https://github.com/FrancisCrickInstitute/aiod_napari.git
+    uv pip install git+https://github.com/FrancisCrickInstitute/aiod_napari.git
     ```
 
 === "Crick HPC (NEMO)"
