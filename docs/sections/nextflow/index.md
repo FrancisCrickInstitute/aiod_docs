@@ -95,18 +95,24 @@ Where the [params-file](https://www.nextflow.io/docs/latest/cli.html#pipeline-pa
 img_dir: /Users/shandc/.nextflow/aiod/aiod_cache/all_img_paths.csv
 iou_threshold: 0.8
 model: empanada
-model_chkpt_fname: MitoNet_v1.pth
-model_chkpt_loc: https://zenodo.org/record/6861565/files/MitoNet_v1.pth?download=1
-model_chkpt_type: url
-model_config: /Users/shandc/.nextflow/aiod/configs/mito-empanada-MitoNet-v1_config_e92afea9536c4ab53e377fb8c6ffe01c.yaml
-model_type: MitoNet-v1
+model_type: mitonet_v1
 num_substacks: auto,auto,auto
+output_format: rle
+output_mask_type: auto
 overlap: 0.0,0.0,0.0
 param_hash: 43e45ccf52a1503556b86df6e8b47959
 postprocess: false
 preprocess: null
 root_dir: /Users/shandc/.nextflow/aiod
 task: mito
+```
+
+**Note many of these parameters have defaults and don't need to be included here! Only `img_dir`, `model`, `model_type`, and `task` are required!**
+
+A complete list of parameters with some guidance can be obtained via:
+
+```
+nextflow run -latest FrancisCrickInstitute/Segment-Flow --help
 ```
 
 !!! info "What's wrong with your filenames?"
@@ -128,24 +134,33 @@ For other arguments, see the [Nextflow documentation](https://www.nextflow.io/do
 
 #### Parameters Explained
 
-!!! under-construction "To be improved!"
-
-    This will be simplified in an upcoming release!
+**Required:**
 
 - `img_dir`: Path to the CSV that defines the input image data (details [below](#creating-the-input-csv))
+- `model`: Name of the [model family](../concepts/index.md#model-family) to use (the `short_name` from its [registry manifest](../model_registry/index.md#schema))
+- `model_type`: The [model version](../concepts/index.md#model-version) to use, given as its registry `slug`
+- `task`: The [task](../concepts/index.md#task) the selected model version should perform
+
+**Optional:**
+
 - `iou_threshold`: Threshold for [IoU postprocessing](#postprocessing)
-- `model`: Name of the [model family](../concepts/index.md#model-family) to use
-- `model_chkpt_fname`: Filename of the model checkpoint to use
-- `model_chkpt_loc`: Location of the model checkpoint to use (full system filepath or URL)
-- `model_chkpt_type`: Whether the `model_chkpt_loc` is a "url" or "file"
-- `model_config`: Path to a configuration file to path to the specified model
-- `model_type`: The model version to use
+- `model_config`: Path to a configuration file of parameters for the specified model. Omit it to use the [default config generated from the registry](../model_registry/index.md#automatic-ingest)
 - `num_substacks`: How many substacks to create when splitting (recommended to use the default: `auto,auto,auto`)
+- `output_format`: Format to write the final masks in — `rle` or `tiff`
+- `output_mask_type`: Whether masks are written as `binary`, `instance`, or `auto` to let the model's output decide
 - `overlap`: Amount of overlap to use in substack creation (HWD / YXZ format)
 - `param_hash`: Unique ID for reproducibility and identifying this run (see [here](../concepts/index.md#reproducibility-hashing) for details)
 - `postprocess`: Whether to run connected components on the final, combined masks (`true`/`false`)
 - `preprocess`: Preprocessing parameters to use (see [examples below](#preprocessing-examples))
 - `root_dir`: Root [cache directory](../concepts/index.md#caching)
+
+**Advanced** — a few further parameters cap substack size, which most users will not need to set:
+
+- `max_substack`: Global upper bound on substack size as `[H, W, D]`, applied to any model without a specific entry below
+- `model_max_substack`: Per-model-family overrides of the above. An axis set to `null` is uncapped, deferring to the memory budget. Depth is the intended lever for controlling how long each job runs
+- `substack_scale`: Single multiplier applied to *all* of the caps above, intended to be set once per deployment in the [execution profile](../contributing/expanding.md#add-a-profile) (e.g. `0.5` for a weaker GPU, giving smaller and therefore more numerous jobs)
+
+These are combined with a memory-derived size calculated from the `memory_per_job` value in the [profile](../contributing/expanding.md#add-a-profile), with the smaller of the two winning on each axis.
 
 ##### Preprocessing Examples
 1. Single set of preprocessing parameters:
@@ -194,6 +209,24 @@ For other arguments, see the [Nextflow documentation](https://www.nextflow.io/do
           method: median
     ...
     ```
+
+3. An *empty* set (`- []`) means "no preprocessing", so the model is also run on your original data alongside the other sets. This is useful for comparing raw against preprocessed results in a single run, and no copy of your data is made for the empty set.
+    ```yaml
+    ...
+    preprocess:
+    - []
+    - - name: CLAHE
+        params:
+          clipLimit: 5.0
+          tileGridSize:
+          - 15
+          - 15
+    ...
+    ```
+
+!!! tip "Which hash was which?"
+
+    Each set of preprocessing parameters is identified by a hash, which appears in the output mask filenames. To save you decoding them, the pipeline logs a legend at the start of the run mapping each hash to the set it came from!
 
 **Note that it's much easier when the Napari plugin generates this for you!**
 

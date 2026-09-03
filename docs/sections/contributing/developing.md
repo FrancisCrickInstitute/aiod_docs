@@ -43,36 +43,30 @@ $ conda activate c-aiod
 
 Pick a top level directory to install the AIoD subprojects into, which can be your home or general development directory or a dedicated AIoD folder.
 
-Install `aiod_utils` first, as it is a dependency for the other components.
+Which ones you need to install depend on what you are developing. The Python packages (`aiod_utils`, `aiod_napari`, and `aiod_registry`) will all follow the typical pattern:
 
 ```bash
 (c-aiod) $ git clone git@github.com:FrancisCrickInstitute/aiod_utils.git
 (c-aiod) $ cd aiod_utils
-(c-aiod) $ pip install -e .
+(c-aiod) $ uv pip install -e .
 (c-aiod) $ cd ..
 ```
 
-Next install `aiod_napari` in editable mode.
-The `--recurse-submodules` flag is required to also clone Segment-Flow, which is included as a git submodule:
+Segment-Flow needs cloning alongside the others if you want to test local pipeline changes (see [below](#segment-flow-nextflow-pipeline)):
 
 ```bash
-(c-aiod) $ git clone --recurse-submodules git@github.com:FrancisCrickInstitute/aiod_napari.git
-(c-aiod) $ cd aiod_napari
-(c-aiod) $ pip install -e .
+(c-aiod) $ git clone git@github.com:FrancisCrickInstitute/Segment-Flow.git
 ```
 
-Note that `pip install -e .` will not reinstall `aiod_utils` since it is already installed, regardless of the git URL specified in `pyproject.toml`.
-
-From your base directory, the project structure should look like this:
+If all have been cloned, your base directory structure should look like this:
 
 ```txt
 .
 ├── aiod_napari/
-│   └── src/ai_on_demand/Segment-Flow/  ← submodule
-└── aiod_utils/
+├── aiod_registry/
+├── aiod_utils/
+└── Segment-Flow/
 ```
-
-Install other AIoD project components as required in the same manner.
 
 
 ## Testing local changes
@@ -81,13 +75,17 @@ Install other AIoD project components as required in the same manner.
 
 By default the plugin will run the pipeline from the [published GitHub repository](https://github.com/FrancisCrickInstitute/Segment-Flow).
 
-To use your local Segment-Flow submodule instead (e.g. to test local changes), set the `AIOD_NXF_REPO` environment variable to its path.
+To use your local Segment-Flow clone instead (e.g. to test local changes), set the `AIOD_NXF_REPO` environment variable to its path.
 
-Run the following from the `aiod_napari` directory:
+Run the following from your base directory:
 
 ```bash
-(c-aiod) $ export AIOD_NXF_REPO=$(realpath src/ai_on_demand/Segment-Flow)
+(c-aiod) $ export AIOD_NXF_REPO=$(realpath Segment-Flow)
 ```
+
+!!! note "Profiles follow `AIOD_NXF_REPO`"
+
+    The plugin normally lists the [execution profiles](./expanding.md#add-a-profile) bundled with it. When `AIOD_NXF_REPO` is set, profiles are instead read from `$AIOD_NXF_REPO/profiles`, so your local checkout also controls which profiles appear in the dropdown.
 
 To revert to using the published pipeline, unset the variable:
 
@@ -99,13 +97,13 @@ Note that `AIOD_NXF_REPO` does not persist — it applies only to the current sh
 
 ### `aiod_utils` in pipeline steps
 
-The Nextflow pipeline steps each run in their own conda environment, defined by the YAML files in `Segment-Flow/modules/models/envs/`. These install `aiod_utils` directly from GitHub, so local edits to `aiod_utils` are not automatically picked up.
+The Nextflow pipeline steps each run in their own conda environment, defined by the YAML files in `Segment-Flow/modules/models/envs/`. These install `aiod_utils` as a pinned release from PyPI, so local edits are not automatically picked up — and neither is any fix, until a new version is released and the pins are bumped.
 
-There is no clean automated mechanism for this. The pragmatic approach is to temporarily edit the relevant YAML file(s) to replace the git URL with a local editable install, run the pipeline, then revert before committing:
+There is no clean automated mechanism for this. The pragmatic approach is to temporarily edit the relevant YAML file(s) to replace the pinned version with a local editable install, run the pipeline, then revert before committing:
 
 ```yaml
 # Replace this:
-- git+https://github.com/FrancisCrickInstitute/aiod_utils.git
+- aiod_utils==0.1
 # With this:
 - -e /path/to/your/aiod_utils
 ```
@@ -115,3 +113,6 @@ There is no clean automated mechanism for this. The pragmatic approach is to tem
 
 !!! warning
     Remember to revert these YAML changes before committing — they should never be merged into the repository!
+
+!!! under-construction
+    We have a Bash script + skill that allows agents to robustly swap published and development versions of packages into the Nextflow envs, avoiding needed to rebuild. We will publish this soon! 

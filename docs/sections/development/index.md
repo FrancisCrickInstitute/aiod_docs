@@ -13,7 +13,7 @@ Below are a few general, guiding principles in the design and implementation of 
 !!! quote ""
     More models, more use cases, more data formats, more data size, more analysis, more interfaces, more users.
 
-Models are released all the time. Data continues to grow in size and complexity. It all just keeps increasing! AIoD is built ans fundamentally modular, and automates as much as possible to expand in key directions.
+Models are released all the time. Data continues to grow in size and complexity. It all just keeps increasing! AIoD is built modularly, and automates as much as possible to expand in key directions.
 
 Any development that is for a specific model or could limit generalisation should be avoided.
 
