@@ -20,3 +20,6 @@ docs = [
 # Nothing here is packaged or published — this repo only builds a site
 [tool.uv]
 package = false
+# A new aiod-registry release is the whole point of rebuilding, so it must not sit
+# behind the usual new-release cooldown
+exclude-newer-package = { aiod_registry = false }
