@@ -81,6 +81,7 @@ nav:
     - sections/development/index.md
   - Contact/Support:
     - sections/support/index.md
+    - Troubleshooting: sections/support/troubleshooting.md
 
 
 markdown_extensions:

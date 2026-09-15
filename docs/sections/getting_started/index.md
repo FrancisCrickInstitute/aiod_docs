@@ -50,6 +50,8 @@ Setting up AIoD is simple, but the steps are different for different environment
     3. An internet connection (specifically, the ability to allow downloading from a URL) to download any models from the model registry specified by a URL, which are then downloaded and cached. Without this, only models specified by local, accessible filepaths will be available.
         - If firewalls or other cybersecurity is in place that makes this a problem, then I recommend that the relevant models are downloaded by a privileged user, moved in a centrally-accessible location, and then you [add a new filepath for that model](../contributing/expanding.md#add-a-new-model-location) so that your users can see it.
 
+    Once the profile is in place, we strongly recommend [pre-building the model environments](../contributing/developing.md#pre-building-model-environments) into your shared conda cache. Otherwise the first user to try each model waits for a full environment build, and any failure during it surfaces as a confusing mid-run error.
+
 
 ## Tutorials
 

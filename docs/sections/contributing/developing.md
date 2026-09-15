@@ -17,6 +17,8 @@ Depending on what you are developing, you may only need to setup one or two of t
 
 `aiod_registry` is also a dependency for both `aiod_napari` and `Segment-Flow` (for a subset of the conda environments).
 
+To date, AIoD packages at the same minor level (e.g. everything on `0.2.x`) are expected to work together. This may change, but each version will have the correct dependencies of the other AIoD packages as needed.
+
 
 ## Project Setup
 
@@ -132,3 +134,46 @@ There is no clean automated mechanism for this. The pragmatic approach is to tem
 
 !!! under-construction
     We have a Bash script + skill that allows agents to robustly swap published and development versions of packages into the Nextflow envs, avoiding needed to rebuild. We will publish this soon! 
+
+## Pre-building Model Environments
+
+Each model family runs in its own conda environment, which Nextflow builds on first use. That means the first person to run a given model waits for a full environment build, and a failure partway through (no network, no disk space) surfaces as a confusing mid-run error.
+
+`Segment-Flow` can build them all up front instead:
+
+```bash
+$ ./prebuild_all.sh crick
+```
+
+The argument is the [execution profile](./expanding.md#add-a-profile), which decides both where the environments are written (`conda.cacheDir`) and whether the `cuda` or `generic` environment variants are used, so build with the same profile your users will run with. It discovers the available models the same way the pipeline does, by scanning for `run_*.py`, so a newly added model family is picked up with no change to the script.
+
+To build just one:
+
+```bash
+$ nextflow run prebuild.nf -profile crick --model cellpose
+```
+
+!!! tip "Worth doing at deployment time"
+
+    If you are setting AIoD up for an institution, run this once against a shared `conda.cacheDir` before anyone else uses it. Every subsequent user gets a cache hit rather than a build, which both saves the wait and removes the most common first-run failure.
+
+## Testing
+
+Each Python package is tested with `pytest`, run from that repository:
+
+```bash
+(c-aiod) $ pytest -v tests/
+```
+
+For `aiod_registry` this is also what validates manifests. Pydantic reports exactly which field is wrong, so run it before opening a PR rather than waiting for CI.
+
+!!! warning "Generated files are checked, not just generated"
+
+    `aiod_registry` commits both its default model configs and its JSON Schema. CI regenerates them on every pull request and **fails if what you committed is stale**; on merge to `main` it regenerates and commits any difference.
+
+    So if you change a manifest's parameters or the schema itself, run the relevant command and commit the result:
+
+    ```bash
+    (c-aiod) $ aiod-gen-configs   # after changing model parameters
+    (c-aiod) $ aiod-gen-schema    # after changing schema.py
+    ```
