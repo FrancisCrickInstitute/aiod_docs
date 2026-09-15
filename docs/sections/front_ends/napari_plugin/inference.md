@@ -22,6 +22,20 @@ You can drag+drop into Napari as normal, or use these buttons to load specific f
 
 As shown, the number of loaded files (organised by extension) will be shown to make it clear what will be sent to the [Nextflow pipeline](../../nextflow/index.md).
 
+If you just want something to try the plugin on, **File :material-arrow-right: Open Sample :material-arrow-right: AI OnDemand :material-arrow-right: Example FIB SEM data** downloads a small 3D volume for you. The [first segmentation tutorial](../../getting_started/first_segmentation.md) walks through a full run using it.
+
+!!! warning "Filenames must be unique"
+
+    Images are identified by filename *and* extension, so two files that share both will be rejected before the run starts, even if they live in different directories. `sample1.tiff` in two folders is a conflict; `sample1.tiff` and `sample1.czi` are not.
+
+    Rename or move one of the offending files, or load them in separate runs. Files without an extension, or with one no reader recognises, are rejected for the same reason — the identity cannot be derived.
+
+#### Advanced Options
+
+Loaded images have their axis order read from file metadata, which is frequently missing or wrong. When it is, the channel and Z dropdowns show the wrong values, and the pipeline will split your data along the wrong dimensions.
+
+**Axes override** lets you state the order yourself, e.g. `ZCYX`, `CZYX`, or `ZYX` — the letters being `T` (time), `C` (channel), `Z` (depth), `Y` (height), `X` (width), and `S` (RGB samples). Clicking "Apply" updates every loaded image layer whose number of dimensions matches the length of what you typed, and reports back the dimensions it derived so you can confirm it took. Leave it blank to let the metadata decide.
+
 
 ### Preprocessing
 To enable each preprocessing function, click the :octicons-checkbox-16: checkbox. The order of the preprocessing functions is shown at the bottom, and is determined by the order in which the functions are clicked.
@@ -50,6 +64,8 @@ For the execution profile, you should select the profile that matches where you 
 - If you are at the Crick and using NEMO, use `crick`
 - Otherwise, use your relevant institutional profile. If none exists, see [our guidance on adding one](../../contributing/expanding.md#add-a-profile).
 
+The dropdown lists whatever profiles ship with the plugin, currently `local`, `crick`, and `rosalind` (a local-executor profile tuned for a specific GPU workstation — a useful template if you are writing one for a single machine rather than a cluster).
+
 ![Screenshot of Nextflow pipeline options.](../../../assets/screenshots/inference_pipeline.png){width=75%}
 
 After clicking the "Run Pipeline!" button, the progress bar will update as each substack is completed to give an indication of progress and expected finish time!
@@ -74,6 +90,10 @@ For ease of use (especially when switching between projects), you can save and l
 You can export all masks, or if you have a `Labels` layer selected just export that one. The dropdown shows the file formats support to export to, allowing you to then use the masks elsewhere.
 
 The `.rle` format is the most compact, but cannot be read without the use of `aiod_utils`. For use with other programs, we recommend to export as a `.tiff`.
+
+!!! tip "Reading masks back in"
+
+    Installing the plugin also teaches Napari the `.rle` format, so exported masks can be dragged straight back into the viewer as a `Labels` layer later (`.pkl` and `.pickle` are read too). The same works through **File :material-arrow-right: Save Selected Layer**, which offers `.rle` for any `Labels` layer — handy if you have postprocessed a mask and want to keep the compact format.
 
 !!! warning "Export for Permanency!"
 

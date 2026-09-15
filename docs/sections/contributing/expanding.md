@@ -31,6 +31,14 @@ Each new schema needs:
 
     Running the tests locally first to check things pass will catch this before submitting a PR!
 
+!!! tip "Let your editor check the manifest"
+
+    The registry ships a [JSON Schema](https://github.com/FrancisCrickInstitute/aiod_registry/blob/main/aiod_registry/schema.json) generated from the Pydantic definition, so most editors will autocomplete field names and flag mistakes as you type rather than at PR time.
+
+    Associate it from your editor's settings rather than from inside the manifest — a `$schema` key in the file is itself an unknown field, and will fail validation. In VS Code, that means a `json.schemas` entry mapping `aiod_registry/manifests/*.json` to the schema file.
+
+    It is regenerated with `aiod-gen-schema`, and kept in step with `schema.py` by CI — so if you change the schema itself, commit the regenerated file alongside it.
+
 **You will then need to add the relevant script & environment to the Nextflow pipeline (see the [section below](#add-a-new-model-family_1)).**
 
 ### Add a New Model Version

@@ -89,9 +89,9 @@ If all have been cloned, your base directory structure should look like this:
 
 ### `Segment-Flow` (Nextflow pipeline)
 
-By default the plugin will run the pipeline from the [published GitHub repository](https://github.com/FrancisCrickInstitute/Segment-Flow).
+By default the plugin will run the pipeline from the [published GitHub repository](https://github.com/FrancisCrickInstitute/Segment-Flow), at a revision pinned in the plugin. That pin is what ties a plugin release to a pipeline it was actually tested against; `AIOD_NXF_REV` overrides it if you need a different tag, commit, or branch.
 
-To use your local Segment-Flow clone instead (e.g. to test local changes), set the `AIOD_NXF_REPO` environment variable to its path.
+To use your local Segment-Flow clone instead (e.g. to test local changes), set the `AIOD_NXF_REPO` environment variable to its path. This takes precedence over `AIOD_NXF_REV`, which is ignored as a checkout is already at whatever revision you have checked out!
 
 Run the following from your base directory:
 
