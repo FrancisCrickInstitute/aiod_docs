@@ -119,7 +119,7 @@ There is no clean automated mechanism for this. The pragmatic approach is to tem
 
 ```yaml
 # Replace this:
-- aiod_utils==0.1
+- aiod_utils==0.2.0
 # With this:
 - -e /path/to/your/aiod_utils
 ```

@@ -45,7 +45,7 @@ This step will run any specified preprocess functions (from the [available funct
 
 !!! note "Temporary Copy"
 
-    At present, this will create a copy of the data within the [cache](../concepts/index.md#caching). For large input data, it is recommend to [periodically clear the cache](../concepts/index.md#clearing-the-cache) to avoid issues.
+    This writes a preprocessed copy of the data as OME-Zarr into Nextflow's [`work` directory](../concepts/index.md#work), one per set of preprocessing parameters. For large input data, it is recommended to periodically clear that directory to avoid issues.
 
 For each _set_ of preprocessing parameters, the pipeline will be run over that version of the data. This can quickly generate a lot of jobs, but can be incredibly useful when e.g. using multiple parameters of CLAHE to differentially improve performance in different regions, creating a superior composite result. See the [examples below](#preprocessing-examples) for how to structure the input for one or more sets.
 

@@ -121,6 +121,8 @@ Each step is a subclass of a common `Preprocess` class that declares its own nam
 
 Currently available steps are downsampling (with a choice of aggregation), [CLAHE](https://en.wikipedia.org/wiki/Adaptive_histogram_equalization#Contrast_Limited_AHE), and rank filtering (mean/median over a configurable neighbourhood).
 
+The filter's neighbourhood is given as a *family* — `round` or `square` — rather than a concrete shape, and the matching 2D or 3D structuring element (disk/ball, square/cube) is chosen from the image itself when the step runs. This is what lets one saved preprocessing set apply unchanged to both 2D and 3D data. The concrete shape names are still accepted and folded onto their family, so older configs keep working.
+
 
 ### Preprocessing Sets
 

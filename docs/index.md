@@ -51,7 +51,7 @@ Here's a simplified GIF outlining AIoD:
 
     **Users within the Francis Crick Institute have automatic access to AIoD with no setup required.**
     
-    If users outside of the Crick want to use AIoD on their HPC and are not HPC admins/specialists, please forward [this page](./sections/getting_started/index.md) to your HPC admins. Alternatively, see our [AIoD-Napari over SSH](./sections/front_ends/napari_plugin/inference.md#execution-over-ssh) or [Nextflow directly](./sections/nextflow/index.md#running-the-pipeline-directly) sections to use AIoD on your HPC without the need for OnDemand/virtual desktop. 
+    If users outside of the Crick want to use AIoD on their HPC and are not HPC admins/specialists, please forward [this page](./sections/getting_started/index.md) to your HPC admins. Alternatively, running [Nextflow directly](./sections/nextflow/index.md#running-the-pipeline-directly) lets you use AIoD on your HPC without the need for OnDemand/virtual desktop. 
 
 ## Available Models
 Although AIoD is a portable, efficient, expandable framework to run any model, for users the practical functionality is determined by which models are available! 

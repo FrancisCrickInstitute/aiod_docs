@@ -39,7 +39,7 @@ Setting up AIoD is simple, but the steps are different for different environment
 
     In order to fully use AIoD, several things need to be in place:
 
-    1. You'll need a virtual desktop environment to host/run Napari on HPC (unless [running jobs through Napari over SSH](../front_ends/napari_plugin/inference.md#execution-over-ssh))
+    1. You'll need a virtual desktop environment to host/run Napari on HPC (or, for users happy at the command line, no Napari at all — see [running the pipeline directly](../nextflow/index.md#running-the-pipeline-directly))
         - This is primarily to ease submitting jobs to the cluster, and secondarily to ensure that both Napari and our `aiod-napari` plugin are correctly installed, for which we have a [conda environment YAML file](https://github.com/FrancisCrickInstitute/aiod_napari/blob/main/ai-od.yml) or a [uv lockfile](https://github.com/FrancisCrickInstitute/aiod_napari/blob/main/uv.lock).
         - Per the name, we use OnDemand ([Open OnDemand](https://www.openondemand.org/)) to allow easy access to Napari, though many other approaches/solutions are available.
         - Whichever approach is used, it is important to note that our Napari plugin uses Python's subprocess module to run Nextflow at the command line, which must be in the appropriate environment in order for job submission to work correctly.

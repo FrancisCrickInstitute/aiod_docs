@@ -124,6 +124,8 @@ This folder contains project files that can be loaded to autofill the Napari plu
 ##### `work`
 Nextflow's `work` directory is where outputs from each step of a Nextflow pipeline are stored. At the end of our pipeline, we move the final results to the relevant folder in the [`aiod_cache`](#aiod_cache) directory, so the contents of this folder can be periodically deleted (see more information on the [resume functionality](#direct-segment-flow-usage)). Further guidance on this directory can also be found in the [nf-core documentation](https://nf-co.re/docs/tutorials/storage_utilization/managing_work_directory_growth).
 
+This is also where [preprocessed copies of your data](../nextflow/index.md#preprocess-data) are written, as OME-Zarr, one per set of preprocessing parameters. These are the largest thing the pipeline produces, so this is the first place to look if you are short on space.
+
 
 ### Reproducibility (Hashing)
 #### Napari Plugin
@@ -158,7 +160,11 @@ As noted [above](#caching), the caches are semi-temporary, and may need to be pe
 
 Otherwise, you can delete the files however you usually would!
 
-<!-- TODO: ADD NOTE ON CACHE CLEANING THROUGH NEXTFLOW CLEAN -->
+!!! tip "Clearing the `work` directory"
+
+    For the [`work`](#work) directory specifically, Nextflow provides [`nextflow clean`](https://docs.seqera.io/nextflow/reference/cli/clean), which removes the intermediate files for previous runs while leaving your results in [`aiod_cache`](#aiod_cache) alone. It acts on the run history recorded where the pipeline was launched from, so run it from that same directory. On its own it only cleans the *most recent* run — use `nextflow log -q` to list them, then `-before`/`-after`/`-but` to select a range. Preview with `-n` before committing with `-f`.
+
+    Note that this discards the ability to [`-resume`](#direct-segment-flow-usage) the runs it cleans.
 
 ## Multiple Front-Ends
 The actual computation of AIoD happens in our Nextflow pipeline. As a result, we can connect any front-end to facilitate easier access and usage of AIoD.
