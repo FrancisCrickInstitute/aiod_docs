@@ -45,7 +45,7 @@ To easily visualise your data, and select the different models, parameters, and 
 
 
 ## Tutorials
-If you prefer video tutorials over the written content of this page, see the videos below:
+For a step-by-step walkthrough that takes you from nothing installed to a set of masks, see [Your First Segmentation](../../getting_started/first_segmentation.md).
 
 !!! under-construction "Under Construction!"
 

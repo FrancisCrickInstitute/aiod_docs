@@ -83,7 +83,7 @@ After clicking the "Run Pipeline!" button, the progress bar will update as each 
 
 For ease of use (especially when switching between projects), you can save and load a project config. This will store and load and every single UI selection across the plugin, making it quick to e.g. re-select model parameters and preprocessing sets.
 
-![Screenshot of data preprocessing options.](../../../assets/screenshots/inference_projconf.png){width=75%}
+![Screenshot of the project config options, showing the save and load buttons.](../../../assets/screenshots/inference_projconf.png){width=75%}
 
 ### Mask Export
 
