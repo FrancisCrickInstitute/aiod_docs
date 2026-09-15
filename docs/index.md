@@ -56,33 +56,9 @@ Here's a simplified GIF outlining AIoD:
 ## Available Models
 Although AIoD is a portable, efficient, expandable framework to run any model, for users the practical functionality is determined by which models are available! 
 
-Currently, the following models are integrated: 
+Currently, the following models are integrated. Click the cards to get details on the specific versions and configurable parameters of each:
 
-<div class="model-grid">
-  <a href="https://github.com/MouseLand/cellpose" class="model-card">
-    <img src="assets/cellpose_logo.png" alt="Cellpose logo">
-    <span>Cellpose<br>(1-3 + SAM)</span>
-  </a>
-  <a href="https://github.com/stardist/stardist" class="model-card">
-    <img src="assets/stardist_logo.jpg" alt="Stardist logo">
-    <span>StarDist</span>
-  </a>
-  <a href="https://github.com/facebookresearch/sam2" class="model-card">
-    <span>Segment Anything (1+2)</span>
-  </a>
-  <a href="https://empanada.readthedocs.io/en/latest/index.html" class="model-card">
-    <img src="assets/empanada_logo_icon.png" alt="Empanada logo">
-    <span>Empanada</span>
-  </a>
-  <a href="https://github.com/kreshuklab/panseg" class="model-card">
-    <img src="assets/panseg_logo.png" alt="PanSeg logo">
-    <span>PanSeg</span>
-  </a>
-  <a href="https://github.com/FrancisCrickInstitute/em-segment-pytorch/" class="model-card">
-    <img src="assets/etchacell_logo.jpeg" alt="Etch-a-cell logo">
-    <span>Etch-a-Cell Models</span>
-  </a>
-</div>
+{{ model_grid() }}
 
 ...with more on the way (and [by request](./sections/support/index.md#contact-us))!
 

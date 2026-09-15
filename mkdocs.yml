@@ -67,6 +67,7 @@ nav:
         - Evaluation: sections/front_ends/napari_plugin/evaluation.md
     - Model Registry:
       - sections/model_registry/index.md
+      - Available Models: sections/model_registry/models.md
     - Nextflow Pipeline:
       - sections/nextflow/index.md
     - Utilities:
@@ -115,6 +116,9 @@ markdown_extensions:
 plugins:
   - search
   - glightbox
+  # Renders the model reference and home page cards from aiod_registry (see main.py)
+  - macros:
+      on_undefined: strict
 
 extra_css:
   - stylesheets/extra.css
