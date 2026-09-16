@@ -283,9 +283,7 @@ Two things to expect from that array. Its dtype depends on what the model produc
 
 If you would rather open the results in Fiji, QuPath or anything else, add `--output_format tiff` to the run and skip the decoding entirely. The output format is *not* part of the `Config Hash`, so re-running with `--output_format tiff` writes a `.tiff` alongside the existing `.rle` under the same name rather than being treated as a different experiment.
 
-Combined with [`-resume`](#7-re-run-without-redoing-the-work), that makes getting a second
-format cheap: only the combining step re-runs, so you get the other file in seconds
-without segmenting anything again.
+Combined with [`-resume`](#7-re-run-without-redoing-the-work), that makes getting a second format cheap: only the combining step re-runs, so you get the other file in seconds without segmenting anything again.
 
 **Check it worked:** there is one `_all` file per input image, and decoding it (or opening the TIFF) gives an array the same height and width as your input.
 
@@ -360,9 +358,12 @@ environment build never happen twice.
 
     The Napari plugin hashes your inputs and reloads previous results automatically. Here
     you get [Nextflow's `-resume`](https://www.nextflow.io/docs/latest/cache-and-resume.html)
-    instead, which depends on the `work` directory being intact. Keep `work` around while
-    you are iterating, and see [clearing the cache](../concepts/index.md#clearing-the-cache)
-    when you are done.
+    instead, which needs two things: the `work` directory intact, and the run launched
+    from the same directory as before — Nextflow keeps its cache in a `.nextflow`
+    folder next to where you ran it, so the same command from elsewhere starts afresh.
+
+    Keep both while you are iterating, and see
+    [clearing the cache](../concepts/index.md#clearing-the-cache) when you are done.
 
 Once a command has more than a few flags, move it into a parameters file:
 
