@@ -66,3 +66,4 @@ For a step-by-step written walkthrough of a first run, see [Your First Segmentat
 
 
 ### Running Models (via Nextflow only)
+To run the pipeline straight from the terminal, with no Napari at all, see [Your First Headless Run](./first_headless_run.md). It covers the two parts with no GUI equivalent — describing your images in a CSV, and supplying a model config.

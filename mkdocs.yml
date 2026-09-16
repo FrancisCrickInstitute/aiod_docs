@@ -55,6 +55,7 @@ nav:
   - Getting Started:
     - sections/getting_started/index.md
     - Your First Segmentation: sections/getting_started/first_segmentation.md
+    - Your First Headless Run: sections/getting_started/first_headless_run.md
   - AIoD Framework:
     - Concepts:
       - sections/concepts/index.md

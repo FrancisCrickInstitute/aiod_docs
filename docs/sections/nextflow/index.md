@@ -233,20 +233,26 @@ These are combined with a memory-derived size calculated from the `memory_per_jo
 ### Creating the Input CSV
 The input CSV file (e.g. `all_img_paths.csv` [above](#__codelineno-1-1)) provides a definitive source of truth for the dimensions of the input data, which can be useful in the cases of missing, incorrect or misunderstood metadata.
 
-You can use [`aiod_utils.image_paths_to_csv`](https://github.com/FrancisCrickInstitute/aiod_utils/blob/v0.2.0/aiod_utils/io.py#L374-L441) to more easily create this CSV, though it requires providing a `dict` specifying the size of each dimension. Missing dimensions will be guessed, so it is important to review the generated CSV afterwards!
-
-The resulting CSV should look like:
+It has six columns, one row per image:
 ```csv
 img_path,num_slices,height,width,channels,dtype
 <path>,5,1000,1000,3,uint16
 ...
 ```
 
+`num_slices`, `height`, `width` and `channels` are Z, Y, X and C respectively (use `1` for the dimensions your data does not have). Column *order* does not matter, but the names do. `dtype` is optional — it is read from the image if omitted.
+
+For a walkthrough of writing this by hand, adapting an existing one, or generating it with [`aiod_utils.image_paths_to_csv`](https://github.com/FrancisCrickInstitute/aiod_utils/blob/v0.2.0/aiod_utils/io.py#L374-L441), see [step 3 of the headless tutorial](../getting_started/first_headless_run.md#3-describe-your-images).
+
+!!! warning "Dimensions are not inferred"
+
+    Whichever route you take, the values are taken at face value — nothing is guessed. A wrong `channels` or `num_slices` is not caught when the run starts; it surfaces inside the segmentation step, after the environment build and model download. Check the numbers before you run.
+
 !!! warning "Filepaths"
 
     The filepaths in this CSV are the paths for wherever the computation is actually taking place, so the paths need to make sense for where the pipeline is actually running.
     
-    When working locally and sending the command to the HPC, the filepath(s) must be those on the HPC itself, not e.g. the mounted path. For more information, see our section on [executing over SSH](../front_ends/napari_plugin/inference.md#execution-over-ssh).
+    When working locally but running the pipeline on HPC, the filepath(s) must be those on the HPC itself, not e.g. the mounted path. See [running it on HPC](../getting_started/first_headless_run.md#9-running-it-on-hpc) for the other things that change when the pipeline runs somewhere else.
 
 
 ## Tuning the Pipeline
