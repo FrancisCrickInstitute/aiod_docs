@@ -266,14 +266,8 @@ Filenames follow a fixed pattern:
 - `image_id` is your filename with the extension folded in, so `img1.tif` becomes `img1_tif`
 - `prep_hash` only appears if you used preprocessing ([step 8](#8-run-several-preprocessing-recipes-at-once))
 - `config_hash` is the `Config Hash` from the run header
-- `_all` marks the mask combined across every substack — the individual pieces appear
-  alongside it as `..._x0-120_y0-120_z0-1.rle` while the run is in progress, and the
-  combining step removes them when it finishes. They can outlive a run that was
-  interrupted before combining, and also one resumed entirely from cache, since the
-  step that cleans them up never actually executes. They are symlinks into `work`, so
-  they break rather than disappear if you clear it — only the `_all` file is a real copy.
-- `ext` is the file extension. By default masks are written as `.rle`, our [compact run-length encoded
-format](../utilities/index.md#customised-run-length-encoding-format). To read one back:
+- `_all` marks the mask combined across every substack — the individual pieces appear alongside it as `..._x0-120_y0-120_z0-1.rle` while the run is in progress, and the combining step removes them when it finishes. They are symlinks into `work`, so they break rather than disappear if you clear it — only the `_all` file is a real copy.
+- `ext` is the file extension. By default masks are written as `.rle`, our [compact run-length encoded format](../utilities/index.md#customised-run-length-encoding-format). To read one back:
 
 ```python
 import aiod_utils.rle as rle
@@ -289,15 +283,17 @@ Two things to expect from that array. Its dtype depends on what the model produc
 
 If you would rather open the results in Fiji, QuPath or anything else, add `--output_format tiff` to the run and skip the decoding entirely. The output format is *not* part of the `Config Hash`, so re-running with `--output_format tiff` writes a `.tiff` alongside the existing `.rle` under the same name rather than being treated as a different experiment.
 
+Combined with [`-resume`](#7-re-run-without-redoing-the-work), that makes getting a second
+format cheap: only the combining step re-runs, so you get the other file in seconds
+without segmenting anything again.
+
 **Check it worked:** there is one `_all` file per input image, and decoding it (or opening the TIFF) gives an array the same height and width as your input.
 
 ## 6. Tune the model
 
-Every model exposes parameters, and for some of them performance depends heavily on
-getting these right. You did not pass any in step 4, so the pipeline used the defaults
-that ship with the model registry.
+Every model exposes parameters, and for some of them performance depends heavily on getting these right. You did not pass any in step 4, so the pipeline used the defaults that ship with the model registry.
 
-Those defaults are also your template. Take a copy:
+Those defaults are also your template. You can easily create a copy:
 
 ```bash
 python -c "
