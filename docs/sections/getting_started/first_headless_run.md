@@ -232,7 +232,7 @@ Full Command    : nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.0 -prof
 ════════════════════════════════════════════════════
 ```
 
-`Config Hash` identifies this exact combination of parameters, and appears in your output filenames — note it down if you plan to run several variations.
+`Config Hash` identifies this exact combination of parameters, and appears in your output filenames. Note it down if you plan to run several variations so you can link outputs to input (though all configs are stored in the AIoD cache).
 
 Because you passed no config, the run also reports that it fell back to the registry:
 
@@ -249,13 +249,7 @@ AIoD finished SUCCESSFULLY at 2026-09-16 11:49:27 after 5m 20s
 ======================================================================
 ```
 
-!!! note "Ignore the `Version` line"
-
-    The header also carries a `Version` field, reporting a value baked into the
-    pipeline's manifest that has not tracked the releases. `Revision` is the one that
-    tells you what you are actually running.
-
-## 5. Find your results
+## 5. Grab your results
 
 Masks are written into the AIoD cache, organised by model and version:
 
@@ -273,10 +267,12 @@ Filenames follow a fixed pattern:
 - `prep_hash` only appears if you used preprocessing ([step 8](#8-run-several-preprocessing-recipes-at-once))
 - `config_hash` is the `Config Hash` from the run header
 - `_all` marks the mask combined across every substack — the individual pieces appear
-  alongside it as `..._x0-120_y0-120_z0-1.rle` while the run is in progress, and are
-  cleaned up once combining succeeds. Stray ones mean a run was interrupted.
-
-By default masks are written as `.rle`, our [compact run-length encoded
+  alongside it as `..._x0-120_y0-120_z0-1.rle` while the run is in progress, and the
+  combining step removes them when it finishes. They can outlive a run that was
+  interrupted before combining, and also one resumed entirely from cache, since the
+  step that cleans them up never actually executes. They are symlinks into `work`, so
+  they break rather than disappear if you clear it — only the `_all` file is a real copy.
+- `ext` is the file extension. By default masks are written as `.rle`, our [compact run-length encoded
 format](../utilities/index.md#customised-run-length-encoding-format). To read one back:
 
 ```python
@@ -289,20 +285,11 @@ print(mask.shape, mask.dtype)   # (120, 120) uint16
 print(metadata)                 # {'metadata': {'mask_type': 'instance'}}
 ```
 
-Two things to expect from that array. Its dtype depends on what the model produced —
-`uint16` for an instance segmentation where each object has its own ID, `bool` for a
-semantic one. And singleton dimensions are dropped, so a single-slice image comes back
-2D rather than as a stack of one.
+Two things to expect from that array. Its dtype depends on what the model produced — `uint16` for an instance segmentation where each object has its own ID, `bool` for a semantic one. Singleton dimensions are dropped, so a single-slice image comes back 2D rather than as a stack of one.
 
-If you would rather open the results in Fiji, QuPath or anything else, add
-`--output_format tiff` to the run and skip the decoding entirely.
+If you would rather open the results in Fiji, QuPath or anything else, add `--output_format tiff` to the run and skip the decoding entirely. The output format is *not* part of the `Config Hash`, so re-running with `--output_format tiff` writes a `.tiff` alongside the existing `.rle` under the same name rather than being treated as a different experiment.
 
-Usefully, the output format is *not* part of the `Config Hash`, so re-running with
-`--output_format tiff` writes a `.tiff` alongside the existing `.rle` under the same
-name rather than being treated as a different experiment.
-
-**Check it worked:** there is one `_all` file per input image, and decoding it (or opening
-the TIFF) gives an array the same height and width as your input.
+**Check it worked:** there is one `_all` file per input image, and decoding it (or opening the TIFF) gives an array the same height and width as your input.
 
 ## 6. Tune the model
 
