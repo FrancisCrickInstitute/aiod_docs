@@ -304,7 +304,7 @@ print(generate_default_config(m, resolve_version(m, 'cyto3'), 'cyto'), end='')
 
 which gives you every parameter with its default value:
 
-```yaml
+```yaml title="my_config.yml"
 diameter: 0
 segment_channel: 0
 nucleus_channel: 0
@@ -331,18 +331,15 @@ nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.0 -profile local \
 !!! tip "What do the parameters mean?"
 
     The [model reference](../model_registry/models.md) lists every parameter for every
-    model with its description, and links to that model's own documentation. Change one
-    thing at a time — with a baseline result already in hand, that is the only way to
-    tell what helped.
+    model with its description, and links to that model's own documentation. If unsure, change one
+    thing at a time. With a baseline result already in hand, that is the only way to
+    tell what helped!
 
-**Check it worked:** the run header now shows your file on the `Model config` line instead
-of `null`, and `Config Hash` has changed — so the new results sit alongside the old ones
-rather than overwriting them.
+**Check it worked:** the run header now shows your file on the `Model config` line instead of `null`, and `Config Hash` has changed, so the new results sit alongside the old ones rather than overwriting them.
 
 ## 7. Re-run without redoing the work
 
-Add `-resume` to any run and Nextflow reuses the results of every step whose inputs have
-not changed:
+Add `-resume` to any run and Nextflow reuses the results of every step whose inputs have not changed:
 
 ```bash
 nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.0 -profile local \
@@ -351,8 +348,7 @@ nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.0 -profile local \
   -resume
 ```
 
-Change one parameter and only the affected steps re-run; the model download and
-environment build never happen twice.
+Change one parameter and only the affected steps re-run (running the model and combining the outputs).
 
 !!! note "This is not the same as the plugin's reload"
 
@@ -362,8 +358,7 @@ environment build never happen twice.
     from the same directory as before — Nextflow keeps its cache in a `.nextflow`
     folder next to where you ran it, so the same command from elsewhere starts afresh.
 
-    Keep both while you are iterating, and see
-    [clearing the cache](../concepts/index.md#clearing-the-cache) when you are done.
+    Keep both while you are iterating, and see [clearing the cache](../concepts/index.md#clearing-the-cache) when you are done.
 
 Once a command has more than a few flags, move it into a parameters file:
 
@@ -381,11 +376,30 @@ nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.0 -profile local \
   -params-file params.yml -resume
 ```
 
-That file is now a record of the run, and it is the only way to express the preprocessing
-in the next step.
+That file is now a record of the run, and it is the only way to express the preprocessing in the next step.
 
-**Check it worked:** every step reports `cached`, and the run finishes in seconds rather
-than minutes:
+### Naming your runs
+
+By default the `Config Hash` is computed for you, which is safe but opaque, `..._masks_4e2ebc27_all.rle` tells you nothing six months later if you haven't kept the config for what `4e2ebc27` means. Set `param_hash` yourself and it is used verbatim instead:
+
+```yaml title="params.yml"
+img_dir: imgs.csv
+model: cellpose
+model_type: cyto3
+task: cyto
+model_config: my_config.yml
+param_hash: clahe-baseline-2026-09
+```
+
+giving `example_fluo_jpg_masks_clahe-baseline-2026-09_all.rle`. Keeping it in the parameters file means one file both describes the run and names its outputs, so a result on disk can always be traced back to what produced it. You may also want to embed that into the `params-file` filename itself too!
+
+!!! warning "You take responsibility for uniqueness"
+
+    The computed hash guarantees that two different sets of parameters cannot write to the same filename. Naming the runs yourself menas you need to ensure that, as reusing a name with different parameters will overwrite the old ones.
+
+    Keep the value filesystem-safe (it becomes part of a filename), and choose it *before* the run you care about: changing it alters the mask filename, which re-runs the model and the combining step, though the model download and image splitting stay cached.
+
+**Check it worked:** every step reports `cached`, and the run finishes in seconds rather than minutes:
 
 ```
 [f1/a6177b] setupModel           | 1 of 1, cached: 1 ✔
@@ -398,14 +412,11 @@ than minutes:
 AIoD finished SUCCESSFULLY at 2026-09-16 11:52:10 after 1.5s
 ```
 
-Change a parameter and the steps it affects lose their `cached` marker while the rest
-keep theirs.
+Change a parameter and the steps it affects lose their `cached` marker while the rest keep theirs.
 
 ## 8. Run several preprocessing recipes at once
 
-Preprocessing often matters more than the choice of model, and the honest way to find out
-what helps is to try several and compare. The pipeline will run the model over *each* set
-of preprocessing steps you give it, in one invocation:
+Preprocessing can be as important as the choice of model, and you'll need to try several and compare. The pipeline will run the model over *each* set of preprocessing steps you give it, in one invocation:
 
 ```yaml title="params.yml"
 img_dir: imgs.csv
@@ -424,11 +435,9 @@ preprocess:
       tileGridSize: [12, 12]
 ```
 
-The empty set `- []` means "also run on the untouched data", giving you a baseline to
-compare against in the same run and without making a copy of your images.
+The empty set `- []` means "also run on the untouched data", giving you a baseline to compare against in the same run and without making a copy of your images.
 
-Each set gets a short hash which appears in its output filenames, and the run logs a
-legend mapping them at the start:
+Each set gets a short hash which appears in its output filenames, and the run logs a legend mapping them at the start:
 
 ```
 Preprocessing hash legend for this run:
@@ -436,9 +445,7 @@ Preprocessing hash legend for this run:
 [4dbb4ea2] CLAHE-tileGridSize=[12, 12]-clipLimit=8.0
 ```
 
-The [available steps and their parameters](../utilities/index.md#preprocessing) are
-documented with the utilities, and there are
-[more examples](../nextflow/index.md#preprocessing-examples) on the pipeline reference.
+The [available steps and their parameters](../utilities/index.md#preprocessing) are documented with the utilities, and there are [more examples](../nextflow/index.md#preprocessing-examples) on the pipeline reference.
 
 !!! note "Parameters file only"
 
@@ -459,79 +466,51 @@ nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.0 \
   -params-file params.yml
 ```
 
-The profile carries the executor, queues, and resource requests for that site. If yours
-does not have one yet, see [adding a profile](../contributing/expanding.md#add-a-profile).
+The profile carries the executor, queues, and resource requests for that site. If yours does not have one yet, see [adding a profile](../contributing/expanding.md#add-a-profile).
 
-Three things catch people out:
+Three things to watch out for:
 
-- **The paths in your CSV must resolve on the machine that runs the pipeline**, not on
-  your laptop. If you are working from a mounted drive, the CSV needs the cluster's paths.
-- **The head job has to live somewhere it will not be killed.** It runs for the duration,
-  submitting and collecting jobs, so run it in an interactive session, a `tmux`/`screen`
-  session, or as a batch job of its own — not on a login node.
-- **Put the cache somewhere with space.** `--root_dir` defaults to your home directory,
-  which is usually the smallest volume you have. See
-  [choosing a cache location](../front_ends/napari_plugin/inference.md#basecache-directory).
+- **The paths in your CSV must resolve on the machine that runs the pipeline**, not on your laptop. If you are working from a mounted drive, the CSV needs the cluster's paths (not the mounted ones!).
+- **The head job has to live somewhere it will not be killed.** It runs for the duration, submitting and collecting jobs, so run it in an interactive session, a `tmux`/`screen` session, or as a batch job of its own, not on a login node!
+- **Put the cache somewhere with space.** `--root_dir` defaults to your home directory, which is usually the smallest volume you have. See [choosing a cache location](../front_ends/napari_plugin/inference.md#basecache-directory).
 
 ??? tip "Tuning how the work is split"
 
-    Two levers control how your images are divided into parallel jobs: `memory_per_job`
-    in the profile (how much a single job can hold) and `substack_scale` (a blanket
-    multiplier for weaker or stronger hardware). The
-    [tuning section](../nextflow/index.md#tuning-the-pipeline) covers both, and running
-    locally you may want to raise `memory_per_job` from its conservative default to match
-    your actual RAM.
+    Two parameters control how your images are divided into parallel jobs: `memory_per_job` in the profile (how much a single job can hold) and `substack_scale` (a blanket multiplier for weaker or stronger hardware). The [tuning section](../nextflow/index.md#tuning-the-pipeline) covers both, and running locally you may want to raise `memory_per_job` from its conservative default to match your actual RAM.
 
 ## Something went wrong?
 
 ??? failure "`Missing required parameter: --img_dir`"
 
-    The pipeline validates everything before it starts and reports all the problems at
-    once. `--img_dir` is the only parameter with no default, so this is the one you can
-    forget. `img_dir does not exist: <path>` means the path is wrong — it is resolved
-    relative to where you launched the run.
+    The pipeline validates everything before it starts and reports all the problems at once. `--img_dir` is the only parameter with no default, so this is the one you can forget. `img_dir does not exist: <path>` means the path is wrong!
 
 ??? failure "`Model <x> not yet implemented!`"
 
-    The name you passed to `--model` has no script in the pipeline. The message lists
-    every model that does. Note this is the *family* name (`empanada`), not the version
-    (`mitonet_v1`).
+    The name you passed to `--model` has no script in the pipeline. The message lists every model that does. Note this is the *family* name (`empanada`), not the version (`mitonet_v1`).
 
 ??? failure "`Version '<x>' not found in manifest`"
 
-    `--model_type` does not match that family. The error lists the valid versions with
-    their slugs — pass the slug.
+    `--model_type` does not match that family. The error lists the valid versions with their slugs, which is what you need to give.
 
 ??? failure "None of its locations are accessible on this machine"
 
-    The model exists in the registry, but is shared by file path rather than public
-    download, and you cannot read that path. See
-    [Model Location](../concepts/index.md#model-location); models marked **Restricted** on
-    the [model reference](../model_registry/models.md) are the ones this applies to.
+    The model exists in the registry, but is shared by file path rather than public download, and you cannot read that path. See [Model Location](../concepts/index.md#model-location); models marked **Restricted** on the [model reference](../model_registry/models.md) are the ones this applies to.
 
 ??? failure "`Cannot derive unique image_id`"
 
-    Two of your images share both a filename and an extension, even if they are in
-    different directories — the pipeline cannot tell their outputs apart. The message
-    lists every conflicting set. Rename one, or run them separately.
+    Two of your images share both a filename and an extension, even if they are in different directories. The message lists every conflicting set. Rename one, or run them separately.
 
 ??? failure "`Column '<col>' not found in input image path csv file`"
 
-    Your CSV is missing a required column. The names matter and the order does not;
-    check for a typo, and for a stray leading column if you generated it without
-    `index=False`.
+    Your CSV is missing a required column. Check for a typo, and for a stray leading column if you generated it without `index=False`.
 
 ??? failure "It fails while building the model's environment"
 
-    Conda needs network access and disk space, and a large environment can take a while —
-    the pipeline allows an hour before giving up. Check you have several GB free where
-    your cache lives, then run again with `-resume`; it picks up where it stopped.
+    Conda needs network access and disk space, and a large environment can take a while (the pipeline allows an hour before giving up). Check you have several GB free where your cache lives, then run again with `-resume`; it picks up where it stopped.
 
-    If it fails the same way twice, delete the partial environment under
-    `~/.nextflow/aiod/conda/` and retry.
+    If it fails the same way twice, delete the partial environment under `~/.nextflow/aiod/conda/` and retry.
 
-If none of these fit, [get in touch or raise an issue](../support/index.md) — include
-your command, your CSV, and the error.
+If none of these fit, [get in touch or raise an issue](../support/index.md). Please include your command, your CSV, and the error.
 
 ## Where next
 

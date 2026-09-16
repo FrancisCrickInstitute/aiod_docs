@@ -39,7 +39,7 @@ To easily visualise your data, and select the different models, parameters, and 
 
     To use the Napari plugin, you must be able to run Napari on your institute's HPC, through something like [Open OnDemand](https://www.openondemand.org/) or some other service that provides a visual server/interface.
 
-    If this is not possible, either see our section on [running the Nextflow pipeline directly](../../nextflow/index.md#running-the-pipeline-directly) or contact your HPC about setting this up.
+    If this is not possible, you can skip the GUI entirely. [Your First Headless Run](../../getting_started/first_headless_run.md) walks through running the pipeline from the terminal. Otherwise, contact your HPC about setting this up!
 
     If this is possible, then the [local installation instructions](#local) should work for you. If not, contact your HPC team or see our [contact page](../../support/index.md#contact-us) where we may be able to help.
 

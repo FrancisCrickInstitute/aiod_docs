@@ -132,7 +132,7 @@ This is also where [preprocessed copies of your data](../nextflow/index.md#prepr
 When using the Napari plugin (which creates all the input parameters for you), a unique hash (series of numbers & letters) is created as an identifier for your input data, options, and parameters. If the cache contains previous results with the same hash, then those results are loaded and no further computation is done.
 
 #### Direct `Segment-Flow` Usage
-If you are using the [Segment-Flow pipeline directly](../nextflow/index.md#running-the-pipeline-directly), then the input parameter files are yours to name and manage. You will, however, still benefit from the cache as the [Nextflow `work` directory](#work) will use Nextflow's resume capability to load previous results (for the same input).
+If you are using the [Segment-Flow pipeline directly](../nextflow/index.md#running-the-pipeline-directly), then the input parameter files are yours to name and manage. [The tutorial](../getting_started/first_headless_run.md#naming-your-runs) shows one way to keep a parameter file and the results it produced linked together. You will, however, still benefit from the cache as the [Nextflow `work` directory](#work) will use Nextflow's resume capability to load previous results (for the same input).
 
 For more information, see the [Nextflow documentation on `-resume`](https://www.nextflow.io/docs/latest/cache-and-resume.html).
 

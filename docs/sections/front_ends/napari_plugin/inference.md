@@ -169,7 +169,7 @@ Note that, as discussed [here](../../concepts/index.md#project_configs), these f
 
     This is a more advanced feature that requires you to have SSH keys setup with access to your HPC (or to wherever the computation is taking place, e.g. a workstation).
 
-It is possible with our Napari plugin to remotely execute the Nextflow pipeline, allowing you to e.g. run Napari locally, while running the segmentation distributed on your HPC, and receiving the results locally to view. Note that running the Nextflow pipeline directly may be simpler, however, and is discussed [here](../../nextflow/index.md#running-the-pipeline-directly).
+It is possible with our Napari plugin to remotely execute the Nextflow pipeline, allowing you to e.g. run Napari locally, while running the segmentation distributed on your HPC, and receiving the results locally to view. Note that running the Nextflow pipeline directly may be simpler, however. See [Your First Headless Run](../../getting_started/first_headless_run.md) for a walkthrough, or the [pipeline reference](../../nextflow/index.md#running-the-pipeline-directly) for the full set of inputs.
 
 To do this, you will need:
 

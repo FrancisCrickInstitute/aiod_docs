@@ -81,6 +81,11 @@ If `iou_threshold>0`, then masks will only be labelled the same over Z-slices if
 
 
 ## Running the Pipeline Directly
+
+!!! tip "Looking for a walkthrough?"
+
+    This section is the reference for every input the pipeline accepts. If you have not run it from the terminal before, [Your First Headless Run](../getting_started/first_headless_run.md) goes from nothing to masks step by step, and covers the parts with no GUI equivalent.
+
 The Nextflow pipeline can be run directly, allowing headless use and avoiding Napari or any other front-end. Although more work is required in specifying the input parameters, this can be significantly faster for users who are happy with model performance and just want to segment a lot of data without wanting to keep Napari open!
 
 An example run command may look like:
@@ -119,7 +124,7 @@ nextflow run -latest FrancisCrickInstitute/Segment-Flow --help
 
     In the example above, the files were generated automatically by the Napari plugin to maximize [reproducibility](../concepts/index.md#reproducibility-hashing).
 
-    For running the pipeline directly, we recommended using some clear, traceable naming system, whether that's using datetime or some other format.
+    For running the pipeline directly, we recommended using some clear, traceable naming system, whether that's using datetime or some other format. Setting `param_hash` yourself is how you do that — see [naming your runs](../getting_started/first_headless_run.md#naming-your-runs) for a worked example and the trade-off it carries.
 
 #### Command Explained
 Brief explanation of the arguments used in the execution/run command above:
@@ -149,7 +154,7 @@ For other arguments, see the [Nextflow documentation](https://www.nextflow.io/do
 - `output_format`: Format to write the final masks in — `rle` or `tiff`
 - `output_mask_type`: Whether masks are written as `binary`, `instance`, or `auto` to let the model's output decide
 - `overlap`: Amount of overlap to use in substack creation (HWD / YXZ format)
-- `param_hash`: Unique ID for reproducibility and identifying this run (see [here](../concepts/index.md#reproducibility-hashing) for details)
+- `param_hash`: Unique ID for reproducibility and identifying this run (see [here](../concepts/index.md#reproducibility-hashing) for details). Computed for you if omitted; set it to [name your runs](../getting_started/first_headless_run.md#naming-your-runs) something readable
 - `postprocess`: Whether to run connected components on the final, combined masks (`true`/`false`)
 - `preprocess`: Preprocessing parameters to use (see [examples below](#preprocessing-examples))
 - `root_dir`: Root [cache directory](../concepts/index.md#caching)

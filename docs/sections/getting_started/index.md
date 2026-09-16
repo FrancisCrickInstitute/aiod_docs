@@ -25,7 +25,7 @@ Setting up AIoD is simple, but the steps are different for different environment
 
         To install and run Nextflow, you will need to have setup the [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install). Then you can install the [prerequisites](#prerequisites).
 
-    With the prerequisites above, you can either [run the Nextflow pipeline directly](../nextflow/index.md#running-the-pipeline-directly), or [install the Napari plugin](../front_ends/napari_plugin/index.md#installation) and run AIoD from there!
+    With the prerequisites above, you can either run the Nextflow pipeline directly ([walkthrough](./first_headless_run.md), [reference](../nextflow/index.md#running-the-pipeline-directly)), or [install the Napari plugin](../front_ends/napari_plugin/index.md#installation) and run AIoD from there!
 
     !!! tip
 
@@ -66,4 +66,4 @@ For a step-by-step written walkthrough of a first run, see [Your First Segmentat
 
 
 ### Running Models (via Nextflow only)
-To run the pipeline straight from the terminal, with no Napari at all, see [Your First Headless Run](./first_headless_run.md). It covers the two parts with no GUI equivalent — describing your images in a CSV, and supplying a model config.
+To run the pipeline straight from the terminal (with no Napari at all), see [Your First Headless Run](./first_headless_run.md).

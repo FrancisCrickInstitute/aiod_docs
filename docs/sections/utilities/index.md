@@ -41,7 +41,7 @@ BioIO can often read a given file with more than one plugin, and its default ord
 
 ### Describing Input Data
 
-Metadata is frequently missing, wrong, or interpreted differently by different readers, and `Segment-Flow` needs to know image shapes *before* it starts splitting anything. `aiod_utils.io.image_paths_to_csv` writes out a simple CSV of paths and dimensions to act as the definitive source of truth for a pipeline run. See [creating the input CSV](../nextflow/index.md#creating-the-input-csv) for how this is used in practice.
+Metadata is frequently missing, wrong, or interpreted differently by different readers, and `Segment-Flow` needs to know image shapes *before* it starts splitting anything. `aiod_utils.io.image_paths_to_csv` writes out a simple CSV of paths and dimensions to act as the definitive source of truth for a pipeline run. See [creating the input CSV](../nextflow/index.md#creating-the-input-csv) for the format, and [step 3 of the headless tutorial](../getting_started/first_headless_run.md#3-describe-your-images) for the three ways to produce one.
 
 
 ## Dynamic Stacks
