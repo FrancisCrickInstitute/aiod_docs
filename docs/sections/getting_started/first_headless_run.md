@@ -1,25 +1,22 @@
 # Your First Headless Run
 
-This tutorial runs AIoD entirely from the terminal — no Napari, no GUI. It is the
-counterpart to [Your First Segmentation](./first_segmentation.md): same pipeline, same
-models, same results, driven by `nextflow` directly.
+This tutorial runs AIoD entirely from the terminal (no Napari/GUI). It is the counterpart to [Your First Segmentation](./first_segmentation.md) for those who want to use `Segment-Flow` directly.
 
-That is the right choice when you are happy with a model's performance and just want to
-segment a lot of data, when you are working over SSH on a machine with no display, or
-when you want the run to be a command you can script, schedule, and put in a paper.
+That is the right choice when you are happy with a model's performance and just want to segment a lot of data, when you are working over SSH on a machine with no display, or when you want the run to be a command you can script, schedule, and put in a paper.
 
 **You will:**
 
 1. Install Nextflow and Conda
-2. Pick a model, version and task
+2. Pick a model, version, and task
 3. Describe your images in a small CSV
 4. Run the pipeline and find your masks
 5. Tune the model, then re-run without redoing the work
 
 **You need:**
 
-- Your own images (any format AIoD can read — TIFF, OME-TIFF, CZI, ND2, Zarr…)
-- A terminal, and about 20 minutes (the first run is longer; a GPU helps but is not required)
+- Your own images (any format AIoD can read — TIFF, OME-TIFF, CZI, ND2, Zarr etc.)
+- A terminal, and about 20 minutes (the first run is longer to build the environments)
+- A GPU helps but is not required
 
 !!! tip "In a hurry?"
 
@@ -31,47 +28,38 @@ when you want the run to be a command you can script, schedule, and put in a pap
        img_path,num_slices,height,width,channels,dtype
        /data/img1.tif,1,120,120,1,uint8
        ```
-    3. Pick a `--model`/`--model_type`/`--task` from the [model reference](../model_registry/models.md)
-    4. ```
+    3. Pick a `--model`/`--model_type`/`--task` from the [model reference](../model_registry/models.md) (e.g. `--model cellpose --model_type cyto3 --task cyto`)
+    4. Run Segment-Flow:
+       ```bash
        nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.0 -profile local \
          --img_dir imgs.csv --model cellpose --model_type cyto3 --task cyto
        ```
-    5. Results land in `~/.nextflow/aiod/aiod_cache/<model>/<model_type>_masks/`
-
-    Otherwise, read on.
+    5. Extract results from the cache: `~/.nextflow/aiod/aiod_cache/cellpose/cyto3_masks/` (or change `<model>/<model_type>_masks/` as needed)
 
 ## 1. Install what runs the models
+!!! warning "Windows Users"
+
+    Nextflow does not run on Windows directly. Before you start, install the [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install) and do everything below inside WSL.
 
 You need two things, and neither of them is a segmentation model:
 
-- [Nextflow](https://www.nextflow.io/docs/latest/install.html) — runs the pipeline
-- [Conda](https://www.anaconda.com/docs/getting-started/miniconda/install) — builds an isolated environment per model
+- [Conda](https://www.anaconda.com/docs/getting-started/miniconda/install) to build an isolated environment per model
+- [Nextflow](https://www.nextflow.io/docs/latest/install.html) to run the pipeline
 
-AIoD installs the models themselves for you, on first use.
-
-A few steps below use small Python helpers to inspect the registry and read results back.
-They are optional — the pipeline never needs them — but if you want them:
+A few steps below use small Python helpers to inspect the registry and read results back. They are optional (the pipeline never needs them) but if you want them to ease setup:
 
 ```bash
 pip install aiod-registry aiod-utils
 ```
-
-!!! warning "Windows users"
-
-    Nextflow does not run on Windows directly. Install the
-    [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install)
-    and work inside it.
 
 **Check it worked:** `nextflow -version` prints a version banner, and `conda --version`
 prints a version number.
 
 ??? tip "Deploying this for other people?"
 
-    The first run of each model pays for a full Conda environment build. If you are
-    setting AIoD up for a group, build them all once, up front, into a shared cache —
-    see [pre-building model environments](../contributing/developing.md#pre-building-model-environments).
+    The first run of each model pays for a full Conda environment build. If you are setting AIoD up for a group, build them all up front into a shared cache. See [pre-building model environments](../contributing/developing.md#pre-building-model-environments).
 
-## 2. Choose a model, version and task
+## 2. Choose a model, version, and task
 
 Three values decide what runs:
 
@@ -81,9 +69,7 @@ Three values decide what runs:
 | `--model_type` | the [version](../concepts/index.md#model-version) within it, e.g. `cyto3` |
 | `--task` | what it segments, e.g. `cyto` |
 
-Every valid combination is listed on the [model reference](../model_registry/models.md)
-page, which needs nothing installed. If you would rather not leave the terminal,
-`aiod-registry` knows the same thing:
+Every valid combination is listed on the [model reference](../model_registry/models.md) page. You can use `aiod-registry` to query this in the terminal (if you installed `aiod_registry` into an activated environment):
 
 ```bash
 python -c "
@@ -106,15 +92,11 @@ output.
 
 ## 3. Describe your images
 
-The pipeline does not discover your images by scanning a folder. You give it a CSV, one
-row per image, stating each image's dimensions.
+The pipeline does not discover your images by scanning a folder. You give it a CSV, one row per image, stating each image's dimensions. Image metadata is frequently missing, wrong, or interpreted differently by different readers, and the pipeline has to know the true shape of your data *before* it can split it up. The CSV ensures any mismatches are corrected automatically in the pipeline, and is considered to be the source of truth.
 
-That seems like a chore until you hit the reason for it: image metadata is frequently
-missing, wrong, or interpreted differently by different readers, and the pipeline has to
-know the true shape of your data *before* it can split it up. The CSV is where you get
-to be definitive.
+While this part is easier when automated by `aiod_napari`, we provide a helper function in `aiod_utils` and it is easily automatable.
 
-It has six columns:
+The CSV has six columns:
 
 ```csv
 img_path,num_slices,height,width,channels,dtype
@@ -122,27 +104,27 @@ img_path,num_slices,height,width,channels,dtype
 /data/img2.tif,40,2048,2048,2,uint16
 ```
 
-- `img_path` — the path as seen by the machine that will run the pipeline
-- `num_slices` — Z, or `1` for a 2D image
-- `height`, `width` — Y and X
-- `channels` — C, or `1`
-- `dtype` — optional; the pipeline reads it from the image if you leave it out
+- `img_path`: the path as seen by the machine that will run the pipeline
+- `num_slices`: Z, or `1` for a 2D image
+- `height`, `width`: Y and X
+- `channels`: C, or `1`
+- `dtype`: optional; the pipeline reads it from the image if you leave it out
 
 Column *order* does not matter, only the names.
 
-There are three ways to produce it, and for a handful of images the first is the fastest.
+!!! warning "Locality of `img_path`"
+
+    Note that above it says "the path as seen by the machine that will run the pipeline". If you are running the pipeline over SSH, the data must be on the remote machine, not local.
+
+    For most HPC setups this is inherently true, but it's important to ensure paths are on the filesystem where computation happens.
+
+There are three ways to produce this CSV, and for a handful of images the first is the fastest.
 
 === "Write it yourself"
 
-    It is six columns. Open an editor, type the rows, done — and you now know exactly
-    what you told the pipeline.
+    *Carefully* type it in, or modify a previous one that you've written/was generated.
 
-=== "Adapt an existing one"
-
-    If you have used the Napari plugin, it left one in your cache at
-    `~/.nextflow/aiod/aiod_cache/all_img_paths.csv`. Any previous headless run left
-    whatever you wrote last time. Copying a known-good file and editing the paths is the
-    lowest-risk route.
+    If you have used the Napari plugin, this will be at `~/.nextflow/aiod/aiod_cache/all_img_paths.csv`. Any previous headless run left whatever you wrote last time. Copying a known-good file and editing the paths is the lowest-risk route!
 
 === "Generate it"
 
@@ -168,24 +150,21 @@ There are three ways to produce it, and for a handful of images the first is the
     ```
 
     `Y` and `X` are required in each dict; `Z` and `C` default to `1` if you leave them
-    out. **Pass `index=False`** — without it you get an unnamed leading column of row
-    numbers, which is not a valid input.
+    out. **Without `index=False`, you get an unnamed leading column of row
+    numbers, which is not a valid input.**
 
     Note this reads the dimensions from the same metadata the CSV exists to override, so
-    treat the result as a first draft and check it.
+    treat the result as a first draft and check it!
 
 !!! warning "Check the numbers before you run"
 
-    A wrong `channels` or `num_slices` is not caught when the run starts. It surfaces
-    much later, inside the segmentation step — after the environment has been built and
-    the model downloaded — as:
+    A wrong `channels` or `num_slices` is not caught when the run starts. It surfaces later inside the segmentation step, after the environment has been built and the model downloaded, as:
 
     ```
-    Image shape {'C': 1, 'Z': 1, 'Y': 120, 'X': 120} does not match expected
-    channels and slices (3, 40).
+    Image shape {'C': 1, 'Z': 1, 'Y': 120, 'X': 120} does not match expected channels and slices (3, 40).
     ```
 
-    Thirty seconds checking the CSV saves you finding out the slow way.
+    A quick check of the CSV saves you finding out the slow way!
 
 ??? tip "No images to hand?"
 
@@ -211,13 +190,9 @@ nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.0 \
 
 Three parts of that are worth understanding:
 
-- **`-r 0.2.0`** pins the pipeline to a release. Without it you get whatever is on the
-  default branch today, which can change between runs — the pipeline will warn you when
-  you do this. Pin it, and your command means the same thing next year.
-- **`-profile local`** runs on this machine. On a cluster you would use a different one —
-  see [step 9](#9-running-it-on-hpc).
-- **No `--model_config`.** The model runs on its registry defaults. That is deliberate;
-  [step 6](#6-tune-the-model) covers changing them.
+- **`-r 0.2.0`** pins the pipeline to a specific (0.2.0) release. Without it you get whatever is on the default branch today, which can change between runs — the pipeline will warn you when you do this. Pin it, and your command means the same thing next year.
+- **`-profile local`** runs on your current machine. On a cluster you would use a different one — see [step 9](#9-running-it-on-hpc).
+- **No `--model_config`.** The model runs on its registry defaults. Later in [step 6](#6-tune-the-model) we will cover changing them.
 
 !!! warning "The first run is slow, and that is normal"
 
@@ -230,23 +205,34 @@ do. Confirm the model, variant and task are what you meant, and that `Revision` 
 tag you pinned:
 
 ```
+════════════════════════════════════════════════════
+              █████╗ ██╗        ██████╗
+             ██╔══██╗██║        ██╔══██╗
+             ███████║██║ █████╗ ██║  ██║
+             ██╔══██║██║██╔══██╗██║  ██║
+             ██║  ██║██║╚█████╔╝██████╔╝
+             ╚═╝  ╚═╝╚═╝ ╚════╝ ╚═════╝
+
+               S E G M E N T - F L O W
+════════════════════════════════════════════════════
 Started         : 2026-09-16 11:44:08
 Model name      : cellpose
 Model variant   : cyto3
 Task            : cyto
 Model config    : null
 Config Hash     : 4e2ebc27
-Image filepaths : ./imgs.csv
+Image filepaths : imgs.csv
 ---
 Cache directory : /Users/you/.nextflow/aiod/aiod_cache/cellpose
 Work directory  : /path/to/work
 Profile         : local
-Version         : 0.1.0
 Revision        : 0.2.0 (94c2798)
+---
+Full Command    : nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.0 -profile local --img_dir imgs.csv --model cellpose --model_type cyto3 --task cyto
+════════════════════════════════════════════════════
 ```
 
-`Config Hash` identifies this exact combination of parameters, and appears in your output
-filenames — note it down if you plan to run several variations.
+`Config Hash` identifies this exact combination of parameters, and appears in your output filenames — note it down if you plan to run several variations.
 
 Because you passed no config, the run also reports that it fell back to the registry:
 
@@ -263,10 +249,11 @@ AIoD finished SUCCESSFULLY at 2026-09-16 11:49:27 after 5m 20s
 ======================================================================
 ```
 
-!!! note "`Version` is not the pipeline version"
+!!! note "Ignore the `Version` line"
 
-    That line reports a value baked into the pipeline's manifest which has not tracked
-    the releases. `Revision` is the one that tells you what you are actually running.
+    The header also carries a `Version` field, reporting a value baked into the
+    pipeline's manifest that has not tracked the releases. `Revision` is the one that
+    tells you what you are actually running.
 
 ## 5. Find your results
 
