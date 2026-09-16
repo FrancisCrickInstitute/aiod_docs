@@ -29,10 +29,10 @@ manifest          name, short_name, metadata, params, config, usage_guide
 
 A few fields are easy to overlook:
 
-- [**`short_name`**](https://github.com/FrancisCrickInstitute/aiod_registry/blob/eb0871750c129fa18c080bff014da97d0bc50655/aiod_registry/schema.py#L268) — auto-derived from `name` if omitted (lowercased, spaces to underscores). It also names the [Python script and conda environment](../contributing/expanding.md#add-a-new-model-family_1) in the pipeline, so it is usually worth setting explicitly.
-- [**`slug`**](https://github.com/FrancisCrickInstitute/aiod_registry/blob/eb0871750c129fa18c080bff014da97d0bc50655/aiod_registry/schema.py#L260-L263) — a filesystem-safe identifier for a version, auto-derived from the version name the same way. Set it explicitly where the model's own identifiers are case-sensitive (as PanSeg's are), since auto-derivation lowercases.
-- [**`axes`**](https://github.com/FrancisCrickInstitute/aiod_registry/blob/eb0871750c129fa18c080bff014da97d0bc50655/aiod_registry/schema.py#L66-L75) — the dimension order a version expects, e.g. `YX` for 2D or `ZYX` for 3D. Must include both `Y` and `X`.
-- [**`param_type`**](https://github.com/FrancisCrickInstitute/aiod_registry/blob/eb0871750c129fa18c080bff014da97d0bc50655/aiod_registry/schema.py#L108-L176) — a channel-selection parameter is declared with `param_type: channel`, with `channel_start` setting whether the first option is `-1` (use the image as-is) or `0` (the first channel). A list-valued parameter can also carry a `default` naming which option is preselected.
+- [**`short_name`**](https://github.com/FrancisCrickInstitute/aiod_registry/blob/v0.2.0/aiod_registry/schema.py#L277) — auto-derived from `name` if omitted (lowercased, spaces to underscores). It also names the [Python script and conda environment](../contributing/expanding.md#add-a-new-model-family_1) in the pipeline, so it is usually worth setting explicitly.
+- [**`slug`**](https://github.com/FrancisCrickInstitute/aiod_registry/blob/v0.2.0/aiod_registry/schema.py#L269-L272) — a filesystem-safe identifier for a version, auto-derived from the version name the same way. Set it explicitly where the model's own identifiers are case-sensitive (as PanSeg's are), since auto-derivation lowercases.
+- [**`axes`**](https://github.com/FrancisCrickInstitute/aiod_registry/blob/v0.2.0/aiod_registry/schema.py#L66-L84) — the dimension order a version expects, e.g. `YX` for 2D or `ZYX` for 3D. Must include both `Y` and `X`.
+- [**`param_type`**](https://github.com/FrancisCrickInstitute/aiod_registry/blob/v0.2.0/aiod_registry/schema.py#L117-L185) — a channel-selection parameter is declared with `param_type: channel`, with `channel_start` setting whether the first option is `-1` (use the image as-is) or `0` (the first channel). A list-valued parameter can also carry a `default` naming which option is preselected.
 
 
 ## Automatic Ingest

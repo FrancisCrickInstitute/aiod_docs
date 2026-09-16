@@ -31,8 +31,8 @@ AIoD as a whole is designed to be easily extended, allowing for the addition of 
 
 The location of the model defined by the schema determines who can see and run it:
 
-- **URL:** All users can see and run the model ([Cellpose example](https://github.com/FrancisCrickInstitute/aiod_registry/blob/main/aiod_registry/manifests/cellpose.json#L71))
-- **Filepath:** Only users that have (read-)access to the filepath will see the model in the Napari plugin and be able to run it in the Segment-Flow pipeline ([internal U-Net example](https://github.com/FrancisCrickInstitute/aiod_registry/blob/main/aiod_registry/manifests/seai_unet.json#L25))
+- **URL:** All users can see and run the model ([Cellpose example](https://github.com/FrancisCrickInstitute/aiod_registry/blob/v0.2.0/aiod_registry/manifests/cellpose.json#L73))
+- **Filepath:** Only users that have (read-)access to the filepath will see the model in the Napari plugin and be able to run it in the Segment-Flow pipeline ([internal U-Net example](https://github.com/FrancisCrickInstitute/aiod_registry/blob/v0.2.0/aiod_registry/manifests/seai_unet.json#L27); note here that we have multiple paths defined to allow for usage on separate machines/by separate groups)
 
 The schema allows for multiple locations to be defined, allowing for custom, cross-institute usage for models that cannot yet be fully public. This is also useful in the case where an institute has decentralised workstations.
 

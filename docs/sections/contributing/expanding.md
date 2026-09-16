@@ -42,14 +42,14 @@ Each new schema needs:
 **You will then need to add the relevant script & environment to the Nextflow pipeline (see the [section below](#add-a-new-model-family_1)).**
 
 ### Add a New Model Version
-To add a new [model version](../concepts/index.md#model-version), you simply need to add a new entry within the existing manifest. Looking at a simple case like the [`empanada` model versions](https://github.com/FrancisCrickInstitute/aiod_registry/blob/eb0871750c129fa18c080bff014da97d0bc50655/aiod_registry/manifests/empanada.json#L23-L45) should help indicate how to do it!
+To add a new [model version](../concepts/index.md#model-version), you simply need to add a new entry within the existing manifest. Looking at a simple case like the [`empanada` model versions](https://github.com/FrancisCrickInstitute/aiod_registry/blob/v0.2.0/aiod_registry/manifests/empanada.json#L23-L45) should help indicate how to do it!
 
 A model version must contain:
 
 - A name
 - A task the model is used for
 - At least one entry under that task's `locations`, each with a `location` (filepath or URL — see [here](../concepts/index.md#model-location) for the implications of each)
-- (Optional) a `config_path` alongside a `location`, pointing to the config file for *that* copy of the model, which depending on how the model is interacted with might be necessary ([example](https://github.com/FrancisCrickInstitute/aiod_registry/blob/eb0871750c129fa18c080bff014da97d0bc50655/aiod_registry/manifests/seai_unet.json#L25-L34))
+- (Optional) a `config_path` alongside a `location`, pointing to the config file for *that* copy of the model, which depending on how the model is interacted with might be necessary ([example](https://github.com/FrancisCrickInstitute/aiod_registry/blob/v0.2.0/aiod_registry/manifests/seai_unet.json#L25-L34))
 
 Each task therefore takes a *list* of locations:
 
@@ -68,13 +68,13 @@ Each task therefore takes a *list* of locations:
 
 If this model version represents a new task that does not exist, see the [add a new task](#add-a-new-task) section below.
 
-If the model has different parameter inputs or additional metadata beyond the global, model family-level settings, these can be added for specific versions as indicated in the [Pydantic schema](https://github.com/FrancisCrickInstitute/aiod_registry/blob/eb0871750c129fa18c080bff014da97d0bc50655/aiod_registry/schema.py#L245-L263).
+If the model has different parameter inputs or additional metadata beyond the global, model family-level settings, these can be added for specific versions as indicated in the [Pydantic schema](https://github.com/FrancisCrickInstitute/aiod_registry/blob/v0.2.0/aiod_registry/schema.py#L265-L272).
 
 #### Add a New Model Location
-As discussed in our [Concepts section](../concepts/index.md#model-location) you may wish to keep a model private prior to publication, but have it used by multiple individuals in different locations. In this case, simply append another entry to that task's `locations` list ([example](https://github.com/FrancisCrickInstitute/aiod_registry/blob/eb0871750c129fa18c080bff014da97d0bc50655/aiod_registry/manifests/seai_unet.json#L25-L34)), and then the model will be available to users that have read-access to that location (if a filepath, otherwise as a URL all can access it).
+As discussed in our [Concepts section](../concepts/index.md#model-location) you may wish to keep a model private prior to publication, but have it used by multiple individuals in different locations. In this case, simply append another entry to that task's `locations` list ([example](https://github.com/FrancisCrickInstitute/aiod_registry/blob/v0.2.0/aiod_registry/manifests/seai_unet.json#L25-L34)), and then the model will be available to users that have read-access to that location (if a filepath, otherwise as a URL all can access it).
 
 ### Add a New Task
-If you add a model with a task that does not exist in our current list defined in the [schema](https://github.com/FrancisCrickInstitute/aiod_registry/blob/eb0871750c129fa18c080bff014da97d0bc50655/aiod_registry/schema.py#L15-L24) (`TASK_NAMES` dict), then you can [make a pull request](https://github.com/FrancisCrickInstitute/aiod_registry/pulls) with the new key:value (short name: long name) pair alongside the new/updated model schema you are adding.
+If you add a model with a task that does not exist in our current list defined in the [schema](https://github.com/FrancisCrickInstitute/aiod_registry/blob/v0.2.0/aiod_registry/schema.py#L15-L24) (`TASK_NAMES` dict), then you can [make a pull request](https://github.com/FrancisCrickInstitute/aiod_registry/pulls) with the new key:value (short name: long name) pair alongside the new/updated model schema you are adding.
 
 
 ## Nextflow Pipeline
@@ -112,14 +112,14 @@ Once done, see our section on [tuning the pipeline](../nextflow/index.md#tuning-
 
 You will need to add 2 things to the pipeline:
 
-1. A `run_<MODEL NAME>.py` script (where `<MODEL NAME>` matches the [`short_name`](https://github.com/FrancisCrickInstitute/aiod_registry/blob/eb0871750c129fa18c080bff014da97d0bc50655/aiod_registry/schema.py#L268) of the new schema)
+1. A `run_<MODEL NAME>.py` script (where `<MODEL NAME>` matches the [`short_name`](https://github.com/FrancisCrickInstitute/aiod_registry/blob/v0.2.0/aiod_registry/schema.py#L277) of the new schema)
 2. A `conda_<MODEL NAME>.yml` environment file to run the model
 
 #### Python Script
 The existing scripts can be [found here](https://github.com/FrancisCrickInstitute/Segment-Flow/tree/master/modules/models/resources/usr/bin), and simply handle how that specific model is run. it is therefore completely model-specific, with the exception of a couple of things that it should have:
 
-1. An entrypoint that loads our [argparser](https://github.com/FrancisCrickInstitute/Segment-Flow/blob/ad25971dd74a007162772315d264a348af7727a5/modules/models/resources/usr/bin/utils.py#L45-L74) to take inputs from the pipeline.
-2. Saves the output masks with [our function](https://github.com/FrancisCrickInstitute/Segment-Flow/blob/ad25971dd74a007162772315d264a348af7727a5/modules/models/resources/usr/bin/utils.py#L14-L42).
+1. An entrypoint that loads our [argparser](https://github.com/FrancisCrickInstitute/Segment-Flow/blob/0.2.0/modules/models/resources/usr/bin/utils.py#L67-L104) to take inputs from the pipeline.
+2. Saves the output masks with [our function](https://github.com/FrancisCrickInstitute/Segment-Flow/blob/0.2.0/modules/models/resources/usr/bin/utils.py#L36-L64).
 
 Look at any of the existing scripts for guidance if you are unsure (e.g. [Cellpose](https://github.com/FrancisCrickInstitute/Segment-Flow/blob/master/modules/models/resources/usr/bin/run_cellpose.py)), or [get in contact](../support/index.md#contact-us).
 

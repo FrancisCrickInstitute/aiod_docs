@@ -233,7 +233,7 @@ These are combined with a memory-derived size calculated from the `memory_per_jo
 ### Creating the Input CSV
 The input CSV file (e.g. `all_img_paths.csv` [above](#__codelineno-1-1)) provides a definitive source of truth for the dimensions of the input data, which can be useful in the cases of missing, incorrect or misunderstood metadata.
 
-You can use [`aiod_utils.image_paths_to_csv`](https://github.com/FrancisCrickInstitute/aiod_utils/blob/55667739a882ac1c9c4e127d041ffb09370e5cd6/aiod_utils/io.py#L80) to more easily create this CSV, though it requires providing a `dict` specifying the size of each dimension. Missing dimensions will be guessed, so it is important to review the generated CSV afterwards!
+You can use [`aiod_utils.image_paths_to_csv`](https://github.com/FrancisCrickInstitute/aiod_utils/blob/v0.2.0/aiod_utils/io.py#L374-L441) to more easily create this CSV, though it requires providing a `dict` specifying the size of each dimension. Missing dimensions will be guessed, so it is important to review the generated CSV afterwards!
 
 The resulting CSV should look like:
 ```csv
