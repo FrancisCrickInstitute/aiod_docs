@@ -31,7 +31,7 @@ That is the right choice when you are happy with a model's performance and just 
     3. Pick a `--model`/`--model_type`/`--task` from the [model reference](../model_registry/models.md) (e.g. `--model cellpose --model_type cyto3 --task cyto`)
     4. Run Segment-Flow:
        ```bash
-       nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.0 -profile local \
+       nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.1 -profile local \
          --img_dir imgs.csv --model cellpose --model_type cyto3 --task cyto
        ```
     5. Extract results from the cache: `~/.nextflow/aiod/aiod_cache/cellpose/cyto3_masks/` (or change `<model>/<model_type>_masks/` as needed)
@@ -180,7 +180,7 @@ match what you know about your data.
 ## 4. Run it
 
 ```bash
-nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.0 \
+nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.1 \
   -profile local \
   --img_dir imgs.csv \
   --model cellpose \
@@ -190,7 +190,7 @@ nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.0 \
 
 Three parts of that are worth understanding:
 
-- **`-r 0.2.0`** pins the pipeline to a specific (0.2.0) release. Without it you get whatever is on the default branch today, which can change between runs — the pipeline will warn you when you do this. Pin it, and your command means the same thing next year.
+- **`-r 0.2.1`** pins the pipeline to a specific (0.2.1) release. Without it you get whatever is on the default branch today, which can change between runs — the pipeline will warn you when you do this. Pin it, and your command means the same thing next year.
 - **`-profile local`** runs on your current machine. On a cluster you would use a different one — see [step 9](#9-running-it-on-hpc).
 - **No `--model_config`.** The model runs on its registry defaults. Later in [step 6](#6-tune-the-model) we will cover changing them.
 
@@ -226,9 +226,9 @@ Image filepaths : imgs.csv
 Cache directory : /Users/you/.nextflow/aiod/aiod_cache/cellpose
 Work directory  : /path/to/work
 Profile         : local
-Revision        : 0.2.0 (94c2798)
+Revision        : 0.2.1 (35a522a)
 ---
-Full Command    : nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.0 -profile local --img_dir imgs.csv --model cellpose --model_type cyto3 --task cyto
+Full Command    : nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.1 -profile local --img_dir imgs.csv --model cellpose --model_type cyto3 --task cyto
 ════════════════════════════════════════════════════
 ```
 
@@ -323,7 +323,7 @@ min_size: 15
 Edit the values you care about, leave the rest, and pass it back:
 
 ```bash
-nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.0 -profile local \
+nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.1 -profile local \
   --img_dir imgs.csv --model cellpose --model_type cyto3 --task cyto \
   --model_config my_config.yml
 ```
@@ -342,7 +342,7 @@ nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.0 -profile local \
 Add `-resume` to any run and Nextflow reuses the results of every step whose inputs have not changed:
 
 ```bash
-nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.0 -profile local \
+nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.1 -profile local \
   --img_dir imgs.csv --model cellpose --model_type cyto3 --task cyto \
   --model_config my_config.yml \
   -resume
@@ -372,7 +372,7 @@ output_format: tiff
 ```
 
 ```bash
-nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.0 -profile local \
+nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.1 -profile local \
   -params-file params.yml -resume
 ```
 
@@ -461,7 +461,7 @@ Everything so far runs on one machine. The reason to use Nextflow at all is that
 a cluster is a change of one flag:
 
 ```bash
-nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.0 \
+nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.1 \
   -profile crick \
   -params-file params.yml
 ```
@@ -516,10 +516,10 @@ If none of these fit, [get in touch or raise an issue](../support/index.md). Ple
 
 <div class="grid cards" markdown>
 
-- :material-tune: **Every parameter explained** — the [pipeline reference](../nextflow/index.md#parameters-explained) documents every input the pipeline accepts, including the ones this tutorial did not use.
-- :material-image-multiple: **All the models** — the [model reference](../model_registry/models.md) lists every family, version and task, with their parameters.
-- :material-scale-balance: **See what changed** — compare two results visually, or measure agreement between them, with the [Napari plugin's postprocessing tools](../front_ends/napari_plugin/postprocess.md).
-- :material-server: **Scale it up** — [tuning the pipeline](../nextflow/index.md#tuning-the-pipeline) covers getting the most out of a cluster.
-- :material-cog: **Add your own model** — if the model you want is missing, [adding it](../contributing/expanding.md) is a manifest entry and a script.
+- :material-tune: **Every parameter explained**: the [pipeline reference](../nextflow/index.md#parameters-explained) documents every input the pipeline accepts, including the ones this tutorial did not use.
+- :material-image-multiple: **All the models**: the [model reference](../model_registry/models.md) lists every family, version and task, with their parameters.
+- :material-scale-balance: **See what changed**: compare two results visually, or measure agreement between them, with the [Napari plugin's postprocessing tools](../front_ends/napari_plugin/postprocess.md).
+- :material-server: **Scale it up**: [tuning the pipeline](../nextflow/index.md#tuning-the-pipeline) covers getting the most out of a cluster.
+- :material-cog: **Add your own model**: if the model you want is missing, [adding it](../contributing/expanding.md) is a manifest entry and a script.
 
 </div>

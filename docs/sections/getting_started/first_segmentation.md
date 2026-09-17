@@ -223,11 +223,11 @@ Now that you have a baseline result, the interesting parts open up:
 
 <div class="grid cards" markdown>
 
-- :material-tune: **Improve the result** — adjust model parameters, or try a different model on the same task. The [Inference reference](../front_ends/napari_plugin/inference.md) covers every control in the widget.
-- :material-image-filter-center-focus: **Preprocess your images** — contrast adjustment and rescaling often matter more than the choice of model. See [Preprocessing](../front_ends/napari_plugin/inference.md#preprocessing).
-- :material-eraser: **Clean up masks** — filter objects by size, merge 2D masks into 3D, or compare two results visually with the [Postprocess widget](../front_ends/napari_plugin/postprocess.md).
-- :material-chart-box: **Measure agreement** — compare masks against a ground truth or against each other with the [Evaluation widget](../front_ends/napari_plugin/evaluation.md).
-- :material-server: **Scale up** — run on your institution's HPC to handle far larger data in parallel. Start with [Getting Started](./index.md).
-- :material-content-save-cog: **Work reproducibly** — save every setting in the panel to a [project config](../front_ends/napari_plugin/inference.md#project-configuration) to reload or share later.
+- :material-tune: **Improve the result**: adjust model parameters, or try a different model on the same task. The [Inference reference](../front_ends/napari_plugin/inference.md) covers every control in the widget.
+- :material-image-filter-center-focus: **Preprocess your images**: contrast adjustment and rescaling often matter more than the choice of model. See [Preprocessing](../front_ends/napari_plugin/inference.md#preprocessing).
+- :material-eraser: **Clean up masks**: filter objects by size, merge 2D masks into 3D, or compare two results visually with the [Postprocess widget](../front_ends/napari_plugin/postprocess.md).
+- :material-chart-box: **Measure agreement**: compare masks against a ground truth or against each other with the [Evaluation widget](../front_ends/napari_plugin/evaluation.md).
+- :material-server: **Scale up**: skip the GUI and run the pipeline straight from the terminal, on your own machine or your institution's HPC, with [Your First Headless Run](./first_headless_run.md).
+- :material-content-save-cog: **Work reproducibly**: save every setting in the panel to a [project config](../front_ends/napari_plugin/inference.md#project-configuration) to reload or share later.
 
 </div>

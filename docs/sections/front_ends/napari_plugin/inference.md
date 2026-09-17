@@ -100,7 +100,7 @@ The `.rle` format is the most compact, but cannot be read without the use of `ai
     All masks by default live in the [AIoD cache](../../concepts/index.md#caching), which should be periodically cleared. Therefore, once happy with results we recommend you export them to a more permanent location!
 
 ## Configuration
-The Napari plugin has a few key variables that you need to be aware of. The rest of the UI should be self-explanatory, but please see our [video tutorial](./index.md#tutorials) above for a fuller usage guide if you prefer.
+The Napari plugin has a few key variables that you need to be aware of. The rest of the UI should be self-explanatory, but please see our [video tutorial](./index.md#tutorial) above for a fuller usage guide if you prefer.
 
 ### Base/Cache Directory
 
