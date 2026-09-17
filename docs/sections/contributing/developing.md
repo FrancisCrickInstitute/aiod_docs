@@ -117,7 +117,7 @@ Note that `AIOD_NXF_REPO` does not persist — it applies only to the current sh
 
 The Nextflow pipeline steps each run in their own conda environment, defined by the YAML files in `Segment-Flow/modules/models/envs/`. These install `aiod_utils` as a pinned release from PyPI, so local edits are not automatically picked up — and neither is any fix, until a new version is released and the pins are bumped.
 
-There is no clean automated mechanism for this. The pragmatic approach is to temporarily edit the relevant YAML file(s) to replace the pinned version with a local editable install, run the pipeline, then revert before committing:
+Two approaches work, depending on whether you want a fresh environment or a quick swap into an existing one. The simplest (but not quickest) is to temporarily edit the relevant YAML file(s) to replace the pinned version with a local editable install, run the pipeline, then revert before committing:
 
 ```yaml
 # Replace this:
