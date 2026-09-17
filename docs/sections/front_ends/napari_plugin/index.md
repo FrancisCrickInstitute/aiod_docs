@@ -44,12 +44,8 @@ To easily visualise your data, and select the different models, parameters, and 
     If this is possible, then the [local installation instructions](#local) should work for you. If not, contact your HPC team or see our [contact page](../../support/index.md#contact-us) where we may be able to help.
 
 
-## Tutorials
+## Tutorial
 For a step-by-step walkthrough that takes you from nothing installed to a set of masks, see [Your First Segmentation](../../getting_started/first_segmentation.md).
-
-!!! under-construction "Under Construction!"
-
-    Video tutorials coming soon!
 
 ## Using the Plugin
 
