@@ -54,6 +54,8 @@ nav:
     - index.md
   - Getting Started:
     - sections/getting_started/index.md
+    - Your First Segmentation: sections/getting_started/first_segmentation.md
+    - Your First Headless Run: sections/getting_started/first_headless_run.md
   - AIoD Framework:
     - Concepts:
       - sections/concepts/index.md
@@ -66,8 +68,11 @@ nav:
         - Evaluation: sections/front_ends/napari_plugin/evaluation.md
     - Model Registry:
       - sections/model_registry/index.md
+      - Available Models: sections/model_registry/models.md
     - Nextflow Pipeline:
       - sections/nextflow/index.md
+    - Utilities:
+      - sections/utilities/index.md
   - Contributing:
     - sections/contributing/index.md
     - Adding Models: sections/contributing/expanding.md
@@ -77,6 +82,7 @@ nav:
     - sections/development/index.md
   - Contact/Support:
     - sections/support/index.md
+    - Troubleshooting: sections/support/troubleshooting.md
 
 
 markdown_extensions:
@@ -112,6 +118,9 @@ markdown_extensions:
 plugins:
   - search
   - glightbox
+  # Renders the model reference and home page cards from aiod_registry (see main.py)
+  - macros:
+      on_undefined: strict
 
 extra_css:
   - stylesheets/extra.css

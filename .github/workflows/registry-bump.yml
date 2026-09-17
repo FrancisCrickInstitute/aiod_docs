@@ -1,0 +1,153 @@
+# Receives the `package-version-bump` dispatch that aiod_registry's publish.yml
+# sends after a release reaches PyPI, and bumps the lockfile so the docs rebuild
+# against the new manifests.
+#
+# The model reference and home page cards are rendered from the installed
+# aiod-registry (see main.py), so the site only picks up new or changed models when
+# uv.lock moves. Merging the PR this opens redeploys with them.
+#
+# NOTE: this only fires once aiod_docs is added to the `notify-downstream` matrix
+# in aiod_registry's publish.yml. Until then, use workflow_dispatch.
+
+name: Bump aiod-registry
+
+on:
+  repository_dispatch:
+    types: [package-version-bump]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: registry-bump
+  cancel-in-progress: false
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    # aiod_utils dispatches the same event type; the docs only render from the
+    # registry, so ignore everything else.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.client_payload.package == 'aiod-registry'
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          # Capped below 3.13 by aiod-registry
+          python-version: '3.12'
+      - uses: astral-sh/setup-uv@11f9893b081a58869d3b5fccaea48c9e9e46f990 # v8.3.2
+
+      # Captured before the upgrade so the PR can link a compare range — that is
+      # what tells a reviewer whether anything beyond the manifests changed (a
+      # schema field, a new task), which the generated pages don't cover.
+      - name: Note the currently locked version
+        id: before
+        run: |
+          OLD=$(python - <<'PY'
+          import pathlib, re
+          block = re.search(
+              r'^name = "aiod-registry"\nversion = "([^"]+)"',
+              pathlib.Path("uv.lock").read_text(),
+              re.M,
+          )
+          print(block.group(1) if block else "")
+          PY
+          )
+          echo "version=$OLD" >> "$GITHUB_OUTPUT"
+
+      - name: Upgrade the lockfile
+        id: bump
+        run: |
+          uv lock --upgrade-package aiod-registry
+          if git diff --quiet uv.lock; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "aiod-registry already at the latest version; nothing to do."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            uv sync --group docs
+            VERSION=$(uv run python -c 'import aiod_registry; print(aiod_registry.__version__)')
+            echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          fi
+
+      # A release can add a model family, which needs a logo and grouping before its
+      # home page card looks right. The build warns about that; surface it in the PR
+      # rather than leaving it in a log nobody reads.
+      - name: Build and check for uncarded model families
+        if: steps.bump.outputs.changed == 'true'
+        id: check
+        run: |
+          uv run mkdocs build --site-dir /tmp/site 2>&1 | tee /tmp/build.log
+          if grep -q "has no entry in docs/data/model_cards.yml" /tmp/build.log; then
+            {
+              echo 'warnings<<WARN_EOF'
+              echo
+              echo '> [!WARNING]'
+              echo '> New model families have no entry in `docs/data/model_cards.yml`,'
+              echo '> so their home page cards will render without a logo:'
+              echo '>'
+              grep -o "Model family '[^']*'" /tmp/build.log | sort -u | sed 's/^/> - /'
+              echo WARN_EOF
+            } >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Commit and push branch
+        if: steps.bump.outputs.changed == 'true'
+        id: push
+        env:
+          VERSION: ${{ steps.bump.outputs.version }}
+        run: |
+          BRANCH="auto/bump-aiod-registry-${VERSION}"
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add uv.lock
+          git commit -m "chore(deps): bump aiod-registry to ${VERSION}"
+          git push --force origin "$BRANCH"
+          echo "branch=$BRANCH" >> "$GITHUB_OUTPUT"
+
+      - name: Open PR
+        if: steps.bump.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.bump.outputs.version }}
+          OLD_VERSION: ${{ steps.before.outputs.version }}
+          SOURCE_REPO: ${{ github.event.client_payload.source_repo }}
+          SOURCE_TAG: ${{ github.event.client_payload.source_tag }}
+          BRANCH: ${{ steps.push.outputs.branch }}
+          WARNINGS: ${{ steps.check.outputs.warnings }}
+        run: |
+          CHANGES="https://github.com/FrancisCrickInstitute/aiod_registry/releases"
+          if [ -n "$OLD_VERSION" ] && [ -n "$SOURCE_TAG" ]; then
+            CHANGES="https://github.com/FrancisCrickInstitute/aiod_registry/compare/v${OLD_VERSION}...${SOURCE_TAG}"
+          fi
+          gh pr create \
+            --base main \
+            --head "$BRANCH" \
+            --title "chore(deps): bump aiod-registry → ${VERSION}" \
+            --body "$(cat <<EOF
+          Automated bump triggered by a new release of [aiod-registry](https://pypi.org/project/aiod-registry/).
+
+          **New version:** \`${VERSION}\`
+          **Source repo:** \`${SOURCE_REPO}\`
+          **Source tag:** \`${SOURCE_TAG}\`
+
+          ### What changed
+          Only \`uv.lock\`. The [model reference](https://franciscrickinstitute.github.io/aiod_docs/sections/model_registry/models/)
+          and the home page cards are generated from the installed \`aiod-registry\`, so
+          merging this redeploys the site with the current manifests.
+
+          **Upstream changes:** ${CHANGES}
+
+          ### Checklist before merging
+          - [ ] The model reference lists any new families/versions as expected
+          - [ ] Any new family has a logo and grouping in \`docs/data/model_cards.yml\`
+          - [ ] If \`schema.py\` changed, \`docs/sections/model_registry/index.md\` still describes it correctly — that page is hand-written, not generated
+          ${WARNINGS}
+          EOF
+          )" \
+            --label "dependencies" \
+            --label "automated" \
+          || gh pr edit "$BRANCH" --title "chore(deps): bump aiod-registry → ${VERSION}"

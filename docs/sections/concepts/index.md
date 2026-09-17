@@ -31,8 +31,8 @@ AIoD as a whole is designed to be easily extended, allowing for the addition of 
 
 The location of the model defined by the schema determines who can see and run it:
 
-- **URL:** All users can see and run the model ([Cellpose example](https://github.com/FrancisCrickInstitute/AIoD-Model-Registry/blob/main/aiod_registry/manifests/cellpose.json#L71))
-- **Filepath:** Only users that have (read-)access to the filepath will see the model in the Napari plugin and be able to run it in the Segment-Flow pipeline ([internal U-Net example](https://github.com/FrancisCrickInstitute/AIoD-Model-Registry/blob/main/aiod_registry/manifests/seai_unet.json#L25))
+- **URL:** All users can see and run the model ([Cellpose example](https://github.com/FrancisCrickInstitute/aiod_registry/blob/v0.2.0/aiod_registry/manifests/cellpose.json#L73))
+- **Filepath:** Only users that have (read-)access to the filepath will see the model in the Napari plugin and be able to run it in the Segment-Flow pipeline ([internal U-Net example](https://github.com/FrancisCrickInstitute/aiod_registry/blob/v0.2.0/aiod_registry/manifests/seai_unet.json#L27); note here that we have multiple paths defined to allow for usage on separate machines/by separate groups)
 
 The schema allows for multiple locations to be defined, allowing for custom, cross-institute usage for models that cannot yet be fully public. This is also useful in the case where an institute has decentralised workstations.
 
@@ -41,7 +41,7 @@ The schema allows for multiple locations to be defined, allowing for custom, cro
     In general, we believe in making models publicly available for use by all, so we expect this feature is most useful for developmental/unpublished work, or when models are finetuned on proprietary/not-yet-public data.
 
 ### Model Versions/Variants & Tasks
-Each [model manifest](https://github.com/FrancisCrickInstitute/AIoD-Model-Registry/tree/main/aiod_registry/manifests) represents a "top-level" model family, something like [Cellpose](https://github.com/MouseLand/cellpose), [StarDist](https://github.com/stardist/stardist), [Segment Anything](https://github.com/facebookresearch/segment-anything), [Empanada](https://empanada.readthedocs.io/en/latest/index.html) etc. Each of these models may consist of many versions, but the key is that they can be run within a [single environment](#conda-environments) and Python script.
+Each [model manifest](https://github.com/FrancisCrickInstitute/aiod_registry/tree/main/aiod_registry/manifests) represents a "top-level" model family, something like [Cellpose](https://github.com/MouseLand/cellpose), [StarDist](https://github.com/stardist/stardist), [Segment Anything](https://github.com/facebookresearch/segment-anything), [Empanada](https://empanada.readthedocs.io/en/latest/index.html) etc. Each of these models may consist of many versions, but the key is that they can be run within a [single environment](#conda-environments) and Python script.
 
 #### Model Family 
 !!! info ""
@@ -101,17 +101,19 @@ $HOME/.nextflow/aiod
 └── README.md
 ```
 
-By default, the cache is in the `.nextflow` folder in your home directory (i.e. `~` or `$HOME`). You can change this in the [Napari plugin](??AIODNAPARICACHE??), or by using the [`root_dir` parameter in Segment-Flow](../nextflow/index.md#parameters-explained).
+By default, the cache is in the `.nextflow` folder in your home directory (i.e. `~` or `$HOME`). You can change this in the [Napari plugin](../getting_started/first_segmentation.md#5-configuring-your-cache-and-the-pipeline), or by using the [`root_dir` parameter in Segment-Flow](../nextflow/index.md#parameters-explained).
 
 !!! warning "Key Parameter"
     
-    For some HPC setups (including the Crick), your default home directory will have very little space. For non-local usage, we recommend changing this parameter. Guidance on choosing where can be found [here](??AIODNAPARICACHE??).
+    For some HPC setups (including the Crick), your default home directory will have very little space. For non-local usage, we recommend changing this parameter. Guidance on choosing where can be found [here](../front_ends/napari_plugin/inference.md#basecache-directory).
 
 
 
 #### Directory Explanation
 ##### `aiod_cache`
-This folder contains the checkpoints (i.e. actual model files) and outputs for each model, organised first under each major model name (Cellpose, SAM2 etc.), then under each specific model version. There is also a `checkpoints` folder that stores the actual model 
+This folder contains the checkpoints (i.e. actual model files) and outputs for each model, organised first under each [model family](#model-family) (Cellpose, SAM2 etc.), then under each specific [model version](#model-version) for the outputs, while the `checkpoints` folder stores the actual model versions.
+
+This folder also contains all Nextflow parameter files, which contain all input parameters and can be used to re-run pipelines. Each filename takes the format `nxf_params_<PARAM_HASH>.yml`, where the `<PARAM_HASH>` can be used align the input parameters with output masks which will also contain this hash.
 
 ##### `configs`
 This folder contains configuration files for the model parameters. These can be [generated by the Napari plugin](#napari-plugin), or directly by users.
@@ -122,13 +124,15 @@ This folder contains project files that can be loaded to autofill the Napari plu
 ##### `work`
 Nextflow's `work` directory is where outputs from each step of a Nextflow pipeline are stored. At the end of our pipeline, we move the final results to the relevant folder in the [`aiod_cache`](#aiod_cache) directory, so the contents of this folder can be periodically deleted (see more information on the [resume functionality](#direct-segment-flow-usage)). Further guidance on this directory can also be found in the [nf-core documentation](https://nf-co.re/docs/tutorials/storage_utilization/managing_work_directory_growth).
 
+This is also where [preprocessed copies of your data](../nextflow/index.md#preprocess-data) are written, as OME-Zarr, one per set of preprocessing parameters. These are the largest thing the pipeline produces, so this is the first place to look if you are short on space.
+
 
 ### Reproducibility (Hashing)
 #### Napari Plugin
 When using the Napari plugin (which creates all the input parameters for you), a unique hash (series of numbers & letters) is created as an identifier for your input data, options, and parameters. If the cache contains previous results with the same hash, then those results are loaded and no further computation is done.
 
 #### Direct `Segment-Flow` Usage
-If you are using the [Segment-Flow pipeline directly](../nextflow/index.md#running-the-pipeline-directly), then the input parameter files are yours to name and manage. You will, however, still benefit from the cache as the [Nextflow `work` directory](#work) will use Nextflow's resume capability to load previous results (for the same input).
+If you are using the [Segment-Flow pipeline directly](../nextflow/index.md#running-the-pipeline-directly), then the input parameter files are yours to name and manage. [The tutorial](../getting_started/first_headless_run.md#naming-your-runs) shows one way to keep a parameter file and the results it produced linked together. You will, however, still benefit from the cache as the [Nextflow `work` directory](#work) will use Nextflow's resume capability to load previous results (for the same input).
 
 For more information, see the [Nextflow documentation on `-resume`](https://www.nextflow.io/docs/latest/cache-and-resume.html).
 
@@ -156,7 +160,11 @@ As noted [above](#caching), the caches are semi-temporary, and may need to be pe
 
 Otherwise, you can delete the files however you usually would!
 
-<!-- TODO: ADD NOTE ON CACHE CLEANING THROUGH NEXTFLOW CLEAN -->
+!!! tip "Clearing the `work` directory"
+
+    For the [`work`](#work) directory specifically, Nextflow provides [`nextflow clean`](https://docs.seqera.io/nextflow/reference/cli/clean), which removes the intermediate files for previous runs while leaving your results in [`aiod_cache`](#aiod_cache) alone. It acts on the run history recorded where the pipeline was launched from, so run it from that same directory. On its own it only cleans the *most recent* run — use `nextflow log -q` to list them, then `-before`/`-after`/`-but` to select a range. Preview with `-n` before committing with `-f`.
+
+    Note that this discards the ability to [`-resume`](#direct-segment-flow-usage) the runs it cleans.
 
 ## Multiple Front-Ends
 The actual computation of AIoD happens in our Nextflow pipeline. As a result, we can connect any front-end to facilitate easier access and usage of AIoD.

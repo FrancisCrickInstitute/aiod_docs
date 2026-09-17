@@ -22,6 +22,20 @@ You can drag+drop into Napari as normal, or use these buttons to load specific f
 
 As shown, the number of loaded files (organised by extension) will be shown to make it clear what will be sent to the [Nextflow pipeline](../../nextflow/index.md).
 
+If you just want something to try the plugin on, **File :material-arrow-right: Open Sample :material-arrow-right: AI OnDemand :material-arrow-right: Example FIB SEM data** downloads a small 3D volume for you. The [first segmentation tutorial](../../getting_started/first_segmentation.md) walks through a full run using it.
+
+!!! warning "Filenames must be unique"
+
+    Images are identified by filename *and* extension, so two files that share both will be rejected before the run starts, even if they live in different directories. `sample1.tiff` in two folders is a conflict; `sample1.tiff` and `sample1.czi` are not.
+
+    Rename or move one of the offending files, or load them in separate runs. Files without an extension, or with one no reader recognises, are rejected for the same reason — the identity cannot be derived.
+
+#### Advanced Options
+
+Loaded images have their axis order read from file metadata, which is frequently missing or wrong. When it is, the channel and Z dropdowns show the wrong values, and the pipeline will split your data along the wrong dimensions.
+
+**Axes override** lets you state the order yourself, e.g. `ZCYX`, `CZYX`, or `ZYX` — the letters being `T` (time), `C` (channel), `Z` (depth), `Y` (height), `X` (width), and `S` (RGB samples). Clicking "Apply" updates every loaded image layer whose number of dimensions matches the length of what you typed, and reports back the dimensions it derived so you can confirm it took. Leave it blank to let the metadata decide.
+
 
 ### Preprocessing
 To enable each preprocessing function, click the :octicons-checkbox-16: checkbox. The order of the preprocessing functions is shown at the bottom, and is determined by the order in which the functions are clicked.
@@ -40,7 +54,7 @@ You can:
 The pipeline will run on *every saved set*!
 
 ### Pipeline Setup
-Before running the pipeline, make sure your cache shows a location where you have some space. Advice on selecting a cache location can be found here, but in short try to place it as centrally as possible if you are part of a group. Note that the location will be remembered between sessions.
+Before running the pipeline, make sure your cache shows a location where you have some space. Advice on selecting a cache location can be found [below](#basecache-directory), but in short try to place it as centrally as possible if you are part of a group. Note that the location will be remembered between sessions.
 
 You then have options to open the cache and selectively delete different parts, if you have run a lot of experiments and can remove old results.
 
@@ -50,13 +64,15 @@ For the execution profile, you should select the profile that matches where you 
 - If you are at the Crick and using NEMO, use `crick`
 - Otherwise, use your relevant institutional profile. If none exists, see [our guidance on adding one](../../contributing/expanding.md#add-a-profile).
 
+The dropdown lists whatever profiles ship with the plugin, currently `local`, `crick`, and `rosalind` (a local-executor profile tuned for a specific GPU workstation — a useful template if you are writing one for a single machine rather than a cluster).
+
 ![Screenshot of Nextflow pipeline options.](../../../assets/screenshots/inference_pipeline.png){width=75%}
 
 After clicking the "Run Pipeline!" button, the progress bar will update as each substack is completed to give an indication of progress and expected finish time!
 
 ??? tip "Advanced Options"
 
-    This dropdown allows you to adjust how the images are split. As the default biases towards a cuboid shape, for some models+data (particularly 2D models) you may prefer to create substacks with a larger XY and smaller Z.
+    This dropdown allows you to adjust how the images are split. As the default keeps each substack proportional to the shape of your image, for some models+data (particularly 2D models) you may prefer to create substacks with a larger XY and smaller Z.
 
     As discussed [here](../../nextflow/index.md#individual-level), users do not have complete control over the shapes to avoid overloading available hardware. The substack size number of jobs that will be submitted with the current settings is shown at the bottom.
 
@@ -67,7 +83,7 @@ After clicking the "Run Pipeline!" button, the progress bar will update as each 
 
 For ease of use (especially when switching between projects), you can save and load a project config. This will store and load and every single UI selection across the plugin, making it quick to e.g. re-select model parameters and preprocessing sets.
 
-![Screenshot of data preprocessing options.](../../../assets/screenshots/inference_projconf.png){width=75%}
+![Screenshot of the project config options, showing the save and load buttons.](../../../assets/screenshots/inference_projconf.png){width=75%}
 
 ### Mask Export
 
@@ -75,12 +91,16 @@ You can export all masks, or if you have a `Labels` layer selected just export t
 
 The `.rle` format is the most compact, but cannot be read without the use of `aiod_utils`. For use with other programs, we recommend to export as a `.tiff`.
 
+!!! tip "Reading masks back in"
+
+    Installing the plugin also teaches Napari the `.rle` format, so exported masks can be dragged straight back into the viewer as a `Labels` layer later (`.pkl` and `.pickle` are read too). The same works through **File :material-arrow-right: Save Selected Layer**, which offers `.rle` for any `Labels` layer — handy if you have postprocessed a mask and want to keep the compact format.
+
 !!! warning "Export for Permanency!"
 
     All masks by default live in the [AIoD cache](../../concepts/index.md#caching), which should be periodically cleared. Therefore, once happy with results we recommend you export them to a more permanent location!
 
 ## Configuration
-The Napari plugin has a few key variables that you need to be aware of. The rest of the UI should be self-explanatory, but please see our [video tutorial](./index.md#tutorials) above for a fuller usage guide if you prefer.
+The Napari plugin has a few key variables that you need to be aware of. The rest of the UI should be self-explanatory, but please see our [video tutorial](./index.md#tutorial) above for a fuller usage guide if you prefer.
 
 ### Base/Cache Directory
 
@@ -135,11 +155,21 @@ Note that, as discussed [here](../../concepts/index.md#project_configs), these f
 
 ## Execution over SSH
 
+!!! under-construction "Not in a released version yet"
+
+    SSH execution is **not** in the published `aiod_napari` package, so the options described below will not appear in an install from PyPI or from within Napari. To try it, install from the [`AIOD-352` branch](https://github.com/FrancisCrickInstitute/aiod_napari/tree/AIOD-352):
+
+    ```
+    uv pip install git+https://github.com/FrancisCrickInstitute/aiod_napari.git@AIOD-352
+    ```
+
+    We are still making sure it works across a range of setups at different institutions, so please [contact us](../../support/index.md#contact-us) if you are interested and unsure where to start.
+
 !!! warning
 
     This is a more advanced feature that requires you to have SSH keys setup with access to your HPC (or to wherever the computation is taking place, e.g. a workstation).
 
-It is possible with our Napari plugin to remotely execute the Nextflow pipeline, allowing you to e.g. run Napari locally, while running the segmentation distributed on your HPC, and receiving the results locally to view. Note that running the Nextflow pipeline directly may be simpler, however, and is discussed [here](../../nextflow/index.md#running-the-pipeline-directly).
+It is possible with our Napari plugin to remotely execute the Nextflow pipeline, allowing you to e.g. run Napari locally, while running the segmentation distributed on your HPC, and receiving the results locally to view. Note that running the Nextflow pipeline directly may be simpler, however. See [Your First Headless Run](../../getting_started/first_headless_run.md) for a walkthrough, or the [pipeline reference](../../nextflow/index.md#running-the-pipeline-directly) for the full set of inputs.
 
 To do this, you will need:
 
@@ -181,9 +211,9 @@ The parameters are as follows:
 
     === "Crick"
 
-        4. Create an interactive session, which you can do via an OnDemand session or an `nint` session.
-        5. Ensure that you have NEMO mounted locally. Change your ["Base directory"](#basecache-directory) to an appropriate location in the mounted drive (i.e. somewhere on NEMO with space, or wherever your current AIoD cache is).
-        6. Configure the SSH settings:
+        1. Create an interactive session, which you can do via an OnDemand session or an `nint` session.
+        2. Ensure that you have NEMO mounted locally. Change your ["Base directory"](#basecache-directory) to an appropriate location in the mounted drive (i.e. somewhere on NEMO with space, or wherever your current AIoD cache is).
+        3. Configure the SSH settings:
             - _"Hostname"_: `login.nemo.thecrick.org`
             - _"Target node"_: The node assigned in step 1, e.g. `cn093`
             - _"Username"_: Your NEMO username
@@ -192,4 +222,4 @@ The parameters are as follows:
             - _"Mounted path prefix"_: `/Volumes/` (for Mac; for Windows use the appropriate letter where you have mounted the drive)
             - _"Command prepend"_: `ml Nextflow/24.04.1`
             - Then select the SSH key you have authenticated for NEMO
-        7. Run the pipeline as normal!
+        4. Run the pipeline as normal!

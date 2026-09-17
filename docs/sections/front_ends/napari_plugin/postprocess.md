@@ -27,7 +27,7 @@ Users can provide a value, and determine how to filter with this value using the
 
 !!! example
 
-    ![Regionsprops filter screenshot, showing area property, and a greater than or equal to threshold of 500.](../../../assets/screenshots/filter_regionprops.png){width=75%}
+    ![Regionprops filter screenshot, showing area property, and a greater than or equal to threshold of 500.](../../../assets/screenshots/filter_regionprops.png){width=75%}
 
     Here, **we will keep any regions that have an area of 500 or more pixels**.
 
@@ -47,7 +47,7 @@ It will create a new layer that has a unique colour for every combination of mas
 
 !!! example
 
-    ![Regionsprops filter screenshot, showing area property, and a greater than or equal to threshold of 500.](../../../assets/screenshots/visualize_overlaps.png){width=100%}
+    ![Visualize Overlaps screenshot, showing MitoNet output under two different CLAHE settings, with each combination of overlapping masks in its own colour.](../../../assets/screenshots/visualize_overlaps.png){width=100%}
 
     In this example, we have compared the outputs of MitoNet with 2 different parameter settings for CLAHE, highlighting where the preprocessing values are helping the model to capture different parts of cells!
 

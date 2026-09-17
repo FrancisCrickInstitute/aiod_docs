@@ -41,8 +41,8 @@
 }
 
 .model-card img {
-  width: 64px;
-  height: 64px;
+  width: 96px;
+  height: 96px;
   object-fit: contain;
 }
 
@@ -62,4 +62,21 @@
   background-color: rgb(255, 231, 10);
   -webkit-mask-image: var(--md-admonition-icon--shovel);
           mask-image: var(--md-admonition-icon--shovel);
+}
+
+/* Screencast clips, sized to match the 75%-width screenshots they sit alongside */
+.docs-clip {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  border-radius: 0.2rem;
+  box-shadow: var(--md-shadow-z1);
+  background-color: var(--md-default-bg-color);
+}
+
+/* Full width once the viewport is too narrow for 75% to stay legible */
+@media screen and (max-width: 76.1875em) {
+  .docs-clip {
+    width: 100%;
+  }
 }

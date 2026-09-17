@@ -1,0 +1,25 @@
+[project]
+name = "aiod-docs"
+version = "0"
+description = "Documentation site for AI OnDemand (AIoD)"
+# Upper bound tracks aiod-registry, which the model reference is generated from
+requires-python = ">=3.11,<3.13"
+
+[dependency-groups]
+# Everything needed to build the site locally: `uv sync --group docs`
+docs = [
+    "mkdocs>=1.6,<2",
+    "mkdocs-material>=9.7,<10",
+    "mkdocs-material-extensions>=1.3,<2",
+    "mkdocs-glightbox>=0.5,<1",
+    "mkdocs-macros-plugin>=1.3,<2",
+    # The model reference and home page cards are rendered from the manifests
+    "aiod-registry>=0.2",
+]
+
+# Nothing here is packaged or published — this repo only builds a site
+[tool.uv]
+package = false
+# A new aiod-registry release is the whole point of rebuilding, so it must not sit
+# behind the usual new-release cooldown
+exclude-newer-package = { aiod_registry = false }

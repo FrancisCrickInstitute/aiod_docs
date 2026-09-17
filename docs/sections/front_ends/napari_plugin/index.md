@@ -1,26 +1,32 @@
-# AIoD Napari Plugin
+# AIoD Napari Plugin ([`aiod_napari`](https://pypi.org/project/aiod-napari/))
 
-To easily visualise your data, and select the different models, parameters, and other options within AIoD, we have developed a [Napari plugin](https://github.com/FrancisCrickInstitute/ai-on-demand).
+To easily visualise your data, and select the different models, parameters, and other options within AIoD, we have developed a [Napari plugin](https://github.com/FrancisCrickInstitute/aiod_napari).
 
 ## Installation
 
 === "Local"
 
-    1. Create a virtual environment using your favourite tool (`venv`, `uv`, `conda`, `pixi` etc.)
+    1. Create a virtual environment — we recommend [`uv`](https://docs.astral.sh/uv/getting-started/installation/), though `venv`, `conda`, or `pixi` all work:
+
+    ```
+    uv venv aiod-env
+    source aiod-env/bin/activate
+    ```
+
     2. Install Napari: [Official guide](https://napari.org/stable/tutorials/fundamentals/installation.html)
-    3. In your environment, install our plugin via `pip`:
+    3. In your environment, install our plugin.
 
     For the latest published version:
 
     ```
-    pip install aiod_napari
+    uv pip install aiod_napari
     ```
 
     or [install through Napari directly](https://napari.org/dev/plugins/start_using_plugins/finding_and_installing_plugins.html).
-    
+
     For the most recent version:
     ```
-    pip install git+https://github.com/FrancisCrickInstitute/ai-on-demand.git
+    uv pip install git+https://github.com/FrancisCrickInstitute/aiod_napari.git
     ```
 
 === "Crick HPC (NEMO)"
@@ -33,17 +39,13 @@ To easily visualise your data, and select the different models, parameters, and 
 
     To use the Napari plugin, you must be able to run Napari on your institute's HPC, through something like [Open OnDemand](https://www.openondemand.org/) or some other service that provides a visual server/interface.
 
-    If this is not possible, either see our section on [running the Nextflow pipeline directly](../../nextflow/index.md#running-the-pipeline-directly) or contact your HPC about setting this up.
+    If this is not possible, you can skip the GUI entirely. [Your First Headless Run](../../getting_started/first_headless_run.md) walks through running the pipeline from the terminal. Otherwise, contact your HPC about setting this up!
 
     If this is possible, then the [local installation instructions](#local) should work for you. If not, contact your HPC team or see our [contact page](../../support/index.md#contact-us) where we may be able to help.
 
 
-## Tutorials
-If you prefer video tutorials over the written content of this page, see the videos below:
-
-!!! under-construction "Under Construction!"
-
-    Video tutorials coming soon!
+## Tutorial
+For a step-by-step walkthrough that takes you from nothing installed to a set of masks, see [Your First Segmentation](../../getting_started/first_segmentation.md).
 
 ## Using the Plugin
 

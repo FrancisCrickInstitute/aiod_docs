@@ -1,4 +1,4 @@
-# Nextflow Pipeline (`Segment-Flow`)
+# Nextflow Pipeline ([`Segment-Flow`](https://github.com/FrancisCrickInstitute/Segment-Flow))
 
 Our [Nextflow pipeline](https://github.com/FrancisCrickInstitute/Segment-Flow) is where the actual code and processes for running models, and orchestrating the parallelization happens.
 
@@ -45,7 +45,7 @@ This step will run any specified preprocess functions (from the [available funct
 
 !!! note "Temporary Copy"
 
-    At present, this will create a copy of the data within the [cache](../concepts/index.md#caching). For large input data, it is recommend to [periodically clear the cache](../concepts/index.md#clearing-the-cache) to avoid issues.
+    This writes a preprocessed copy of the data as OME-Zarr into Nextflow's [`work` directory](../concepts/index.md#work), one per set of preprocessing parameters. For large input data, it is recommended to periodically clear that directory to avoid issues.
 
 For each _set_ of preprocessing parameters, the pipeline will be run over that version of the data. This can quickly generate a lot of jobs, but can be incredibly useful when e.g. using multiple parameters of CLAHE to differentially improve performance in different regions, creating a superior composite result. See the [examples below](#preprocessing-examples) for how to structure the input for one or more sets.
 
@@ -81,7 +81,12 @@ If `iou_threshold>0`, then masks will only be labelled the same over Z-slices if
 
 
 ## Running the Pipeline Directly
-The Nextflow pipeline can be run directly, allowing headless use and avoiding Napari or any other front-end. Although more work is required in specifying the input parameters, 
+
+!!! tip "Looking for a walkthrough?"
+
+    This section is the reference for every input the pipeline accepts. If you have not run it from the terminal before, [Your First Headless Run](../getting_started/first_headless_run.md) goes from nothing to masks step by step, and covers the parts with no GUI equivalent.
+
+The Nextflow pipeline can be run directly, allowing headless use and avoiding Napari or any other front-end. Although more work is required in specifying the input parameters, this can be significantly faster for users who are happy with model performance and just want to segment a lot of data without wanting to keep Napari open!
 
 An example run command may look like:
 
@@ -95,12 +100,10 @@ Where the [params-file](https://www.nextflow.io/docs/latest/cli.html#pipeline-pa
 img_dir: /Users/shandc/.nextflow/aiod/aiod_cache/all_img_paths.csv
 iou_threshold: 0.8
 model: empanada
-model_chkpt_fname: MitoNet_v1.pth
-model_chkpt_loc: https://zenodo.org/record/6861565/files/MitoNet_v1.pth?download=1
-model_chkpt_type: url
-model_config: /Users/shandc/.nextflow/aiod/configs/mito-empanada-MitoNet-v1_config_e92afea9536c4ab53e377fb8c6ffe01c.yaml
-model_type: MitoNet-v1
+model_type: mitonet_v1
 num_substacks: auto,auto,auto
+output_format: rle
+output_mask_type: auto
 overlap: 0.0,0.0,0.0
 param_hash: 43e45ccf52a1503556b86df6e8b47959
 postprocess: false
@@ -109,14 +112,22 @@ root_dir: /Users/shandc/.nextflow/aiod
 task: mito
 ```
 
+**Note many of these parameters have defaults and don't need to be included here! Only `img_dir`, `model`, `model_type`, and `task` are required!**
+
+A complete list of parameters with some guidance can be obtained via:
+
+```
+nextflow run -latest FrancisCrickInstitute/Segment-Flow --help
+```
+
 !!! info "What's wrong with your filenames?"
 
     In the example above, the files were generated automatically by the Napari plugin to maximize [reproducibility](../concepts/index.md#reproducibility-hashing).
 
-    For running the pipeline directly, we recommended using some clear, traceable naming system, whether that's using datetime or some other format.
+    For running the pipeline directly, we recommended using some clear, traceable naming system, whether that's using datetime or some other format. Setting `param_hash` yourself is how you do that — see [naming your runs](../getting_started/first_headless_run.md#naming-your-runs) for a worked example and the trade-off it carries.
 
 #### Command Explained
-Brief explanation of the arguments used in the command above:
+Brief explanation of the arguments used in the execution/run command above:
 
 - `-log`: Path for the log file
 - `-latest`: Pulls the latest version of the [repo](https://github.com/FrancisCrickInstitute/Segment-Flow) before running
@@ -128,24 +139,33 @@ For other arguments, see the [Nextflow documentation](https://www.nextflow.io/do
 
 #### Parameters Explained
 
-!!! under-construction "To be improved!"
-
-    This will be simplified in an upcoming release!
+**Required:**
 
 - `img_dir`: Path to the CSV that defines the input image data (details [below](#creating-the-input-csv))
+- `model`: Name of the [model family](../concepts/index.md#model-family) to use (the `short_name` from its [registry manifest](../model_registry/index.md#schema))
+- `model_type`: The [model version](../concepts/index.md#model-version) to use, given as its registry `slug`
+- `task`: The [task](../concepts/index.md#task) the selected model version should perform
+
+**Optional:**
+
 - `iou_threshold`: Threshold for [IoU postprocessing](#postprocessing)
-- `model`: Name of the [model family](../concepts/index.md#model-family) to use
-- `model_chkpt_fname`: Filename of the model checkpoint to use
-- `model_chkpt_loc`: Location of the model checkpoint to use (full system filepath or URL)
-- `model_chkpt_type`: Whether the `model_chkpt_loc` is a "url" or "file"
-- `model_config`: Path to a configuration file to path to the specified model
-- `model_type`: The model version to use
+- `model_config`: Path to a configuration file of parameters for the specified model. Omit it to use the [default config generated from the registry](../model_registry/index.md#automatic-ingest)
 - `num_substacks`: How many substacks to create when splitting (recommended to use the default: `auto,auto,auto`)
+- `output_format`: Format to write the final masks in — `rle` or `tiff`
+- `output_mask_type`: Whether masks are written as `binary`, `instance`, or `auto` to let the model's output decide
 - `overlap`: Amount of overlap to use in substack creation (HWD / YXZ format)
-- `param_hash`: Unique ID for reproducibility and identifying this run (see [here](../concepts/index.md#reproducibility-hashing) for details)
+- `param_hash`: Unique ID for reproducibility and identifying this run (see [here](../concepts/index.md#reproducibility-hashing) for details). Computed for you if omitted; set it to [name your runs](../getting_started/first_headless_run.md#naming-your-runs) something readable
 - `postprocess`: Whether to run connected components on the final, combined masks (`true`/`false`)
 - `preprocess`: Preprocessing parameters to use (see [examples below](#preprocessing-examples))
 - `root_dir`: Root [cache directory](../concepts/index.md#caching)
+
+**Advanced** — a few further parameters cap substack size, which most users will not need to set:
+
+- `max_substack`: Global upper bound on substack size as `[H, W, D]`, applied to any model without a specific entry below
+- `model_max_substack`: Per-model-family overrides of the above. An axis set to `null` is uncapped, deferring to the memory budget. Depth is the intended lever for controlling how long each job runs
+- `substack_scale`: Single multiplier applied to *all* of the caps above, intended to be set once per deployment in the [execution profile](../contributing/expanding.md#add-a-profile) (e.g. `0.5` for a weaker GPU, giving smaller and therefore more numerous jobs)
+
+These are combined with a memory-derived size calculated from the `memory_per_job` value in the [profile](../contributing/expanding.md#add-a-profile), with the smaller of the two winning on each axis.
 
 ##### Preprocessing Examples
 1. Single set of preprocessing parameters:
@@ -168,7 +188,7 @@ For other arguments, see the [Nextflow documentation](https://www.nextflow.io/do
     ...
     ```
 
-2. Two sets of preprocessing parameters (the pipeline will be run twice for each set of preprocessing parameters)
+2. Two sets of preprocessing parameters (the pipeline will be run twice, once for each set of preprocessing parameters)
     ```yaml
     ...
     preprocess:
@@ -195,25 +215,49 @@ For other arguments, see the [Nextflow documentation](https://www.nextflow.io/do
     ...
     ```
 
+3. An *empty* set (`- []`) means "no preprocessing", so the model is also run on your original data alongside the other sets. This is useful for comparing raw against preprocessed results in a single run, and no copy of your data is made for the empty set.
+    ```yaml
+    ...
+    preprocess:
+    - []
+    - - name: CLAHE
+        params:
+          clipLimit: 5.0
+          tileGridSize:
+          - 15
+          - 15
+    ...
+    ```
+
+!!! tip "Which hash was which?"
+
+    Each set of preprocessing parameters is identified by a hash, which appears in the output mask filenames. To save you decoding them, the pipeline logs a legend at the start of the run mapping each hash to the set it came from!
+
 **Note that it's much easier when the Napari plugin generates this for you!**
 
 ### Creating the Input CSV
 The input CSV file (e.g. `all_img_paths.csv` [above](#__codelineno-1-1)) provides a definitive source of truth for the dimensions of the input data, which can be useful in the cases of missing, incorrect or misunderstood metadata.
 
-You can use [`aiod_utils.image_paths_to_csv`](https://github.com/FrancisCrickInstitute/aiod_utils/blob/55667739a882ac1c9c4e127d041ffb09370e5cd6/aiod_utils/io.py#L80) to more easily create this CSV, though it requires providing a `dict` specifying the size of each dimension. Missing dimensions will be guessed, so it is important to review the generated CSV afterwards!
-
-The resulting CSV should look like:
+It has six columns, one row per image:
 ```csv
-img_path,num_slices,height,width,channels
-<path>,5,1000,1000,3
+img_path,num_slices,height,width,channels,dtype
+<path>,5,1000,1000,3,uint16
 ...
 ```
+
+`num_slices`, `height`, `width` and `channels` are Z, Y, X and C respectively (use `1` for the dimensions your data does not have). Column *order* does not matter, but the names do. `dtype` is optional — it is read from the image if omitted.
+
+For a walkthrough of writing this by hand, adapting an existing one, or generating it with [`aiod_utils.image_paths_to_csv`](https://github.com/FrancisCrickInstitute/aiod_utils/blob/v0.2.0/aiod_utils/io.py#L374-L441), see [step 3 of the headless tutorial](../getting_started/first_headless_run.md#3-describe-your-images).
+
+!!! warning "Dimensions are not inferred"
+
+    Whichever route you take, the values are taken at face value — nothing is guessed. A wrong `channels` or `num_slices` is not caught when the run starts; it surfaces inside the segmentation step, after the environment build and model download. Check the numbers before you run.
 
 !!! warning "Filepaths"
 
     The filepaths in this CSV are the paths for wherever the computation is actually taking place, so the paths need to make sense for where the pipeline is actually running.
     
-    When working locally and sending the command to the HPC, the filepath(s) must be those on the HPC itself, not e.g. the mounted path. For more information, see our section on [executing over SSH](../front_ends/napari_plugin/inference.md#execution-over-ssh).
+    When working locally but running the pipeline on HPC, the filepath(s) must be those on the HPC itself, not e.g. the mounted path. See [running it on HPC](../getting_started/first_headless_run.md#9-running-it-on-hpc) for the other things that change when the pipeline runs somewhere else.
 
 
 ## Tuning the Pipeline
