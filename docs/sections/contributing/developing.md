@@ -132,8 +132,40 @@ There is no clean automated mechanism for this. The pragmatic approach is to tem
 !!! warning
     Remember to revert these YAML changes before committing — they should never be merged into the repository!
 
-!!! under-construction
-    We have a Bash script + skill that allows agents to robustly swap published and development versions of packages into the Nextflow envs, avoiding needed to rebuild. We will publish this soon! 
+#### Swapping Without a Rebuild
+
+Editing the YAML rebuilds the whole environment, which is safe but slow if you are iterating. `Segment-Flow` also ships [`scripts/dev_swap_conda_pkg.sh`](https://github.com/FrancisCrickInstitute/Segment-Flow/blob/master/scripts/dev_swap_conda_pkg.sh), which instead swaps a local checkout into an *existing* cached environment and guarantees it is put back:
+
+```bash
+# Find which cached envs currently have the package installed
+$ ./scripts/dev_swap_conda_pkg.sh list aiod_utils
+
+# Swap in, run, and always restore - even if the run fails or you Ctrl-C
+$ ./scripts/dev_swap_conda_pkg.sh run \
+    --env ~/.nextflow/aiod/conda/env-<hash> \
+    --package aiod_utils \
+    --local-path /path/to/your/aiod_utils \
+    -- nextflow run . -profile local --img_dir /path/to/images
+```
+
+Prefer `run` over the separate `swap` and `restore` commands: it restores on every exit path, whereas with `swap` you are responsible for remembering the other half.
+
+!!! danger "Never edit a cached environment by hand"
+
+    Do not `pip install -e` into `~/.nextflow/aiod/conda/env-*` yourself. Those directories are named by a hash of the YAML that describes them, so a hand-edited one silently breaks that promise — every later run reusing that cache gets code the YAML does not describe, and nothing surfaces it until something inexplicable breaks much later. The script exists to make the swap and the restore a single guaranteed unit.
+
+If you suspect an environment has already drifted — from a swap done before this script existed, or one done by hand — `audit` compares what is actually installed against what the YAML declares, and `fix-drift` repairs it:
+
+```bash
+$ ./scripts/dev_swap_conda_pkg.sh audit aiod_utils
+$ ./scripts/dev_swap_conda_pkg.sh fix-drift aiod_utils --yes
+```
+
+`fix-drift` is a dry run unless you pass `--yes`. Both take a single package by design rather than sweeping every pinned dependency: packages such as `torch` are legitimately pinned differently between the `cuda` and `generic` environment variants, so a repo-wide check would be mostly noise. They are most useful for our own packages, which are pinned identically everywhere.
+
+!!! note "Agents get this rule automatically"
+
+    The same guidance is checked in as a skill at `.claude/skills/dev-swap-conda-pkg/`, so an agent working in `Segment-Flow` picks it up without being told.
 
 ## Pre-building Model Environments
 
