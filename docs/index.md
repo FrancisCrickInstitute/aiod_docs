@@ -46,6 +46,8 @@ Here's a simplified GIF outlining AIoD:
 
 ![AIoD Overview](./assets/aiod_overview_animated.gif)
 
+For the full picture, we have a [recorded talk introducing AIoD](./sections/getting_started/index.md#introductory-talk) (~1 hour).
+
 
 !!! note "Cricksters"
 

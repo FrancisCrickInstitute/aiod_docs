@@ -80,3 +80,15 @@
     width: 100%;
   }
 }
+
+/* Third-party video embeds (e.g. YouTube), which have no intrinsic size to scale from */
+.docs-embed {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: 0.2rem;
+  box-shadow: var(--md-shadow-z1);
+  background-color: var(--md-default-bg-color);
+}

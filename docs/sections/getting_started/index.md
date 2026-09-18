@@ -59,7 +59,18 @@ We have several tutorials to guide users through installation and usage of the m
 
 !!! under-construction "Under Construction!"
 
-    Video tutorials coming soon! Until then, please find links to our written tutorials below.
+    Short video walkthroughs of each workflow are coming soon! Until then, the talk below covers AIoD as a whole, and the written tutorials cover the main entrypoints (Napari & Nextflow) step-by-step.
+
+### Introductory Talk
+
+A recorded talk introducing AIoD for a general audience. It's an hour in total, so if you are here to get something running quickly, start with the written tutorials below instead!
+
+<iframe class="docs-embed"
+  src="https://www.youtube-nocookie.com/embed/2yWhYc0Ibhw"
+  title="AI OnDemand: An extendable, user-friendly framework for segmenting images at scale"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+  referrerpolicy="strict-origin-when-cross-origin"
+  allowfullscreen></iframe>
 
 ### Running Models (via Napari)
 For a step-by-step written walkthrough of a first run, see [Your First Segmentation](./first_segmentation.md).
