@@ -1,0 +1,3104 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="AIoD is a framework for running any AI model on images at scale.">
+      
+      
+      
+        <link rel="canonical" href="https://franciscrickinstitute.github.io/aiod_docs/sections/model_registry/models/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../../nextflow/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/CRICK_Logotype_black_RGB.jpg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Available Models - AI OnDemand (AIoD)</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../../../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#available-models" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="AI OnDemand (AIoD)" class="md-header__button md-logo" aria-label="AI OnDemand (AIoD)" data-md-component="logo">
+      
+  <img src="../../../assets/CRICK_Brandmark_01_transparent.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AI OnDemand (AIoD)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Available Models
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard="" data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"></path></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/FrancisCrickInstitute/aiod_docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    AIoD Docs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="AI OnDemand (AIoD)" class="md-nav__button md-logo" aria-label="AI OnDemand (AIoD)" data-md-component="logo">
+      
+  <img src="../../../assets/CRICK_Brandmark_01_transparent.png" alt="logo">
+
+    </a>
+    AI OnDemand (AIoD)
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/FrancisCrickInstitute/aiod_docs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"></path></svg>
+  </div>
+  <div class="md-source__repository">
+    AIoD Docs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_1">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../.." class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Overview
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../getting_started/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/first_segmentation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Your First Segmentation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting_started/first_headless_run/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Your First Headless Run
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    AIoD Framework
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    AIoD Framework
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../concepts/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Concepts
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Concepts
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../front_ends/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Interface(s)
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    User Interface(s)
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2_2">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../front_ends/napari_plugin/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Napari Plugin
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_2_2" id="__nav_3_2_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Napari Plugin
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../front_ends/napari_plugin/inference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../front_ends/napari_plugin/postprocess/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Postprocessing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../front_ends/napari_plugin/evaluation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evaluation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" checked="">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model Registry
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Model Registry
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Available Models
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Available Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tasks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#model-families" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model Families
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Model Families">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#model-cellpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cellpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-cellposesam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cellpose-SAM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-empanada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Empanada
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-panseg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PanSeg
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-seai_unet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SEAI U-Net
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-sam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Segment Anything
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-sam2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Segment Anything 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-stardist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        StarDist
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../nextflow/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Nextflow Pipeline
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Nextflow Pipeline
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../utilities/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Utilities
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Utilities
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../contributing/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Contributing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/expanding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding Models
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/developing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Developer Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/front_ends/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Adding UIs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../development/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Future Development
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Future Development
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6">
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../support/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contact/Support
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Contact/Support
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../support/troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tasks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#model-families" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model Families
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Model Families">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#model-cellpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cellpose
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-cellposesam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cellpose-SAM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-empanada" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Empanada
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-panseg" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PanSeg
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-seai_unet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        SEAI U-Net
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-sam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Segment Anything
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-sam2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Segment Anything 2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-stardist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        StarDist
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+
+  <nav class="md-path" aria-label="Navigation">
+    <ol class="md-path__list">
+      
+      
+        
+  
+  
+    
+    
+      
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../../concepts/" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    AIoD Framework
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  <span class="md-ellipsis">
+    Model Registry
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="available-models">Available Models<a class="headerlink" href="#available-models" title="Permanent link">¶</a></h1>
+<p>Everything on this page is generated from the <a href="../">model registry</a>, so it always
+reflects the models AIoD can actually run.</p>
+<p>The three values you need to run a model — whether <a href="../../nextflow/#running-the-pipeline-directly">directly through Nextflow</a>
+or by recognising them in the <a href="../../front_ends/napari_plugin/inference/#model-selection">Napari plugin</a> —
+are <code>--model</code> (the <a href="../../concepts/#model-family">family</a>), <code>--model_type</code> (the
+<a href="../../concepts/#model-version">version</a>), and <code>--task</code>.</p>
+<div class="admonition info">
+<p class="admonition-title">Can't see a model in the plugin?</p>
+<p>Models marked <strong>Restricted</strong> below are shared by file path rather than public
+download, so they only appear for people who can read that location. See
+<a href="../../concepts/#model-location">Model Location</a> for why, and
+<a href="../../contributing/expanding/#add-a-new-model-location">adding a new location</a> for
+how to share one more widely.</p>
+</div>
+<h2 id="tasks">Tasks<a class="headerlink" href="#tasks" title="Permanent link">¶</a></h2>
+<p>A <a href="../../concepts/#task">task</a> is what a model is trying to segment. Picking one
+narrows the model list to those that can do it.</p>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th><code>--task</code></th>
+<th>Models</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mitochondria</td>
+<td><code>mito</code></td>
+<td><a href="#model-empanada">Empanada</a>, <a href="#model-seai_unet">SEAI U-Net</a></td>
+</tr>
+<tr>
+<td>Endoplasmic Reticulum</td>
+<td><code>er</code></td>
+<td><a href="#model-seai_unet">SEAI U-Net</a></td>
+</tr>
+<tr>
+<td>Nuclear Envelope</td>
+<td><code>ne</code></td>
+<td><a href="#model-seai_unet">SEAI U-Net</a></td>
+</tr>
+<tr>
+<td>Everything!</td>
+<td><code>everything</code></td>
+<td><a href="#model-sam">Segment Anything</a>, <a href="#model-sam2">Segment Anything 2</a></td>
+</tr>
+<tr>
+<td>Nuclei</td>
+<td><code>nuclei</code></td>
+<td><a href="#model-cellpose">Cellpose</a>, <a href="#model-cellposesam">Cellpose-SAM</a>, <a href="#model-empanada">Empanada</a>, <a href="#model-panseg">PanSeg</a>, <a href="#model-stardist">StarDist</a></td>
+</tr>
+<tr>
+<td>Cytoplasm</td>
+<td><code>cyto</code></td>
+<td><a href="#model-cellpose">Cellpose</a>, <a href="#model-cellposesam">Cellpose-SAM</a></td>
+</tr>
+<tr>
+<td>Lipid Droplets</td>
+<td><code>drop</code></td>
+<td><a href="#model-empanada">Empanada</a></td>
+</tr>
+<tr>
+<td>Boundaries</td>
+<td><code>boundaries</code></td>
+<td><a href="#model-panseg">PanSeg</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="model-families">Model Families<a class="headerlink" href="#model-families" title="Permanent link">¶</a></h2>
+<h3 id="model-cellpose">Cellpose<a class="headerlink" href="#model-cellpose" title="Permanent link">¶</a></h3>
+<p>Run with <code>--model cellpose</code>.</p>
+<p>Cellpose is a generalist model for cell and nucleus segmentation.</p>
+<p><a href="https://cellpose.readthedocs.io/en/v3.1.1.1/">Documentation</a> · <a href="https://github.com/MouseLand/cellpose">Repository</a> · <a href="https://doi.org/10.1038/s41592-020-01018-x">Cellpose: a generalist algorithm for cellular segmentation</a> · <a href="https://doi.org/10.1038/s41592-022-01663-4">Cellpose 2.0: how to train your own model</a> · <a href="https://doi.org/10.1101/2024.02.10.579780">Cellpose3: one-click image restoration for improved cellular segmentation</a></p>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th><code>--model_type</code></th>
+<th>Tasks</th>
+<th>Axes</th>
+<th>Availability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cyto3</td>
+<td><code>cyto3</code></td>
+<td>Cytoplasm</td>
+<td>—</td>
+<td>Public</td>
+</tr>
+<tr>
+<td>nuclei</td>
+<td><code>nuclei</code></td>
+<td>Nuclei</td>
+<td>—</td>
+<td>Public</td>
+</tr>
+<tr>
+<td>cyto1</td>
+<td><code>cyto1</code></td>
+<td>Cytoplasm</td>
+<td>—</td>
+<td>Public</td>
+</tr>
+<tr>
+<td>cyto2</td>
+<td><code>cyto2</code></td>
+<td>Cytoplasm</td>
+<td>—</td>
+<td>Public</td>
+</tr>
+</tbody>
+</table>
+<details class="note">
+<summary>Parameters</summary>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Argument</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Diameter</td>
+<td><code>diameter</code></td>
+<td><code>0</code></td>
+<td>Diameter of the cells in pixels. If None or 0, Cellpose will try to estimate it. Setting the value may improve results. See https://cellpose.readthedocs.io/en/v3.1.1.1/settings.html#diameter for details.</td>
+</tr>
+<tr>
+<td>Segment Channel</td>
+<td><code>segment_channel</code></td>
+<td><code>0</code></td>
+<td>What channel to segment on. Cellpose channel convention: 0=grayscale (no specific channel), 1=first image channel, 2=second image channel, etc. See https://cellpose.readthedocs.io/en/v3.1.1.1/settings.html#channels for details.</td>
+</tr>
+<tr>
+<td>Nucleus Channel</td>
+<td><code>nucleus_channel</code></td>
+<td><code>0</code></td>
+<td>What channel contains the nucleus. Cellpose channel convention: 0=no nucleus channel (grayscale), 1=first image channel, 2=second image channel, etc. Unused for the 'nuclei' model (nucleus is already the segment channel). See https://cellpose.readthedocs.io/en/v3.1.1.1/settings.html#channels for details.</td>
+</tr>
+<tr>
+<td>3D Segmentation</td>
+<td><code>do_3D</code></td>
+<td><code>False</code></td>
+<td>Whether to do 3D segmentation. If True, will try to segment in 3D (XY, XZ, YZ). If False, will segment in 2D and combine with stitch_threshold.</td>
+</tr>
+<tr>
+<td>Stitch Threshold</td>
+<td><code>stitch_threshold</code></td>
+<td><code>0.0</code></td>
+<td>Threshold for stitching 2D segmentations together. Value is the IoU that constitutes an overlap and thus merge. Only used if do_3D is False and &gt;0.</td>
+</tr>
+<tr>
+<td>Cellprob Threshold</td>
+<td><code>cellprob_threshold</code></td>
+<td><code>0.0</code></td>
+<td>Threshold for flows to determine ROIs. Decrease to find more &amp; larger ROIs, increase if too many ROIs (esp. in dim regions). See https://cellpose.readthedocs.io/en/v3.1.1.1/settings.html#cellprob-threshold for details.</td>
+</tr>
+<tr>
+<td>Flow Threshold</td>
+<td><code>flow_threshold</code></td>
+<td><code>0.4</code></td>
+<td>Threshold for flows to determine ROIs. Not used for 3D. See https://cellpose.readthedocs.io/en/v3.1.1.1/settings.html#cellprob-threshold for details.</td>
+</tr>
+<tr>
+<td>Num Iterations</td>
+<td><code>niter</code></td>
+<td><code>0</code></td>
+<td>Number of iterations to simulate dynamics for. By default (0/None), proportional to ROI diameter. See https://cellpose.readthedocs.io/en/v3.1.1.1/settings.html#number-of-iterations-niter for details.</td>
+</tr>
+<tr>
+<td>Anisotropy</td>
+<td><code>anisotropy</code></td>
+<td><code>None</code> (float)</td>
+<td>Optional rescaling factor for Z (e.g. set to 2.0 if Z is sampled half as dense as X or Y). Only used if do_3D is True.</td>
+</tr>
+<tr>
+<td>Channel axis</td>
+<td><code>channel_axis</code></td>
+<td><code>None</code> (int)</td>
+<td>Set the axis where channels are stored. 'None' means it tries to figure it out - useful if no/poor metadata and not loading properly.</td>
+</tr>
+<tr>
+<td>Z axis</td>
+<td><code>z_axis</code></td>
+<td><code>None</code> (int)</td>
+<td>Set the axis where Z slices are stored. 'None' means it tries to figure it out - useful if no/poor metadata and not loading properly.</td>
+</tr>
+<tr>
+<td>Batch size</td>
+<td><code>batch_size</code></td>
+<td><code>64</code></td>
+<td>Number of 224x224 patches to run simultaneously on the GPU. Can make smaller or bigger depending on GPU memory usage.</td>
+</tr>
+<tr>
+<td>Minimum size</td>
+<td><code>min_size</code></td>
+<td><code>15</code></td>
+<td>Size (in pixels) of ROIs/to remove if lower. 0 will not remove any masks.</td>
+</tr>
+</tbody>
+</table>
+</details>
+<h3 id="model-cellposesam">Cellpose-SAM<a class="headerlink" href="#model-cellposesam" title="Permanent link">¶</a></h3>
+<p>Run with <code>--model cellposesam</code>.</p>
+<p>Cellpose-SAM is a generalist model for cell segmentation.</p>
+<p><a href="https://cellpose.readthedocs.io/en/latest/">Documentation</a> · <a href="https://github.com/MouseLand/cellpose">Repository</a> · <a href="https://doi.org/10.1101/2025.04.28.651001">Cellpose-SAM: superhuman generalization for cellular segmentation</a></p>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th><code>--model_type</code></th>
+<th>Tasks</th>
+<th>Axes</th>
+<th>Availability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cpsam</td>
+<td><code>cpsam</code></td>
+<td>Cytoplasm, Nuclei</td>
+<td>—</td>
+<td>Public</td>
+</tr>
+</tbody>
+</table>
+<details class="note">
+<summary>Parameters</summary>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Argument</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Segment Channel</td>
+<td><code>segment_channel</code></td>
+<td><code>0</code></td>
+<td>What channel to segment on. Cellpose-SAM is trained to be invariant to channel order and uses the first 3 channels of your image. Cellpose channel convention: 0=grayscale (no specific channel), 1=first image channel, 2=second image channel, etc. See https://cellpose.readthedocs.io/en/latest/settings.html#channels for details.</td>
+</tr>
+<tr>
+<td>3D Segmentation</td>
+<td><code>do_3D</code></td>
+<td><code>False</code></td>
+<td>Whether to do 3D segmentation. If True, will try to segment in 3D (XY, XZ, YZ). If False, will segment in 2D and combine with stitch_threshold.</td>
+</tr>
+<tr>
+<td>Resample</td>
+<td><code>resample</code></td>
+<td><code>True</code></td>
+<td>Whether to run dynamics at original image size (rather than likely smaller resized image). Slower, but more accurate boundaries.</td>
+</tr>
+<tr>
+<td>Stitch Threshold</td>
+<td><code>stitch_threshold</code></td>
+<td><code>0.0</code></td>
+<td>Threshold for stitching 2D segmentations together. Value is the IoU that constitutes an overlap and thus merge. Only used if do_3D is False and &gt;0.</td>
+</tr>
+<tr>
+<td>Cellprob Threshold</td>
+<td><code>cellprob_threshold</code></td>
+<td><code>0.0</code></td>
+<td>Threshold for flows to determine ROIs. Decrease to find more &amp; larger ROIs, increase if too many ROIs (esp. in dim regions). See https://cellpose.readthedocs.io/en/latest/settings.html#cellprob-threshold for details.</td>
+</tr>
+<tr>
+<td>Flow Threshold</td>
+<td><code>flow_threshold</code></td>
+<td><code>0.4</code></td>
+<td>Threshold for flows to determine ROIs. Not used for 3D. See https://cellpose.readthedocs.io/en/latest/settings.html#cellprob-threshold for details.</td>
+</tr>
+<tr>
+<td>Num Iterations</td>
+<td><code>niter</code></td>
+<td><code>0</code></td>
+<td>Number of iterations to simulate dynamics for. By default (0/None), proportional to ROI diameter. See https://cellpose.readthedocs.io/en/latest/settings.html#number-of-iterations-niter for details.</td>
+</tr>
+<tr>
+<td>Anisotropy</td>
+<td><code>anisotropy</code></td>
+<td><code>None</code> (float)</td>
+<td>Optional rescaling factor for Z (e.g. set to 2.0 if Z is sampled half as dense as X or Y). Only used if do_3D is True.</td>
+</tr>
+<tr>
+<td>Channel axis</td>
+<td><code>channel_axis</code></td>
+<td><code>None</code> (int)</td>
+<td>Set the axis where channels are stored. 'None' means it tries to figure it out - useful if no/poor metadata and not loading properly.</td>
+</tr>
+<tr>
+<td>Z axis</td>
+<td><code>z_axis</code></td>
+<td><code>None</code> (int)</td>
+<td>Set the axis where Z slices are stored. 'None' means it tries to figure it out - useful if no/poor metadata and not loading properly.</td>
+</tr>
+<tr>
+<td>Batch size</td>
+<td><code>batch_size</code></td>
+<td><code>64</code></td>
+<td>Number of 224x224 patches to run simultaneously on the GPU. Can make smaller or bigger depending on GPU memory usage.</td>
+</tr>
+<tr>
+<td>Minimum size</td>
+<td><code>min_size</code></td>
+<td><code>15</code></td>
+<td>Size (in pixels) of ROIs/to remove if lower. 0 will not remove any masks.</td>
+</tr>
+<tr>
+<td>Max size fraction</td>
+<td><code>max_size_fraction</code></td>
+<td><code>0.4</code></td>
+<td>Maximum size of ROIs as fraction of image size. Masks larger than this are removed.</td>
+</tr>
+<tr>
+<td>Tile Overlap</td>
+<td><code>tile_overlap</code></td>
+<td><code>0.1</code></td>
+<td>Fraction of overlap of tiles when computing flows.</td>
+</tr>
+</tbody>
+</table>
+</details>
+<h3 id="model-empanada">Empanada<a class="headerlink" href="#model-empanada" title="Permanent link">¶</a></h3>
+<p>Run with <code>--model empanada</code>.</p>
+<p>Empanada contains segmentation models for mitochondria, nuclei, and lipid droplets in EM images.</p>
+<p><a href="https://doi.org/10.1016/j.cels.2022.12.006">Instance segmentation of mitochondria in electron microscopy images with a generalist deep learning model trained on a diverse dataset</a></p>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th><code>--model_type</code></th>
+<th>Tasks</th>
+<th>Axes</th>
+<th>Availability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MitoNet v1</td>
+<td><code>mitonet_v1</code></td>
+<td>Mitochondria</td>
+<td>—</td>
+<td>Public</td>
+</tr>
+<tr>
+<td>MitoNet Mini v1</td>
+<td><code>mitonet_mini_v1</code></td>
+<td>Mitochondria</td>
+<td>—</td>
+<td>Public</td>
+</tr>
+<tr>
+<td>NucleoNet v1</td>
+<td><code>nucleonet_v1</code></td>
+<td>Nuclei</td>
+<td>—</td>
+<td>Public</td>
+</tr>
+<tr>
+<td>DropNet v1</td>
+<td><code>dropnet_v1</code></td>
+<td>Lipid Droplets</td>
+<td>—</td>
+<td>Public</td>
+</tr>
+</tbody>
+</table>
+<details class="note">
+<summary>Parameters</summary>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Argument</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Plane</td>
+<td><code>plane</code></td>
+<td><code>XY</code> (of <code>XY</code>, <code>XZ</code>, <code>YZ</code>, <code>All</code>)</td>
+<td>Whether to use all planes (XY, XZ, YZ) or a single plane</td>
+</tr>
+<tr>
+<td>Downsampling</td>
+<td><code>downsampling</code></td>
+<td><code>1</code> (of <code>1</code>, <code>2</code>, <code>4</code>, <code>8</code>, <code>16</code>, <code>32</code>, <code>64</code>)</td>
+<td>Downsampling factor for the input image</td>
+</tr>
+<tr>
+<td>Segmentation threshold</td>
+<td><code>conf_threshold</code></td>
+<td><code>0.5</code></td>
+<td>Confidence threshold for the segmentation</td>
+</tr>
+<tr>
+<td>Center threshold</td>
+<td><code>center_threshold</code></td>
+<td><code>0.1</code></td>
+<td>Confidence threshold for the center</td>
+</tr>
+<tr>
+<td>Minimum distance</td>
+<td><code>min_distance</code></td>
+<td><code>3</code></td>
+<td>Minimum distance between object centers</td>
+</tr>
+<tr>
+<td>Maximum objects</td>
+<td><code>max_objects</code></td>
+<td><code>10000</code></td>
+<td>Maximum number of objects to segment per class</td>
+</tr>
+<tr>
+<td>Semantic only</td>
+<td><code>semantic_only</code></td>
+<td><code>False</code></td>
+<td>Only run semantic segmentation for all classes</td>
+</tr>
+<tr>
+<td>Fine boundaries</td>
+<td><code>fine_boundaries</code></td>
+<td><code>False</code></td>
+<td>Finer boundaries between objects</td>
+</tr>
+<tr>
+<td>Fill holes</td>
+<td><code>fill_holes_in_segmentation</code></td>
+<td><code>False</code></td>
+<td>Whether to fill holes in the segmentation masks</td>
+</tr>
+<tr>
+<td>Median Filter Size</td>
+<td><code>median_slices</code></td>
+<td><code>3</code> (of <code>1</code>, <code>3</code>, <code>5</code>, <code>7</code>, <code>9</code>, <code>11</code>)</td>
+<td>Number of image slices over which to apply a median filter to semantic segmentation probabilities. Only applies to 3D/'All'.</td>
+</tr>
+<tr>
+<td>Erode labels (px; 3D)</td>
+<td><code>label_erosion</code></td>
+<td><code>0</code></td>
+<td>Will erode objects in the masks by specified number of pixels before final consensus. Only applies to 3D/'All'.</td>
+</tr>
+<tr>
+<td>Dilate labels (px; 3D)</td>
+<td><code>label_dilation</code></td>
+<td><code>0</code></td>
+<td>Will dilate objects in the masks by specified number of pixels before final consensus. Only applies to 3D/'All'.</td>
+</tr>
+<tr>
+<td>Voxel Vote</td>
+<td><code>pixel_vote_thr</code></td>
+<td><code>2</code></td>
+<td>Number of stacks from ortho-plane inference in which a voxel must be labelled in order to end up in the consensus segmentation. Only applies to 3D/'All'.</td>
+</tr>
+<tr>
+<td>Allow single-plane objects</td>
+<td><code>allow_one_view</code></td>
+<td><code>False</code></td>
+<td>Whether to allow objects that are only segmented in a single plane (XY, XZ, or YZ) to be included in the final consensus segmentation. Only applies to 3D/'All'.</td>
+</tr>
+</tbody>
+</table>
+</details>
+<h3 id="model-panseg">PanSeg<a class="headerlink" href="#model-panseg" title="Permanent link">¶</a></h3>
+<p>Run with <code>--model panseg</code>.</p>
+<p>PanSeg: Advanced Interactive User-Friendly Tissue Segmentation</p>
+<p><a href="https://kreshuklab.github.io/panseg/">Documentation</a> · <a href="https://github.com/kreshuklab/panseg">Repository</a> · <a href="https://kreshuklab.github.io/panseg/">PanSeg: Advanced Interactive User-Friendly Tissue Segmentation</a> · <a href="https://doi.org/10.7554/eLife.57613">Accurate and versatile 3D segmentation of plant tissues at cellular resolution</a></p>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th><code>--model_type</code></th>
+<th>Tasks</th>
+<th>Axes</th>
+<th>Availability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>generic_confocal_3D_unet</td>
+<td><code>generic_confocal_3D_unet</code></td>
+<td>Boundaries</td>
+<td><code>ZYX</code></td>
+<td>Public</td>
+</tr>
+<tr>
+<td>generic_light_sheet_3D_unet</td>
+<td><code>generic_light_sheet_3D_unet</code></td>
+<td>Boundaries</td>
+<td><code>ZYX</code></td>
+<td>Public</td>
+</tr>
+<tr>
+<td>confocal_3D_unet_ovules_ds1x</td>
+<td><code>confocal_3D_unet_ovules_ds1x</code></td>
+<td>Boundaries</td>
+<td><code>ZYX</code></td>
+<td>Public</td>
+</tr>
+<tr>
+<td>confocal_3D_unet_ovules_ds2x</td>
+<td><code>confocal_3D_unet_ovules_ds2x</code></td>
+<td>Boundaries</td>
+<td><code>ZYX</code></td>
+<td>Public</td>
+</tr>
+<tr>
+<td>confocal_3D_unet_ovules_ds3x</td>
+<td><code>confocal_3D_unet_ovules_ds3x</code></td>
+<td>Boundaries</td>
+<td><code>ZYX</code></td>
+<td>Public</td>
+</tr>
+<tr>
+<td>confocal_2D_unet_ovules_ds2x</td>
+<td><code>confocal_2D_unet_ovules_ds2x</code></td>
+<td>Boundaries</td>
+<td><code>YX</code></td>
+<td>Public</td>
+</tr>
+<tr>
+<td>lightsheet_3D_unet_root_ds1x</td>
+<td><code>lightsheet_3D_unet_root_ds1x</code></td>
+<td>Boundaries</td>
+<td><code>ZYX</code></td>
+<td>Public</td>
+</tr>
+<tr>
+<td>lightsheet_3D_unet_root_ds2x</td>
+<td><code>lightsheet_3D_unet_root_ds2x</code></td>
+<td>Boundaries</td>
+<td><code>ZYX</code></td>
+<td>Public</td>
+</tr>
+<tr>
+<td>lightsheet_3D_unet_root_ds3x</td>
+<td><code>lightsheet_3D_unet_root_ds3x</code></td>
+<td>Boundaries</td>
+<td><code>ZYX</code></td>
+<td>Public</td>
+</tr>
+<tr>
+<td>lightsheet_2D_unet_root_ds1x</td>
+<td><code>lightsheet_2D_unet_root_ds1x</code></td>
+<td>Boundaries</td>
+<td><code>YX</code></td>
+<td>Public</td>
+</tr>
+<tr>
+<td>lightsheet_3D_unet_root_nuclei_ds1x</td>
+<td><code>lightsheet_3D_unet_root_nuclei_ds1x</code></td>
+<td>Nuclei</td>
+<td><code>ZYX</code></td>
+<td>Public</td>
+</tr>
+<tr>
+<td>lightsheet_2D_unet_root_nuclei_ds1x</td>
+<td><code>lightsheet_2D_unet_root_nuclei_ds1x</code></td>
+<td>Nuclei</td>
+<td><code>YX</code></td>
+<td>Public</td>
+</tr>
+<tr>
+<td>confocal_2D_unet_sa_meristem_cells</td>
+<td><code>confocal_2D_unet_sa_meristem_cells</code></td>
+<td>Boundaries</td>
+<td><code>YX</code></td>
+<td>Public</td>
+</tr>
+<tr>
+<td>confocal_3D_unet_sa_meristem_cells</td>
+<td><code>confocal_3D_unet_sa_meristem_cells</code></td>
+<td>Boundaries</td>
+<td><code>ZYX</code></td>
+<td>Public</td>
+</tr>
+<tr>
+<td>lightsheet_3D_unet_mouse_embryo_cells</td>
+<td><code>lightsheet_3D_unet_mouse_embryo_cells</code></td>
+<td>Boundaries</td>
+<td><code>ZYX</code></td>
+<td>Public</td>
+</tr>
+<tr>
+<td>confocal_3D_unet_mouse_embryo_nuclei</td>
+<td><code>confocal_3D_unet_mouse_embryo_nuclei</code></td>
+<td>Nuclei</td>
+<td><code>ZYX</code></td>
+<td>Public</td>
+</tr>
+<tr>
+<td>PlantSeg_3Dnuc_platinum</td>
+<td><code>PlantSeg_3Dnuc_platinum</code></td>
+<td>Nuclei</td>
+<td><code>ZYX</code></td>
+<td>Public</td>
+</tr>
+</tbody>
+</table>
+<details class="note">
+<summary>Parameters</summary>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Argument</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Patch Size</td>
+<td><code>patch</code></td>
+<td><code>None</code> (list)</td>
+<td>Patch size for prediction [Z, Y, X]. If null, will be auto-computed. Example: [80, 160, 160]</td>
+</tr>
+<tr>
+<td>Patch Halo</td>
+<td><code>patch_halo</code></td>
+<td><code>None</code> (list)</td>
+<td>Halo size for patches [Z, Y, X]. If null, will be auto-computed. Example: [8, 16, 16]</td>
+</tr>
+<tr>
+<td>Single Batch Mode</td>
+<td><code>single_batch_mode</code></td>
+<td><code>True</code></td>
+<td>Whether to process patches one at a time to reduce memory usage.</td>
+</tr>
+<tr>
+<td>Model Update</td>
+<td><code>model_update</code></td>
+<td><code>False</code></td>
+<td>Whether to check for and download model updates.</td>
+</tr>
+<tr>
+<td>Disable Progress Bar</td>
+<td><code>disable_tqdm</code></td>
+<td><code>False</code></td>
+<td>Whether to disable the progress bar during prediction.</td>
+</tr>
+<tr>
+<td>Watershed Threshold</td>
+<td><code>ws_threshold</code></td>
+<td><code>0.5</code></td>
+<td>Threshold for watershed segmentation. Higher values create fewer, larger segments.</td>
+</tr>
+<tr>
+<td>Watershed Sigma Seeds</td>
+<td><code>ws_sigma_seeds</code></td>
+<td><code>1.0</code></td>
+<td>Sigma for Gaussian smoothing of seeds in watershed.</td>
+</tr>
+<tr>
+<td>Watershed Stacked</td>
+<td><code>ws_stacked</code></td>
+<td><code>False</code></td>
+<td>Whether to apply watershed slice-by-slice (2D) instead of in 3D.</td>
+</tr>
+<tr>
+<td>Watershed Sigma Weights</td>
+<td><code>ws_sigma_weights</code></td>
+<td><code>2.0</code></td>
+<td>Sigma for Gaussian smoothing of boundary map weights in watershed.</td>
+</tr>
+<tr>
+<td>Watershed Min Size</td>
+<td><code>ws_min_size</code></td>
+<td><code>100</code></td>
+<td>Minimum size (in voxels) for watershed superpixels. Smaller regions will be removed.</td>
+</tr>
+<tr>
+<td>Watershed Alpha</td>
+<td><code>ws_alpha</code></td>
+<td><code>1.0</code></td>
+<td>Alpha parameter for distance transform watershed.</td>
+</tr>
+<tr>
+<td>Watershed Pixel Pitch</td>
+<td><code>ws_pixel_pitch</code></td>
+<td><code>None</code> (list)</td>
+<td>Pixel pitch for anisotropic data [Z, Y, X]. If null, assumes isotropic.</td>
+</tr>
+<tr>
+<td>Watershed Non-Max Suppression</td>
+<td><code>ws_apply_nonmax_suppression</code></td>
+<td><code>False</code></td>
+<td>Whether to apply non-maximum suppression in watershed.</td>
+</tr>
+<tr>
+<td>GASP Linkage Criteria</td>
+<td><code>gasp_linkage_criteria</code></td>
+<td><code>average</code></td>
+<td>Linkage criteria for GASP: 'average' or 'mutex_watershed'.</td>
+</tr>
+<tr>
+<td>GASP Beta</td>
+<td><code>gasp_beta</code></td>
+<td><code>0.5</code></td>
+<td>Beta parameter for GASP segmentation. Controls merging aggressiveness.</td>
+</tr>
+<tr>
+<td>GASP Post Min Size</td>
+<td><code>gasp_post_minsize</code></td>
+<td><code>100</code></td>
+<td>Minimum size (in voxels) for final segments after GASP. Smaller regions will be merged.</td>
+</tr>
+<tr>
+<td>Number of Threads</td>
+<td><code>n_threads</code></td>
+<td><code>6</code></td>
+<td>Number of threads to use for watershed and GASP segmentation.</td>
+</tr>
+<tr>
+<td>Voxel Size</td>
+<td><code>voxel_size</code></td>
+<td><code>None</code> (list)</td>
+<td>Voxel size [Z, Y, X] for saving TIFF metadata. Example: [1.0, 0.5, 0.5]</td>
+</tr>
+<tr>
+<td>Voxel Size Unit</td>
+<td><code>voxel_size_unit</code></td>
+<td><code>um</code></td>
+<td>Unit for voxel size (e.g., 'um', 'nm', 'mm').</td>
+</tr>
+</tbody>
+</table>
+</details>
+<h3 id="model-seai_unet">SEAI U-Net<a class="headerlink" href="#model-seai_unet" title="Permanent link">¶</a></h3>
+<p>Run with <code>--model seai_unet</code>.</p>
+<p>SEAI U-Net developed on internal Crick EM data</p>
+<p><a href="https://doi.org/10.1111/tra.12789">Deep learning for automatic segmentation of the nuclear envelope in electron microscopy data, trained with volunteer segmentations (2021)</a> · <a href="https://doi.org/10.1101/2021.05.24.444785">Automatic instance segmentation of mitochondria in electron microscopy data (2021)</a></p>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th><code>--model_type</code></th>
+<th>Tasks</th>
+<th>Axes</th>
+<th>Availability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>U-Net</td>
+<td><code>u-net</code></td>
+<td>Mitochondria</td>
+<td>—</td>
+<td>Restricted</td>
+</tr>
+<tr>
+<td>Finetuned HU-Net</td>
+<td><code>finetuned_hu-net</code></td>
+<td>Endoplasmic Reticulum</td>
+<td>—</td>
+<td>Restricted</td>
+</tr>
+<tr>
+<td>Attention U-Net</td>
+<td><code>attention_u-net</code></td>
+<td>Mitochondria, Nuclear Envelope</td>
+<td>—</td>
+<td>Restricted</td>
+</tr>
+<tr>
+<td>Finetuned Attention U-Net</td>
+<td><code>finetuned_attention_u-net</code></td>
+<td>Nuclear Envelope</td>
+<td>—</td>
+<td>Restricted</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Restricted versions</p>
+<p>Some versions above are shared by file path rather than public download, so they are only visible to people who can read that location — see <a href="../../concepts/#model-location">Model Location</a>.</p>
+</div>
+<h3 id="model-sam">Segment Anything<a class="headerlink" href="#model-sam" title="Permanent link">¶</a></h3>
+<p>Run with <code>--model sam</code>.</p>
+<p>Segment Anything is a vision foundation model with flexible prompting.</p>
+<p><a href="https://segment-anything.com/">Documentation</a> · <a href="https://github.com/facebookresearch/segment-anything">Repository</a> · <a href="https://doi.org/10.48550/arXiv.2304.02643">Segment Anything</a></p>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th><code>--model_type</code></th>
+<th>Tasks</th>
+<th>Axes</th>
+<th>Availability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>default</td>
+<td><code>default</code></td>
+<td>Everything!</td>
+<td>—</td>
+<td>Public</td>
+</tr>
+<tr>
+<td>vit_h</td>
+<td><code>vit_h</code></td>
+<td>Everything!</td>
+<td>—</td>
+<td>Public</td>
+</tr>
+<tr>
+<td>vit_l</td>
+<td><code>vit_l</code></td>
+<td>Everything!</td>
+<td>—</td>
+<td>Public</td>
+</tr>
+<tr>
+<td>vit_b</td>
+<td><code>vit_b</code></td>
+<td>Everything!</td>
+<td>—</td>
+<td>Public</td>
+</tr>
+<tr>
+<td>MedSAM</td>
+<td><code>medsam</code></td>
+<td>Everything!</td>
+<td>—</td>
+<td>Public</td>
+</tr>
+<tr>
+<td>MicroSAM-Boundaries</td>
+<td><code>microsam-boundaries</code></td>
+<td>Everything!</td>
+<td>—</td>
+<td>Public</td>
+</tr>
+<tr>
+<td>MicroSAM-Organelles</td>
+<td><code>microsam-organelles</code></td>
+<td>Everything!</td>
+<td>—</td>
+<td>Public</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Usage guidance</p>
+<p>Please refer to the tooltips to provide an indication of how to adjust parameters to change the output. Given SAM is a 2D model, it is advised to first run SAM on a few representative slices and adjust parameters to get the desired output before running on the full volume. Postprocessing (i.e. relabelling) can take a while, so only enable this when suitable parameters have been found.</p>
+</div>
+<details class="note">
+<summary>Parameters</summary>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Argument</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Points per side</td>
+<td><code>points_per_side</code></td>
+<td><code>32</code></td>
+<td>Number of point prompts per side, controlling density of point grid. Higher values will capture more objects (rightly or wrongly), but take longer to run.</td>
+</tr>
+<tr>
+<td>Points per batch</td>
+<td><code>points_per_batch</code></td>
+<td><code>64</code></td>
+<td>Number of points to process per batch. Higher values will be faster but will require more (GPU) memory.</td>
+</tr>
+<tr>
+<td>Pred IoU threshold</td>
+<td><code>pred_iou_thresh</code></td>
+<td><code>0.88</code></td>
+<td>Threshold (range [0,1]) for model-predicted IoU, for filtering out low-confidence masks. Higher values will remove more masks.</td>
+</tr>
+<tr>
+<td>Stability score threshold</td>
+<td><code>stability_score_thresh</code></td>
+<td><code>0.95</code></td>
+<td>Threshold (range [0,1]) for mask stability score. Higher values will remove more masks, in conjunction with stability score offset that controls level of stability measured.</td>
+</tr>
+<tr>
+<td>Stability score offset</td>
+<td><code>stability_score_offset</code></td>
+<td><code>1.0</code></td>
+<td>Amount to shift the cutoff for stability score. Higher values will remove less stable masks.</td>
+</tr>
+<tr>
+<td>Box NMS IoU threshold</td>
+<td><code>box_nms_thresh</code></td>
+<td><code>0.7</code></td>
+<td>The IoU threshold (range [0,1]) for non-maximum suppression of boxes. Lower values will merge more masks, useful to reduce mask 'halos' and speed-up postprocessing, but could lead to undersegmentation/agglomeration.</td>
+</tr>
+<tr>
+<td>Crop N layers</td>
+<td><code>crop_n_layers</code></td>
+<td><code>0</code></td>
+<td>Values &gt;0 will crop the image into N layers, which will be processed separately, giving more detail but taking longer. Each deeper layer will have more crops (2^N). Balance number of point prompts with 'Crop N points downscale factor'.</td>
+</tr>
+<tr>
+<td>Crop NMS IoU threshold</td>
+<td><code>crop_nms_thresh</code></td>
+<td><code>0.7</code></td>
+<td>Same as Box NMS IoU threshold, but for each crop.</td>
+</tr>
+<tr>
+<td>Crop overlap ratio</td>
+<td><code>crop_overlap_ratio</code></td>
+<td><code>0.34133</code></td>
+<td>The amount which crops overlap. Higher values may help identify more objects, but duplicates computation.</td>
+</tr>
+<tr>
+<td>Crop N points downscale factor</td>
+<td><code>crop_n_points_downscale_factor</code></td>
+<td><code>1</code></td>
+<td>Value to be raised to the power of the crop layer will be used to scale down number of points per side in each crop. Higher values will reduce point grid density in deeper layers.</td>
+</tr>
+<tr>
+<td>Min mask region area</td>
+<td><code>min_mask_region_area</code></td>
+<td><code>3</code></td>
+<td>Size (in pixels) of masks to remove if identified as a disconnected region or hole. 0 will not remove any masks.</td>
+</tr>
+<tr>
+<td>Max mask region area</td>
+<td><code>max_mask_region_area</code></td>
+<td><code>0</code></td>
+<td>Size (in pixels) of masks to remove if at least this size. 0 will not remove any masks.</td>
+</tr>
+</tbody>
+</table>
+</details>
+<h3 id="model-sam2">Segment Anything 2<a class="headerlink" href="#model-sam2" title="Permanent link">¶</a></h3>
+<p>Run with <code>--model sam2</code>.</p>
+<p>Segment Anything 2 is a vision foundation model with flexible prompting for images and videos.</p>
+<p><a href="https://ai.meta.com/sam2/">Documentation</a> · <a href="https://github.com/facebookresearch/segment-anything-2">Repository</a> · <a href="https://ai.meta.com/research/publications/sam-2-segment-anything-in-images-and-videos/">SAM 2: Segment Anything in Images and Videos</a></p>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th><code>--model_type</code></th>
+<th>Tasks</th>
+<th>Axes</th>
+<th>Availability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>default</td>
+<td><code>default</code></td>
+<td>Everything!</td>
+<td>—</td>
+<td>Public</td>
+</tr>
+<tr>
+<td>hiera_base</td>
+<td><code>hiera_base</code></td>
+<td>Everything!</td>
+<td>—</td>
+<td>Public</td>
+</tr>
+<tr>
+<td>hiera_small</td>
+<td><code>hiera_small</code></td>
+<td>Everything!</td>
+<td>—</td>
+<td>Public</td>
+</tr>
+<tr>
+<td>hiera_large</td>
+<td><code>hiera_large</code></td>
+<td>Everything!</td>
+<td>—</td>
+<td>Public</td>
+</tr>
+<tr>
+<td>hiera_tiny</td>
+<td><code>hiera_tiny</code></td>
+<td>Everything!</td>
+<td>—</td>
+<td>Public</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Usage guidance</p>
+<p>Usage guidance is coming soon once this new model is tested.</p>
+</div>
+<details class="note">
+<summary>Parameters</summary>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Argument</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Points per side</td>
+<td><code>points_per_side</code></td>
+<td><code>32</code></td>
+<td>Number of point prompts per side, controlling density of point grid. Higher values will capture more objects (rightly or wrongly), but take longer to run.</td>
+</tr>
+<tr>
+<td>Points per batch</td>
+<td><code>points_per_batch</code></td>
+<td><code>64</code></td>
+<td>Number of points to process per batch. Higher values will be faster but will require more (GPU) memory.</td>
+</tr>
+<tr>
+<td>Pred IoU threshold</td>
+<td><code>pred_iou_thresh</code></td>
+<td><code>0.88</code></td>
+<td>Threshold (range [0,1]) for model-predicted IoU, for filtering out low-confidence masks. Higher values will remove more masks.</td>
+</tr>
+<tr>
+<td>Stability score threshold</td>
+<td><code>stability_score_thresh</code></td>
+<td><code>0.95</code></td>
+<td>Threshold (range [0,1]) for mask stability score. Higher values will remove more masks, in conjunction with stability score offset that controls level of stability measured.</td>
+</tr>
+<tr>
+<td>Stability score offset</td>
+<td><code>stability_score_offset</code></td>
+<td><code>1.0</code></td>
+<td>Amount to shift the cutoff for stability score. Higher values will remove less stable masks.</td>
+</tr>
+<tr>
+<td>Box NMS IoU threshold</td>
+<td><code>box_nms_thresh</code></td>
+<td><code>0.7</code></td>
+<td>The IoU threshold (range [0,1]) for non-maximum suppression of boxes. Lower values will merge more masks, useful to reduce mask 'halos' and speed-up postprocessing, but could lead to undersegmentation/agglomeration.</td>
+</tr>
+<tr>
+<td>Crop N layers</td>
+<td><code>crop_n_layers</code></td>
+<td><code>0</code></td>
+<td>Values &gt;0 will crop the image into N layers, which will be processed separately, giving more detail but taking longer. Each deeper layer will have more crops (2^N). Balance number of point prompts with 'Crop N points downscale factor'.</td>
+</tr>
+<tr>
+<td>Crop NMS IoU threshold</td>
+<td><code>crop_nms_thresh</code></td>
+<td><code>0.7</code></td>
+<td>Same as Box NMS IoU threshold, but for each crop.</td>
+</tr>
+<tr>
+<td>Crop overlap ratio</td>
+<td><code>crop_overlap_ratio</code></td>
+<td><code>0.34133</code></td>
+<td>The amount which crops overlap. Higher values may help identify more objects, but duplicates computation.</td>
+</tr>
+<tr>
+<td>Crop N points downscale factor</td>
+<td><code>crop_n_points_downscale_factor</code></td>
+<td><code>1</code></td>
+<td>Value to be raised to the power of the crop layer will be used to scale down number of points per side in each crop. Higher values will reduce point grid density in deeper layers.</td>
+</tr>
+<tr>
+<td>Min mask region area</td>
+<td><code>min_mask_region_area</code></td>
+<td><code>0</code></td>
+<td>Size (in pixels) of masks to remove if identified as a disconnected region or hole. 0 will not remove any masks.</td>
+</tr>
+<tr>
+<td>Use previous mask refinement</td>
+<td><code>use_m2m</code></td>
+<td><code>False</code></td>
+<td>Tick to use one-step refinement using previous mask predictions.</td>
+</tr>
+<tr>
+<td>Multimask output</td>
+<td><code>multimask_output</code></td>
+<td><code>False</code></td>
+<td>Tick to output multiple masks at each grid point prompt.</td>
+</tr>
+</tbody>
+</table>
+</details>
+<h3 id="model-stardist">StarDist<a class="headerlink" href="#model-stardist" title="Permanent link">¶</a></h3>
+<p>Run with <code>--model stardist</code>.</p>
+<p>StarDist is a deep learning method for star-convex object detection in 2D and 3D microscopy images, particularly suited for cell and nucleus segmentation.</p>
+<p><a href="https://github.com/stardist/stardist">Documentation</a> · <a href="https://github.com/stardist/stardist">Repository</a> · <a href="https://doi.org/10.1007/978-3-030-00934-2_30">Cell Detection with Star-convex Polygons</a> · <a href="https://doi.org/10.1109/WACV45572.2020.9093435">Star-convex Polyhedra for 3D Object Detection and Segmentation in Microscopy</a> · <a href="https://doi.org/10.48550/arXiv.2203.02284">Nuclei Instance Segmentation and Classification in Histopathology Images with Stardist</a></p>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th><code>--model_type</code></th>
+<th>Tasks</th>
+<th>Axes</th>
+<th>Availability</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2D_versatile_fluo</td>
+<td><code>2d_versatile_fluo</code></td>
+<td>Nuclei</td>
+<td><code>YX</code></td>
+<td>Public</td>
+</tr>
+<tr>
+<td>2D_versatile_he</td>
+<td><code>2d_versatile_he</code></td>
+<td>Nuclei</td>
+<td><code>YXC</code></td>
+<td>Public</td>
+</tr>
+<tr>
+<td>2D_paper_dsb2018</td>
+<td><code>2d_paper_dsb2018</code></td>
+<td>Nuclei</td>
+<td><code>YX</code></td>
+<td>Public</td>
+</tr>
+<tr>
+<td>2D_demo</td>
+<td><code>2d_demo</code></td>
+<td>Nuclei</td>
+<td><code>YX</code></td>
+<td>Public</td>
+</tr>
+<tr>
+<td>3D_demo</td>
+<td><code>3d_demo</code></td>
+<td>Nuclei</td>
+<td><code>ZYX</code></td>
+<td>Public</td>
+</tr>
+</tbody>
+</table>
+<details class="note">
+<summary>Parameters</summary>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Argument</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Probability Threshold</td>
+<td><code>prob_thresh</code></td>
+<td><code>None</code> (float)</td>
+<td>Threshold for pixel-wise object probability mask. Higher values lead to fewer detected objects with higher confidence.</td>
+</tr>
+<tr>
+<td>NMS Threshold</td>
+<td><code>nms_thresh</code></td>
+<td><code>None</code> (float)</td>
+<td>Intersection over Union (IoU) threshold for non-maximum suppression. Higher values allow for more overlapping objects.</td>
+</tr>
+<tr>
+<td>Normalize Min Percentile</td>
+<td><code>normalize_pmin</code></td>
+<td><code>1</code></td>
+<td>Lower percentile for image normalization. Images are normalized to this percentile value before prediction.</td>
+</tr>
+<tr>
+<td>Normalize Max Percentile</td>
+<td><code>normalize_pmax</code></td>
+<td><code>99.8</code></td>
+<td>Upper percentile for image normalization. Images are normalized to this percentile value before prediction.</td>
+</tr>
+<tr>
+<td>Number of Tiles</td>
+<td><code>n_tiles</code></td>
+<td><code>None</code> (tuple)</td>
+<td>Number of tiles for tiled prediction to reduce memory consumption for large images. Specify as tuple (e.g., (2, 2) for 2x2 tiling).</td>
+</tr>
+<tr>
+<td>Normalize Image</td>
+<td><code>normalize_img</code></td>
+<td><code>True</code></td>
+<td>Whether to normalize the input image before prediction. Recommended for most cases.</td>
+</tr>
+<tr>
+<td>Scale</td>
+<td><code>scale</code></td>
+<td><code>None</code> (float)</td>
+<td>Optional scaling factor for the input image. Can be used to match the resolution of training data.</td>
+</tr>
+<tr>
+<td>Channel Index</td>
+<td><code>channel_idx</code></td>
+<td><code>0</code></td>
+<td>Select which channel StarDist should use. -1=use original image as-is, 0=first channel, 1=second channel, etc. Ignored for model variants that consume multi-channel images directly.</td>
+</tr>
+</tbody>
+</table>
+</details>
+<p><em>Generated from <code>aiod_registry</code> 0.2.0.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2026 Cameron Shand — <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.instant", "navigation.instant.progress", "navigation.tracking", "navigation.path", "navigation.sections", "navigation.indexes", "navigation.top", "toc.follow", "search.suggest", "search.share", "content.tooltips", "content.tabs.link", "content.code.select", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
