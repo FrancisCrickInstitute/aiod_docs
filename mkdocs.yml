@@ -3,7 +3,9 @@ site_description: AIoD is a framework for running any AI model on images at scal
 site_url: https://franciscrickinstitute.github.io/aiod_docs/
 repo_name: AIoD Docs
 repo_url: https://github.com/FrancisCrickInstitute/aiod_docs
-copyright: Copyright &copy; 2026 Cameron Shand
+copyright: >
+  Copyright &copy; 2026 Cameron Shand &mdash;
+  <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a>
 
 theme:
   name: material
