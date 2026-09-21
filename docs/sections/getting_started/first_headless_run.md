@@ -159,7 +159,7 @@ There are three ways to produce this CSV, and for a handful of images the first 
 
     A wrong `channels` or `num_slices` is not caught when the run starts. It surfaces later inside the segmentation step, after the environment has been built and the model downloaded, as:
 
-    ```
+    ```text
     Image shape {'C': 1, 'Z': 1, 'Y': 120, 'X': 120} does not match expected channels and slices (3, 40).
     ```
 
@@ -200,7 +200,7 @@ nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.1 \
 do. Confirm the model, variant and task are what you meant, and that `Revision` shows the
 tag you pinned:
 
-```
+```text
 ════════════════════════════════════════════════════
               █████╗ ██╗        ██████╗
              ██╔══██╗██║        ██╔══██╗
@@ -232,14 +232,14 @@ Full Command    : nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.1 -prof
 
 Because you passed no config, the run also reports that it fell back to the registry:
 
-```
+```text
 Written metadata for 'cyto3_cyto' -> model_chkpt_meta.json
 Generated default config from registry params -> .../cyto3_cyto_config.yml
 ```
 
 and it finishes with:
 
-```
+```text
 ======================================================================
 AIoD finished SUCCESSFULLY at 2026-09-16 11:49:27 after 5m 20s
 ======================================================================
@@ -255,7 +255,7 @@ ls ~/.nextflow/aiod/aiod_cache/cellpose/cyto3_masks/
 
 Filenames follow a fixed pattern:
 
-```
+```text
 <image_id>[_<prep_hash>]_masks_<config_hash>_all.<ext>
 ```
 
@@ -397,7 +397,7 @@ giving `example_fluo_jpg_masks_clahe-baseline-2026-09_all.rle`. Keeping it in th
 
 **Check it worked:** every step reports `cached`, and the run finishes in seconds rather than minutes:
 
-```
+```text
 [f1/a6177b] setupModel           | 1 of 1, cached: 1 ✔
 [skipped  ] downloadArtifact (2) | 2 of 2, stored: 2 ✔
 [de/cd31d6] computeImageIds      | 1 of 1, cached: 1 ✔
@@ -435,7 +435,7 @@ The empty set `- []` means "also run on the untouched data", which is useful for
 
 Each set gets a short hash which appears in its output filenames, and the run logs a legend mapping them at the start:
 
-```
+```text
 Preprocessing hash legend for this run:
 [e0337ccb] CLAHE-tileGridSize=[12, 12]-clipLimit=3.0
 [4dbb4ea2] CLAHE-tileGridSize=[12, 12]-clipLimit=8.0

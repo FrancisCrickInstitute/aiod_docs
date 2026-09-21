@@ -80,7 +80,7 @@ AIoD takes advantage of shared directories to cache (store) models, results, and
 
 The cache has a general structure, a schematic of which is shown below to help navigate (should you want to!):
 
-```
+```text
 $HOME/.nextflow/aiod
 ├── aiod_cache
 │   ├── cellpose

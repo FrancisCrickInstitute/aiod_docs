@@ -159,7 +159,7 @@ Note that, as discussed [here](../../concepts/index.md#project_configs), these f
 
     SSH execution is **not** in the published `aiod_napari` package, so the options described below will not appear in an install from PyPI or from within Napari. To try it, install from the [`AIOD-352` branch](https://github.com/FrancisCrickInstitute/aiod_napari/tree/AIOD-352):
 
-    ```
+    ```bash
     uv pip install git+https://github.com/FrancisCrickInstitute/aiod_napari.git@AIOD-352
     ```
 

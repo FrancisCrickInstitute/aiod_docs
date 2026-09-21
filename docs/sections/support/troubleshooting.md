@@ -9,10 +9,15 @@ Common problems and what they usually mean. If none of these fit, please
 
     Napari is almost definitely running in a different environment from the one you installed the plugin into. Activate the environment and launch Napari from that same terminal:
 
+    ```bash
+    source aiod-env/bin/activate # (1)!
+    napari # (2)!
     ```
-    source aiod-env/bin/activate
-    napari
-    ```
+
+    1.  Replace `aiod-env` with whatever you named your environment. On Windows
+        (PowerShell) the equivalent is `aiod-env\Scripts\activate`.
+    2.  Your terminal prompt should now show the environment name in brackets. Launching
+        Napari in this environment is what guarantees it sees the plugin.
 
     Installing Napari system-wide and the plugin into a virtual environment (or vice versa) is the usual cause.
 
@@ -22,7 +27,7 @@ Common problems and what they usually mean. If none of these fit, please
     environment Napari was started from* — not merely installed somewhere on the
     machine. Check with:
 
-    ```
+    ```bash
     nextflow -version
     ```
 

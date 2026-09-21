@@ -50,6 +50,7 @@ theme:
     - content.tabs.link
     - content.code.select
     - content.code.copy
+    - content.code.annotate
   
 nav:
   - Overview:

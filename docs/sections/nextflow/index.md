@@ -90,9 +90,17 @@ The Nextflow pipeline can be run directly, allowing headless use and avoiding Na
 
 An example run command may look like:
 
+```bash
+nextflow \
+    -log /Users/shandc/.nextflow/aiod/nextflow.log \
+    run FrancisCrickInstitute/Segment-Flow \
+    -latest \
+    -w /Users/shandc/.nextflow/aiod/work \
+    -params-file /Users/shandc/.nextflow/aiod/aiod_cache/nxf_params_43e45ccf52a1503556b86df6e8b47959.yml \
+    -profile local # (1)!
 ```
-nextflow -log /Users/shandc/.nextflow/aiod/nextflow.log run FrancisCrickInstitute/Segment-Flow -latest -w /Users/shandc/.nextflow/aiod/work -profile local -params-file /Users/shandc/.nextflow/aiod/aiod_cache/nxf_params_43e45ccf52a1503556b86df6e8b47959.yml
-```
+
+1.  Each argument is explained in [Command Explained](#command-explained) below.
 
 Where the [params-file](https://www.nextflow.io/docs/latest/cli.html#pipeline-parameters) looks like:
 
@@ -116,7 +124,7 @@ task: mito
 
 A complete list of parameters with some guidance can be obtained via:
 
-```
+```bash
 nextflow run -latest FrancisCrickInstitute/Segment-Flow --help
 ```
 

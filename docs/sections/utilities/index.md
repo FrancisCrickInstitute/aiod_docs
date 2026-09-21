@@ -32,7 +32,7 @@ BioIO can often read a given file with more than one plugin, and its default ord
 
     While `bioformats` covers many file formats, it is a much heavier dependency, and so is an optional install:
     
-    ```
+    ```bash
     uv pip install aiod_utils[bioformats]
     ```
 

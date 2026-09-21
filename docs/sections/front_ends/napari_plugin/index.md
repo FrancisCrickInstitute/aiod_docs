@@ -8,17 +8,20 @@ To easily visualise your data, and select the different models, parameters, and 
 
     1. Create a virtual environment — we recommend [`uv`](https://docs.astral.sh/uv/getting-started/installation/), though `venv`, `conda`, or `pixi` all work:
 
-    ```
-    uv venv aiod-env
-    source aiod-env/bin/activate
-    ```
+        ```bash
+        uv venv aiod-env # (1)!
+        source aiod-env/bin/activate # (2)!
+        ```
+
+        1.  Creates an isolated Python environment in a new `aiod-env` folder inside whatever directory your terminal is currently in.
+        2.  *Activates* the environment, so that everything you install next goes into this environment. You need to do this again in every new terminal. On Windows (PowerShell) use `aiod-env\Scripts\activate` instead.
 
     2. Install Napari: [Official guide](https://napari.org/stable/tutorials/fundamentals/installation.html)
     3. In your environment, install our plugin.
 
     For the latest published version:
 
-    ```
+    ```bash
     uv pip install aiod_napari
     ```
 
