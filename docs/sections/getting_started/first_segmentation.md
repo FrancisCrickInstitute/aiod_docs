@@ -66,7 +66,7 @@ With Napari open, go to **Plugins :material-arrow-right: AI OnDemand :material-a
 
 A panel appears on the right-hand side, made up of collapsible sections, with the first open. In general, we work through each section top to bottom. In this tutorial we won't cover all of them!
 
-**Check it worked:** you can should see this:
+**Check it worked:** you should see this:
 ![Screenshot of plugin once opened](../../assets/screenshots/tutorials/plugin_opened.png){width=100%}
 
 ## 3. Load the example image
@@ -117,13 +117,13 @@ You will also notice a **Preprocessing** section. This too can play an important
 
 Our **Run Pipeline** box is where everything actually happens, but requires two important things to be set: the cache location and the Nextflow execution profile.
 
-**Cache directory.** This is where AIoD stores downloaded models, configurations, and all your results. Point it somewhere with a few GB free for now. On a laptop, the default is fine. On a shared or managed machine, avoid your home directory if it has a small quota. Your choice is remembered between sessions, so you only need to set this once at the start (and when changing it!).
+**Cache directory.** This is where AIoD stores downloaded models, configurations, and all your results. Set it to a location with a few GB free. On a laptop, the default is fine. On a shared or managed machine, avoid your home directory if it has a small quota. Your choice is remembered between sessions, so you only need to set this once at the start (and when changing it!).
 
 **Execution profile.** This tells AIoD *where* to run the computation. Choose `local` to run on this machine. (At the Crick on NEMO, choose `crick` instead.)
 
-??? info "Why does the cache location matter more than it sounds?"
+??? info "Why the cache location is important"
 
-    The cache is deliberately semi-permanent rather than scratch space: keeping results around is what lets AIoD skip work it has already done, and lets you reload previous runs instantly. If you are part of a lab or group, putting the cache somewhere everyone can write to means you all share downloaded models and each other's results, which can avoid wasted compute.
+    The cache should be considered semi-permanent rather than scratch space: keeping results around is what lets AIoD skip work it has already done, and lets you reload previous runs instantly. If you are part of a lab or group, putting the cache somewhere everyone can write to means you all share downloaded models and each other's results, which can avoid wasted compute.
 
     The trade-offs (including privacy considerations for unpublished data) are covered in [Caching](../concepts/index.md#caching).
 
@@ -144,9 +144,9 @@ Once the segmentation itself starts, the progress bar advances as each chunk of 
 
 !!! tip "Intermediate results"
 
-    As each of the chunks is finished, that partial result will be filled on Napari. Note that the slider will automatically move to the start of that chunk! This can be particularly useful to see intermediate results, allowing you to cancel the pipeline early if things aren't looking up-to-scratch.
+    As each of the chunks is finished, that partial result will be filled on Napari. This can be particularly useful to see intermediate results, allowing you to cancel the pipeline early if things aren't looking up-to-scratch.
 
-**Check it worked:** when the run finishes, a "Pipeline " pop-up box will show in the bottom-right of the viewer, and we'll have our masks as shown below.
+**Check it worked:** when the run finishes, a "Pipeline finished!" pop-up box will show in the bottom-right of the viewer, and we'll have our masks as shown below.
 ![Screenshot of completed pipeline with segmentation masks.](../../assets/screenshots/tutorials/pipeline_finished.png)
 
 ## 7. Look at your results
@@ -174,7 +174,7 @@ If you are unfamiliar with Napari, this clip illustrates those actions:
 </figure>
 
 
-**The result may not be perfect!** No model is right everywhere, and improving it is what parameters, preprocessing, and other models (potentially in combination) are for. This tutorial is to get a feel of the workflow, see [the last section](#where-next) for how to take this forward on your own data.
+**The result may not be perfect!** No model is right everywhere, and improving it is what parameters, preprocessing, and other models (potentially in combination) are for. See [the last section](#where-next) for how to take this forward on your own data.
 
 ## 8. Save your masks
 
@@ -190,7 +190,7 @@ With no layer selected, everything is exported; select a single `Labels` layer t
 
     Your results currently live only in the AIoD cache that you set in [step 5](#5-configuring-your-cache-and-the-pipeline), which is meant to be cleared periodically. Once you are happy with a result, export it somewhere permanent.
 
-**You're done!** You have installed AIoD, run a pre-trained deep learning model on a 3D image without installing the model yourself, and saved the output.
+**You're done!** You have installed AIoD, run a pre-trained deep learning model on a 3D image, and saved the output.
 
 
 ## Something went wrong?

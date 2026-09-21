@@ -8,7 +8,7 @@ That is the right choice when you are happy with a model's performance and just 
 
 1. Install Nextflow and Conda
 2. Pick a model, version, and task
-3. Describe your images in a small CSV
+3. Describe your images in a small CSV file
 4. Run the pipeline and find your masks
 5. Tune the model, then re-run without redoing the work
 
@@ -153,8 +153,7 @@ There are three ways to produce this CSV, and for a handful of images the first 
     out. **Without `index=False`, you get an unnamed leading column of row
     numbers, which is not a valid input.**
 
-    Note this reads the dimensions from the same metadata the CSV exists to override, so
-    treat the result as a first draft and check it!
+    Note: this code snippet automatically extracts dimensions from the image metadata, which can sometimes be incorrectly encoded. The CSV file must contain the correct dimension information, so treat the result as a first draft and check it!
 
 !!! warning "Check the numbers before you run"
 
@@ -169,8 +168,7 @@ There are three ways to produce this CSV, and for a handful of images the first 
 ??? tip "No images to hand?"
 
     Any public image will do to try the mechanics. The volume our Napari tutorial uses is
-    [`em_20nm_z_40_145.tif`](https://zenodo.org/records/7936982/files/em_20nm_z_40_145.tif)
-    (263 MB) — a 3D FIB-SEM stack whose CSV row is
+    [`em_20nm_z_40_145.tif`](https://zenodo.org/records/7936982/files/em_20nm_z_40_145.tif) (clicking this link will start a direct download of the 263 MB file), a 3D FIB-SEM stack whose CSV row is
     `<path>,106,1750,1484,1,uint8`, segmentable with `--model empanada --model_type
     mitonet_mini_v1 --task mito`.
 
@@ -188,9 +186,7 @@ nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.1 \
   --task cyto
 ```
 
-Three parts of that are worth understanding:
-
-- **`-r 0.2.1`** pins the pipeline to a specific (0.2.1) release. Without it you get whatever is on the default branch today, which can change between runs — the pipeline will warn you when you do this. Pin it, and your command means the same thing next year.
+- **`-r 0.2.1`** pins the pipeline to a specific (0.2.1) release. Without it the latest code version is used, which can change between runs (the pipeline will warn you when you do this). It is strongly recommended to always specify a pinned version to maintain reproducibility.
 - **`-profile local`** runs on your current machine. On a cluster you would use a different one — see [step 9](#9-running-it-on-hpc).
 - **No `--model_config`.** The model runs on its registry defaults. Later in [step 6](#6-tune-the-model) we will cover changing them.
 
@@ -266,7 +262,7 @@ Filenames follow a fixed pattern:
 - `image_id` is your filename with the extension folded in, so `img1.tif` becomes `img1_tif`
 - `prep_hash` only appears if you used preprocessing ([step 8](#8-run-several-preprocessing-recipes-at-once))
 - `config_hash` is the `Config Hash` from the run header
-- `_all` marks the mask combined across every substack — the individual pieces appear alongside it as `..._x0-120_y0-120_z0-1.rle` while the run is in progress, and the combining step removes them when it finishes. They are symlinks into `work`, so they break rather than disappear if you clear it — only the `_all` file is a real copy.
+- `_all` refers to the final mask after the substack results have been combined.
 - `ext` is the file extension. By default masks are written as `.rle`, our [compact run-length encoded format](../utilities/index.md#customised-run-length-encoding-format). To read one back:
 
 ```python
@@ -376,7 +372,7 @@ nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.1 -profile local \
   -params-file params.yml -resume
 ```
 
-That file is now a record of the run, and it is the only way to express the preprocessing in the next step.
+Parameter files serve as a record of the specific configuration of each run. They are also necessary for adding preproccessing to the pipeline, which is explained in the next step.
 
 ### Naming your runs
 
@@ -435,7 +431,7 @@ preprocess:
       tileGridSize: [12, 12]
 ```
 
-The empty set `- []` means "also run on the untouched data", giving you a baseline to compare against in the same run and without making a copy of your images.
+The empty set `- []` means "also run on the untouched data", which is useful for comparing the results with and without preprocessing.
 
 Each set gets a short hash which appears in its output filenames, and the run logs a legend mapping them at the start:
 
@@ -482,7 +478,7 @@ Three things to watch out for:
 
 ??? failure "`Missing required parameter: --img_dir`"
 
-    The pipeline validates everything before it starts and reports all the problems at once. `--img_dir` is the only parameter with no default, so this is the one you can forget. `img_dir does not exist: <path>` means the path is wrong!
+    `--img_dir` is the only parameter with no default, so this is the one you can forget. `img_dir does not exist: <path>` means the path is wrong!
 
 ??? failure "`Model <x> not yet implemented!`"
 
