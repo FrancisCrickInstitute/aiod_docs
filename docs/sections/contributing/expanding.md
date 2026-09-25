@@ -23,7 +23,7 @@ Each new schema needs:
 
 - A model name (the `short_name` is used as the name for the Python script and conda environments in the Nextflow pipeline — details [below](#add-a-new-model-family_1))
 - At least one model version — details [below](#add-a-new-model-version)
-- Relevant metadata (as much information as possible to provide background information and external links to help further guidance users on model usage and for references to include in publications)
+- Relevant metadata (as much information as possible to provide background information and external links to help guide users on model usage and for references to include in publications)
 
 !!! warning "Unknown fields are rejected"
 
@@ -116,7 +116,7 @@ You will need to add 2 things to the pipeline:
 2. A `conda_<MODEL NAME>.yml` environment file to run the model
 
 #### Python Script
-The existing scripts can be [found here](https://github.com/FrancisCrickInstitute/Segment-Flow/tree/master/modules/models/resources/usr/bin), and simply handle how that specific model is run. it is therefore completely model-specific, with the exception of a couple of things that it should have:
+The existing scripts can be [found here](https://github.com/FrancisCrickInstitute/Segment-Flow/tree/master/modules/models/resources/usr/bin), and simply handle how that specific model is run. It is therefore completely model-specific, with the exception of a couple of things that it should have:
 
 1. An entrypoint that loads our [argparser](https://github.com/FrancisCrickInstitute/Segment-Flow/blob/0.2.0/modules/models/resources/usr/bin/utils.py#L67-L104) to take inputs from the pipeline.
 2. Saves the output masks with [our function](https://github.com/FrancisCrickInstitute/Segment-Flow/blob/0.2.0/modules/models/resources/usr/bin/utils.py#L36-L64).
@@ -129,7 +129,7 @@ Look at any of the existing scripts for guidance if you are unsure (e.g. [Cellpo
 
     Conda is the simplest option available within Nextflow for defining the environment-per-model that we need. We will eventually move everything to containers for better reproducibility and portability!
 
-Each model family needs it's own conda environment which Nextflow will create and use for running that model. You can see the current environments [here](https://github.com/FrancisCrickInstitute/Segment-Flow/tree/master/modules/models/envs). Note that there is a "generic" and "cuda" folder to allow for variation if anything additional is needed to support GPUs (though in some cases this is not needed!).
+Each model family needs its own conda environment which Nextflow will create and use for running that model. You can see the current environments [here](https://github.com/FrancisCrickInstitute/Segment-Flow/tree/master/modules/models/envs). Note that there is a "generic" and "cuda" folder to allow for variation if anything additional is needed to support GPUs (though in some cases this is not needed!).
 
 **The only requirement for each environment is that it installs our [`aiod_utils`](https://github.com/FrancisCrickInstitute/aiod_utils) package!**
 

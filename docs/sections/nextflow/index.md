@@ -64,7 +64,7 @@ The model will be downloaded (if a URL) or copied into the cache (if a filepath)
 
 
 ### Run Model
-The specified model will run (in it's own environment) on each of the substacks. Depending on the [executor/profile](#command-explained), this will be done **as parallel as possible** on the given system.
+The specified model will run (in its own environment) on each of the substacks. Depending on the [executor/profile](#command-explained), this will be done **as parallel as possible** on the given system.
 
 If run via the Napari plugin, as each individual job finishes intermediate results will be loaded in, allowing for quick inspection and potentially early exit to adjust parameters.
 
@@ -132,7 +132,7 @@ nextflow run -latest FrancisCrickInstitute/Segment-Flow --help
 
     In the example above, the files were generated automatically by the Napari plugin to maximize [reproducibility](../concepts/index.md#reproducibility-hashing).
 
-    For running the pipeline directly, we recommended using some clear, traceable naming system, whether that's using datetime or some other format. Setting `param_hash` yourself is how you do that — see [naming your runs](../getting_started/first_headless_run.md#naming-your-runs) for a worked example and the trade-off it carries.
+    For running the pipeline directly, we recommend using some clear, traceable naming system, whether that's using datetime or some other format. Setting `param_hash` yourself is how you do that — see [naming your runs](../getting_started/first_headless_run.md#naming-your-runs) for a worked example and the trade-off it carries.
 
 #### Command Explained
 Brief explanation of the arguments used in the execution/run command above:
@@ -141,7 +141,7 @@ Brief explanation of the arguments used in the execution/run command above:
 - `-latest`: Pulls the latest version of the [repo](https://github.com/FrancisCrickInstitute/Segment-Flow) before running
 - `-profile`: Which [profile](https://www.nextflow.io/docs/latest/config.html#config-profiles) to use
 - `-w`: Path for the `workDir` (i.e. intermediate outputs)
-- `-params-file`: Path the parameter file (example above, explained [below](#parameters-explained))
+- `-params-file`: Path to the parameter file (example above, explained [below](#parameters-explained))
 
 For other arguments, see the [Nextflow documentation](https://www.nextflow.io/docs/stable/cli.html).
 

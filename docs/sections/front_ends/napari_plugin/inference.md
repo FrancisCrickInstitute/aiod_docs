@@ -11,7 +11,7 @@ Select the relevant task to filter available [models to select](#model-selection
 ### Model Selection
 The [top-level model family](../../concepts/index.md#model-family) will be filtered depending on the selected [task](#task-selection). This also filters which [model version](../../concepts/index.md#model-version) you can choose. Also, you can only see models that are *accessible* to you. *Accessible* models are those in our registry defined by a URL, or by a filepath that you have access to (further details [here](../../concepts/index.md#model-location)).
 
-Clicking "Modify Parameters" will open all the available parameters to edit for the chosen model. For some models, the performance is highly-dependent on correct settings of these parameters. Each parameter has a tooltip that explains what it is, but it is recommended checking the official documentation of that model for further guidance. To view all parameters and tooltips, as well as any links to that model's documentation, click the :octicons-question-16: (model info) icon.
+Clicking "Modify Parameters" will open all the available parameters to edit for the chosen model. For some models, the performance is highly-dependent on correct settings of these parameters. Each parameter has a tooltip that explains what it is, but we recommend checking the official documentation of that model for further guidance. To view all parameters and tooltips, as well as any links to that model's documentation, click the :octicons-question-16: (model info) icon.
 
 ![Screenshot of model selection options.](../../../assets/screenshots/inference_models.png){width=75%}
 
@@ -74,22 +74,22 @@ After clicking the "Run Pipeline!" button, the progress bar will update as each 
 
     This dropdown allows you to adjust how the images are split. As the default keeps each substack proportional to the shape of your image, for some models+data (particularly 2D models) you may prefer to create substacks with a larger XY and smaller Z.
 
-    As discussed [here](../../nextflow/index.md#individual-level), users do not have complete control over the shapes to avoid overloading available hardware. The substack size number of jobs that will be submitted with the current settings is shown at the bottom.
+    As discussed [here](../../nextflow/index.md#individual-level), users do not have complete control over the shapes to avoid overloading available hardware. The substack size and number of jobs that will be submitted with the current settings is shown at the bottom.
 
     ![Screenshot of advanced Nextflow options.](../../../assets/screenshots/inference_advanced.png){width=75%}
 
 
 ### Project Config
 
-For ease of use (especially when switching between projects), you can save and load a project config. This will store and load and every single UI selection across the plugin, making it quick to e.g. re-select model parameters and preprocessing sets.
+For ease of use (especially when switching between projects), you can save and load a project config. This will store and load every single UI selection across the plugin, making it quick to e.g. re-select model parameters and preprocessing sets.
 
 ![Screenshot of the project config options, showing the save and load buttons.](../../../assets/screenshots/inference_projconf.png){width=75%}
 
 ### Mask Export
 
-You can export all masks, or if you have a `Labels` layer selected just export that one. The dropdown shows the file formats support to export to, allowing you to then use the masks elsewhere.
+You can export all masks, or if you have a `Labels` layer selected just export that one. The dropdown shows the file formats you can export to, allowing you to then use the masks elsewhere.
 
-The `.rle` format is the most compact, but cannot be read without the use of `aiod_utils`. For use with other programs, we recommend to export as a `.tiff`.
+The `.rle` format is the most compact, but cannot be read without the use of `aiod_utils`. For use with other programs, we recommend exporting as a `.tiff`.
 
 !!! tip "Reading masks back in"
 
@@ -107,6 +107,7 @@ The Napari plugin has a few key variables that you need to be aware of. The rest
 As discussed in our [AIoD Concepts](../../concepts/index.md#caching) section, the cache is where models, config files, and all outputs (i.e. segmentation mask files) exist.
 
 Where you select to place this cache has a few considerations, namely:
+
 - If you have any space limits (common with home directories on HPC systems), select a directory you have access to with more space
 - If you want to have a cache at a lab or institute level, select a central location where everyone has write access. This allows for more [reloading previous results](../../concepts/index.md#reloading-results), and reduces the collective storage footprint of downloaded models (at the potential cost of privacy, see note below)
 
@@ -133,7 +134,7 @@ This is the execution profile that will be used by our [Nextflow pipeline](../..
 
 === "Non-Crick HPC"
 
-    You will need to setup a profile that works for your given HPC, so long as it is one of [Nextflow's executors](https://www.nextflow.io/docs/latest/executor.html). I recommend using the [Crick profile](https://github.com/FrancisCrickInstitute/Segment-Flow/blob/master/profiles/crick.conf) as a template, and adapt it to your needs. Further guidance can be found [here](../../contributing/expanding.md#add-a-profile).
+    You will need to setup a profile that works for your given HPC, so long as it is one of [Nextflow's executors](https://www.nextflow.io/docs/latest/executor.html). We recommend using the [Crick profile](https://github.com/FrancisCrickInstitute/Segment-Flow/blob/master/profiles/crick.conf) as a template, and adapting it to your needs. Further guidance can be found [here](../../contributing/expanding.md#add-a-profile).
 
     See the [contributing a profile](../../contributing/expanding.md#add-a-profile) section for guidance on how to make this accessible to other users at your institution.
 
@@ -207,7 +208,7 @@ The parameters are as follows:
             - _"Remote path prefix"_: The remote path start, e.g. `/hpc/lab/my_lab/`
             - _"Mounted path prefix"_: `/Volumes/` (for Mac; for Windows use the appropriate letter where you have mounted the drive)
             - _"Command prepend"_: Anything that you need to do on the remote system to enable Nextflow (if not by default, e.g. `ml Nextflow`)
-            - Then select the SSH key you have authenticated for NEMO
+            - Then select the SSH key you have authenticated for that machine
 
     === "Crick"
 

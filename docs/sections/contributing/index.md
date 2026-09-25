@@ -1,6 +1,6 @@
 # Contributing
 
-There are three main ways to contribute to AIoD, each of which has it's own page linked below:
+There are three main ways to contribute to AIoD, each of which has its own page linked below:
 
 1. [Adding models to the framework](./expanding.md)
 2. [Contributing to the codebase(s) themselves](./developing.md)

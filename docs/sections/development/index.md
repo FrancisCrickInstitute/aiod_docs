@@ -1,6 +1,6 @@
 # Development of AIoD
 
-This page covers the current planned roadmap of AIoD, and its general design principles. This serves to inform users of planned features, and are encouraged to like/upvote features to help us prioritise with limited resources, or even help contribute if you are willing and able!
+This page covers the current planned roadmap of AIoD, and its general design principles. This serves to inform users of planned features, and users are encouraged to like/upvote features to help us prioritise with limited resources, or even help contribute if you are willing and able!
 
 ## Vision
 AIoD is a user-friendly, community-extendable platform for running (deep learning) models on any compute, enabling scientists to run the latest models on their data without friction.
@@ -87,7 +87,7 @@ In development is another workflow in `Segment-Flow`, but providing a unified wa
 ### Wider Accessibility
 Some people don't use or like Napari, but they still like to view their images so don't want to use the terminal directly. Ergo, we need more front-ends, for e.g. ImageJ, QuPath etc.
 
-This is discussed in more detail in our [UI section](../front_ends/index.md#user-interfaces), this is is an area where we are very much open to collaborate.
+This is discussed in more detail in our [UI section](../front_ends/index.md#user-interfaces), and this is an area where we are very much open to collaborate.
 
 ### Beyond Segmentation
 At present, the model registry consists only of segmentation models. There is no requirement or constraint in the design that limits AIoD to this (beyond the name of our Nextflow pipeline!).
@@ -99,6 +99,6 @@ Expanding to classification, object detection etc. therefore only requires a new
 
 ## Contributing
 
-Our [contribution](../contributing/index.md) sections covers how to contribute to the various parts of AIoD.
+Our [contribution](../contributing/index.md) section covers how to contribute to the various parts of AIoD.
 
 If you wish to help contribute to anything on the [roadmap](#roadmap), then you are very welcome to either get in contact with us directly, or to engage/create an issue on the [relevant repo](../../index.md#repositories) as needed. Note that the above roadmap links to existing issues where one already exists (this may be none at the moment as our issues are internal!).

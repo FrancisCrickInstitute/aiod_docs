@@ -1,6 +1,6 @@
 # Postprocessing Widget
 
-The postprocessing widget gives you various options for modifying segmentation masks. It is present just as a useful utility as requested by users, but it's functionality is purely contained within the Napari plugin and does not form apart of the wider AIoD framework. Many of these functions are inspired by the [`empanada-napari` proofreading tools](https://empanada.readthedocs.io/en/latest/index.html).
+The postprocessing widget gives you various options for modifying segmentation masks. It is present just as a useful utility as requested by users, but its functionality is purely contained within the Napari plugin and does not form part of the wider AIoD framework. Many of these functions are inspired by the [`empanada-napari` proofreading tools](https://empanada.readthedocs.io/en/latest/index.html).
 
 !!! note
 
@@ -59,7 +59,7 @@ This function takes in a single `Labels` layer, and merges the label IDs of any 
 ## Morph
 
 ### Morphological Operations
-This enables running four morphological operations: dilation, erosion, opening, and closing. These can be useful for adjusting segmentation masks to correct for model deficiencies without retraining or other more expensive adjustments. The structuring element (or how the kernel is defined) can be controlled by selecting the shape (2D square and disk, 3D cube and ball) and it's size. You can find further details and guidance on each of the operations and the inputs [here](https://scikit-image.org/docs/stable/auto_examples/applications/plot_morphology.html).
+This enables running four morphological operations: dilation, erosion, opening, and closing. These can be useful for adjusting segmentation masks to correct for model deficiencies without retraining or other more expensive adjustments. The structuring element (or how the kernel is defined) can be controlled by selecting the shape (2D square and disk, 3D cube and ball) and its size. You can find further details and guidance on each of the operations and the inputs [here](https://scikit-image.org/docs/stable/auto_examples/applications/plot_morphology.html).
 
 ### Fill Holes
 This uses [`skimage.morphology.remove_small_holes`](https://scikit-image.org/docs/stable/api/skimage.morphology.html#skimage.morphology.remove_small_holes) to remove holes within an object smaller than the specified size.
@@ -72,7 +72,7 @@ This function will binarize all masks, so only background (0) and foreground (ma
     It is recommended that you do not execute this in-place. For outputs where separate instances are touching once binarized the original result can be difficult to recover without reloading the source data.
 
 ### Label Masks
-This functions runs connected components to assign unique labels/IDs to the masks.
+This function runs connected components to assign unique labels/IDs to the masks.
 
 If the checkbox to "Label across skipped slices" is checked, then a 1-slice dilation will be performed across the Z-axis, allowing for a consistent labelling across frames for an object that may not align for a single slice. This can be useful with 2D models where data with artefacts could cause a disruption in segmentation.
 

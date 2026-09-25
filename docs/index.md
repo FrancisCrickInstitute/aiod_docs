@@ -35,7 +35,7 @@ AIoD allows you to easily run any of our [available models](#available-models) o
 
     === "HPC Admin"
 
-        AIoD uses Nextflow for its computational pipeline, enabling it be deployed it virtually any compute environment. See our [Getting Started](./sections/getting_started/index.md#hpc-non-crick) page for requirements and setup details.
+        AIoD uses Nextflow for its computational pipeline, enabling it to be deployed in virtually any compute environment. See our [Getting Started](./sections/getting_started/index.md#hpc-non-crick) page for requirements and setup details.
 
         If you are able to run some kind of virtual desktop/visual server (we use Open OnDemand), then our [Napari plugin](./sections/front_ends/napari_plugin/index.md) provides a visual interface that simplifies usage for your users.
 

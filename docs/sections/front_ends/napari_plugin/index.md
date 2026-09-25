@@ -32,7 +32,7 @@ To easily visualise your data, and select the different models, parameters, and 
 
     An AIoD app is already available on OnDemand for you to use.
 
-    If you would like to create your own environment so that you can install other plugins, please create a "NEMO Desktop" session, and following the [local install instructions](#local).
+    If you would like to create your own environment so that you can install other plugins, please create a "NEMO Desktop" session, and follow the [local install instructions](#local).
 
 === "Non-Crick HPC"
 
@@ -50,7 +50,7 @@ For a step-by-step walkthrough that takes you from nothing installed to a set of
 
 The plugin itself is structured into several main widgets that you'll see in the dropdown:
 
-- [`Evaluation`](./evaluation.md): Simple options for calculating different metrics (in isolation, or when compare different annotation sets)
+- [`Evaluation`](./evaluation.md): Simple options for calculating different metrics (in isolation, or when comparing different annotation sets)
 - [**`Inference`**](./inference.md): Primary interface for running the models on data!
 - [`Postprocess`](./postprocess.md): Useful functions for filtering, merging, and morphing masks
 

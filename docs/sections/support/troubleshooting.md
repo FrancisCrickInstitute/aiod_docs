@@ -54,7 +54,7 @@ Common problems and what they usually mean. If none of these fit, please
 
     Two likely reasons:
 
-    1. **The task filter.** The model list is narrowed by the selected task, so checkthe task matches what that model does. The [model reference](../model_registry/models.md) lists every model against its tasks.
+    1. **The task filter.** The model list is narrowed by the selected task, so check the task matches what that model does. The [model reference](../model_registry/models.md) lists every model against its tasks.
     2. **It's shared by file path, not public download.** Models marked [**Restricted**](../model_registry/models.md) are only visible to people who can read the location they live at (see [Model Location](../concepts/index.md#model-location)). If you should have access, check you can read that path; if you want it shared more widely, [add another location](../contributing/expanding.md#add-a-new-model-location).
 
 ## During the run
@@ -65,7 +65,7 @@ Common problems and what they usually mean. If none of these fit, please
 
     If it fails the same way twice, conda may have left a partial environment behind. Delete the offending environment under `conda/` in your [cache directory](../concepts/index.md#structure) (e.g. `~/.nextflow/aiod/conda/env-<HASH>`) and retry.
 
-    Deploying for a whole institution? Building every environment once, up front in central location that all users have access to, and the [execution profile](../contributing/expanding.md#add-a-profile) points to. See [pre-building environments](../contributing/developing.md#pre-building-model-environments).
+    Deploying for a whole institution? Build every environment once, in advance, in a central location that all users can access and that the [execution profile](../contributing/expanding.md#add-a-profile) points to. See [pre-building environments](../contributing/developing.md#pre-building-model-environments).
 
 ??? failure "You run out of disk space partway through"
 
