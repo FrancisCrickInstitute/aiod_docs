@@ -100,7 +100,7 @@ The `.rle` format is the most compact, but cannot be read without the use of `ai
     All masks by default live in the [AIoD cache](../../concepts/index.md#caching), which should be periodically cleared. Therefore, once happy with results we recommend you export them to a more permanent location!
 
 ## Configuration
-The Napari plugin has a few key variables that you need to be aware of. The rest of the UI should be self-explanatory, but see [Your First Segmentation](../../getting_started/first_segmentation.md) for a fuller usage guide if you prefer.
+The Napari plugin has a few key variables that you need to be aware of. The rest of the UI should be self-explanatory, but see [Your First Segmentation (Napari)](../../getting_started/first_segmentation.md) for a fuller usage guide if you prefer.
 
 ### Base/Cache Directory
 
@@ -169,7 +169,7 @@ Note that, as discussed [here](../../concepts/index.md#project_configs), these f
 
     This is a more advanced feature that requires you to have SSH keys setup with access to your HPC (or to wherever the computation is taking place, e.g. a workstation).
 
-It is possible with our Napari plugin to remotely execute the Nextflow pipeline, allowing you to e.g. run Napari locally, while running the segmentation distributed on your HPC, and receiving the results locally to view. Note that running the Nextflow pipeline directly may be simpler, however. See [Your First Headless Run](../../getting_started/first_headless_run.md) for a walkthrough, or the [pipeline reference](../../nextflow/index.md#running-the-pipeline-directly) for the full set of inputs.
+It is possible with our Napari plugin to remotely execute the Nextflow pipeline, allowing you to e.g. run Napari locally, while running the segmentation distributed on your HPC, and receiving the results locally to view. Note that running the Nextflow pipeline directly may be simpler, however. See [Your First Segmentation (Command Line)](../../getting_started/first_headless_run.md) for a walkthrough, or the [pipeline reference](../../nextflow/index.md#running-the-pipeline-directly) for the full set of inputs.
 
 To do this, you will need:
 

@@ -84,7 +84,7 @@ If `iou_threshold>0`, then masks will only be labelled the same over Z-slices if
 
 !!! tip "Looking for a walkthrough?"
 
-    This section is the reference for every input the pipeline accepts. If you have not run it from the terminal before, [Your First Headless Run](../getting_started/first_headless_run.md) goes from nothing to masks step by step, and covers the parts with no GUI equivalent.
+    This section is the reference for every input the pipeline accepts. If you have not run it from the terminal before, [Your First Segmentation (Command Line)](../getting_started/first_headless_run.md) goes from nothing to masks step by step, and covers the parts with no GUI equivalent.
 
 The Nextflow pipeline can be run directly, allowing headless use and avoiding Napari or any other front-end. Although more work is required in specifying the input parameters, this can be significantly faster for users who are happy with model performance and just want to segment a lot of data without wanting to keep Napari open!
 
@@ -255,7 +255,7 @@ img_path,num_slices,height,width,channels,dtype
 
 `num_slices`, `height`, `width` and `channels` are Z, Y, X and C respectively (use `1` for the dimensions your data does not have). Column *order* does not matter, but the names do. `dtype` is optional — it is read from the image if omitted.
 
-For a walkthrough of writing this by hand, adapting an existing one, or generating it with [`aiod_utils.image_paths_to_csv`](https://github.com/FrancisCrickInstitute/aiod_utils/blob/v0.2.0/aiod_utils/io.py#L374-L441), see [step 3 of the headless tutorial](../getting_started/first_headless_run.md#3-describe-your-images).
+For a walkthrough of writing this by hand, adapting an existing one, or generating it with [`aiod_utils.image_paths_to_csv`](https://github.com/FrancisCrickInstitute/aiod_utils/blob/v0.2.0/aiod_utils/io.py#L374-L441), see [step 3 of the command-line tutorial](../getting_started/first_headless_run.md#3-describe-your-images).
 
 !!! warning "Dimensions are not inferred"
 

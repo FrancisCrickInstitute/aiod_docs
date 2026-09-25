@@ -11,7 +11,7 @@ AIoD allows you to easily run any of our [available models](#available-models) o
 
         AIoD provides a Napari interface that allows you to select your data, preprocessing options, which model you want (with any parameters you want to tweak), and then run it with no need to install any of the individual models. You can run this on your local workstation or on HPC with no additional setup!
 
-        If you do not have AIoD setup on your institute's HPC and would like to use it, please send [this documentation](./sections/getting_started/index.md#hpc-non-crick) to your HPC admins. If you just want to try it out on your machine first, our [First Segmentation tutorial](./sections/getting_started/first_segmentation.md) takes you from nothing installed to your first result in one sitting.
+        If you do not have AIoD setup on your institute's HPC and would like to use it, please send [this documentation](./sections/getting_started/index.md#hpc-non-crick) to your HPC admins. If you just want to try it out on your machine first, our [First Segmentation (Napari) tutorial](./sections/getting_started/first_segmentation.md) takes you from nothing installed to your first result in one sitting.
 
     === "Image Analyst"
 
