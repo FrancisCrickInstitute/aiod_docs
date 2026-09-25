@@ -12,18 +12,18 @@ As mentioned, each manifest itself represents a [**model family**](../concepts/i
 
 - Meta information about the model (associated websites, publications, authors, repositories etc.)
 - Information about each model version:
-    - It's task (what it is doing, e.g. segmenting mitochondria)
-    - It's parameters (and what they're for)
-    - It's [locations](../concepts/index.md#model-location) (where to find the model — one or more, see below)
+    - Its task (what it is doing, e.g. segmenting mitochondria)
+    - Its parameters (and what they're for)
+    - Its [locations](../concepts/index.md#model-location) (where to find the model — one or more, see below)
 
 Note that the parameters, metadata etc. can be written at the top level and apply to all models in a model family, but each version can override this as needed for specific differences.
 
 These nest as a family, containing versions, containing tasks, each of which has one or more locations:
 
-```
-manifest          name, short_name, metadata, params, config, usage_guide
-└── versions      axes, slug, metadata
-    └── tasks     params, metadata
+```text
+manifest                name, short_name, metadata, params, config, usage_guide
+└── versions            axes, slug, metadata
+    └── tasks           params, metadata
         └── locations   location, config_path
 ```
 

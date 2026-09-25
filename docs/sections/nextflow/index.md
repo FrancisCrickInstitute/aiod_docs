@@ -64,7 +64,7 @@ The model will be downloaded (if a URL) or copied into the cache (if a filepath)
 
 
 ### Run Model
-The specified model will run (in it's own environment) on each of the substacks. Depending on the [executor/profile](#command-explained), this will be done **as parallel as possible** on the given system.
+The specified model will run (in its own environment) on each of the substacks. Depending on the [executor/profile](#command-explained), this will be done **as parallel as possible** on the given system.
 
 If run via the Napari plugin, as each individual job finishes intermediate results will be loaded in, allowing for quick inspection and potentially early exit to adjust parameters.
 
@@ -84,15 +84,23 @@ If `iou_threshold>0`, then masks will only be labelled the same over Z-slices if
 
 !!! tip "Looking for a walkthrough?"
 
-    This section is the reference for every input the pipeline accepts. If you have not run it from the terminal before, [Your First Headless Run](../getting_started/first_headless_run.md) goes from nothing to masks step by step, and covers the parts with no GUI equivalent.
+    This section is the reference for every input the pipeline accepts. If you have not run it from the terminal before, [Your First Segmentation (Command Line)](../getting_started/first_headless_run.md) goes from nothing to masks step by step, and covers the parts with no GUI equivalent.
 
 The Nextflow pipeline can be run directly, allowing headless use and avoiding Napari or any other front-end. Although more work is required in specifying the input parameters, this can be significantly faster for users who are happy with model performance and just want to segment a lot of data without wanting to keep Napari open!
 
 An example run command may look like:
 
+```bash
+nextflow \
+    -log /Users/shandc/.nextflow/aiod/nextflow.log \
+    run FrancisCrickInstitute/Segment-Flow \
+    -latest \
+    -w /Users/shandc/.nextflow/aiod/work \
+    -params-file /Users/shandc/.nextflow/aiod/aiod_cache/nxf_params_43e45ccf52a1503556b86df6e8b47959.yml \
+    -profile local # (1)!
 ```
-nextflow -log /Users/shandc/.nextflow/aiod/nextflow.log run FrancisCrickInstitute/Segment-Flow -latest -w /Users/shandc/.nextflow/aiod/work -profile local -params-file /Users/shandc/.nextflow/aiod/aiod_cache/nxf_params_43e45ccf52a1503556b86df6e8b47959.yml
-```
+
+1.  Each argument is explained in [Command Explained](#command-explained) below.
 
 Where the [params-file](https://www.nextflow.io/docs/latest/cli.html#pipeline-parameters) looks like:
 
@@ -116,7 +124,7 @@ task: mito
 
 A complete list of parameters with some guidance can be obtained via:
 
-```
+```bash
 nextflow run -latest FrancisCrickInstitute/Segment-Flow --help
 ```
 
@@ -124,7 +132,7 @@ nextflow run -latest FrancisCrickInstitute/Segment-Flow --help
 
     In the example above, the files were generated automatically by the Napari plugin to maximize [reproducibility](../concepts/index.md#reproducibility-hashing).
 
-    For running the pipeline directly, we recommended using some clear, traceable naming system, whether that's using datetime or some other format. Setting `param_hash` yourself is how you do that — see [naming your runs](../getting_started/first_headless_run.md#naming-your-runs) for a worked example and the trade-off it carries.
+    For running the pipeline directly, we recommend using some clear, traceable naming system, whether that's using datetime or some other format. Setting `param_hash` yourself is how you do that — see [naming your runs](../getting_started/first_headless_run.md#naming-your-runs) for a worked example and the trade-off it carries.
 
 #### Command Explained
 Brief explanation of the arguments used in the execution/run command above:
@@ -133,7 +141,7 @@ Brief explanation of the arguments used in the execution/run command above:
 - `-latest`: Pulls the latest version of the [repo](https://github.com/FrancisCrickInstitute/Segment-Flow) before running
 - `-profile`: Which [profile](https://www.nextflow.io/docs/latest/config.html#config-profiles) to use
 - `-w`: Path for the `workDir` (i.e. intermediate outputs)
-- `-params-file`: Path the parameter file (example above, explained [below](#parameters-explained))
+- `-params-file`: Path to the parameter file (example above, explained [below](#parameters-explained))
 
 For other arguments, see the [Nextflow documentation](https://www.nextflow.io/docs/stable/cli.html).
 
@@ -247,11 +255,11 @@ img_path,num_slices,height,width,channels,dtype
 
 `num_slices`, `height`, `width` and `channels` are Z, Y, X and C respectively (use `1` for the dimensions your data does not have). Column *order* does not matter, but the names do. `dtype` is optional — it is read from the image if omitted.
 
-For a walkthrough of writing this by hand, adapting an existing one, or generating it with [`aiod_utils.image_paths_to_csv`](https://github.com/FrancisCrickInstitute/aiod_utils/blob/v0.2.0/aiod_utils/io.py#L374-L441), see [step 3 of the headless tutorial](../getting_started/first_headless_run.md#3-describe-your-images).
+For a walkthrough of writing this by hand, adapting an existing one, or generating it with [`aiod_utils.image_paths_to_csv`](https://github.com/FrancisCrickInstitute/aiod_utils/blob/v0.2.0/aiod_utils/io.py#L374-L441), see [step 3 of the command-line tutorial](../getting_started/first_headless_run.md#3-describe-your-images).
 
 !!! warning "Dimensions are not inferred"
 
-    Whichever route you take, the values are taken at face value — nothing is guessed. A wrong `channels` or `num_slices` is not caught when the run starts; it surfaces inside the segmentation step, after the environment build and model download. Check the numbers before you run.
+    Whichever route you take, the pipeline uses the values exactly as written. A wrong `channels` or `num_slices` is not caught when the run starts; it only shows up during the segmentation step, after the environment build and model download. Check the numbers before you run.
 
 !!! warning "Filepaths"
 
