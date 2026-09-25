@@ -64,6 +64,28 @@
           mask-image: var(--md-admonition-icon--shovel);
 }
 
+/* Tutorial "Check it worked" lines: lighter than an admonition so they don't compete with real warnings */
+:root {
+  --docs-check-icon: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2m-2 15-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8z"/></svg>');
+}
+.md-typeset .check {
+  border-left: 0.2rem solid var(--md-accent-fg-color);
+  padding-left: 0.8rem;
+}
+.md-typeset .check::before {
+  content: "";
+  display: inline-block;
+  width: 1.1em;
+  height: 1.1em;
+  margin-right: 0.3em;
+  vertical-align: -0.2em;
+  background-color: var(--md-accent-fg-color);
+  -webkit-mask-image: var(--docs-check-icon);
+          mask-image: var(--docs-check-icon);
+  -webkit-mask-size: contain;
+          mask-size: contain;
+}
+
 /* Screencast clips, sized to match the 75%-width screenshots they sit alongside */
 .docs-clip {
   display: block;

@@ -1,8 +1,8 @@
-# Your First Headless Run
+# Your First Segmentation (Command Line)
 
-This tutorial runs AIoD entirely from the terminal (no Napari/GUI). It is the counterpart to [Your First Segmentation](./first_segmentation.md) for those who want to use `Segment-Flow` directly.
+This tutorial runs AIoD entirely from the terminal (no Napari/GUI). It is the counterpart to [Your First Segmentation (Napari)](./first_segmentation.md) for those who want to use `Segment-Flow` directly.
 
-That is the right choice when you are happy with a model's performance and just want to segment a lot of data, when you are working over SSH on a machine with no display, or when you want the run to be a command you can script, schedule, and put in a paper.
+Use it when you are happy with a model's performance and want to segment a lot of data, when you are working over SSH on a machine with no display, or when you want the run to be a command you can script, schedule, and put in a paper.
 
 **You will:**
 
@@ -14,8 +14,9 @@ That is the right choice when you are happy with a model's performance and just 
 
 **You need:**
 
-- Your own images (any format AIoD can read — TIFF, OME-TIFF, CZI, ND2, Zarr etc.)
-- A terminal, and about 20 minutes (the first run is longer to build the environments)
+- Your own images (any format AIoD can read, such as TIFF, OME-TIFF, CZI, ND2 or Zarr)
+- Some familiarity with the terminal: running commands, moving between folders, and editing text files. If that's new to you, [Your First Segmentation (Napari)](./first_segmentation.md) is a gentler place to start.
+- About 20 minutes (the first run takes longer while it builds the model's environment)
 - A GPU helps but is not required
 
 !!! tip "In a hurry?"
@@ -23,45 +24,55 @@ That is the right choice when you are happy with a model's performance and just 
     If you are comfortable at a terminal, this is the whole tutorial:
 
     1. Install [Nextflow](https://www.nextflow.io/docs/latest/install.html) and [Conda](https://www.anaconda.com/docs/getting-started/miniconda/install)
-    2. Write `imgs.csv` with one row per image:
+    2. Create a file `imgs.csv` with one row per image:
        ```csv
        img_path,num_slices,height,width,channels,dtype
        /data/img1.tif,1,120,120,1,uint8
        ```
     3. Pick a `--model`/`--model_type`/`--task` from the [model reference](../model_registry/models.md) (e.g. `--model cellpose --model_type cyto3 --task cyto`)
-    4. Run Segment-Flow:
+    4. Run `Segment-Flow`:
        ```bash
        nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.1 -profile local \
          --img_dir imgs.csv --model cellpose --model_type cyto3 --task cyto
        ```
     5. Extract results from the cache: `~/.nextflow/aiod/aiod_cache/cellpose/cyto3_masks/` (or change `<model>/<model_type>_masks/` as needed)
 
-## 1. Install what runs the models
+## 1. Set up
+
 !!! warning "Windows Users"
 
-    Nextflow does not run on Windows directly. Before you start, install the [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install) and do everything below inside WSL.
+    Nextflow does not run on Windows directly. Install the [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/en-us/windows/wsl/install) and do everything below inside WSL.
 
-You need two things, and neither of them is a segmentation model:
+### 1.1 Nextflow and Conda
 
-- [Conda](https://www.anaconda.com/docs/getting-started/miniconda/install) to build an isolated environment per model
-- [Nextflow](https://www.nextflow.io/docs/latest/install.html) to run the pipeline
+These two tools are all the pipeline needs. Nextflow runs the pipeline, and Conda builds an isolated environment for each model. Install [Nextflow](https://www.nextflow.io/docs/latest/install.html) and [Conda](https://www.anaconda.com/docs/getting-started/miniconda/install) by following their own instructions. You never install the models themselves; AIoD will handle that for you.
 
-A few steps below use small Python helpers to inspect the registry and read results back. They are optional (the pipeline never needs them) but if you want them to ease setup:
-
-```bash
-pip install aiod-registry aiod-utils
-```
-
-**Check it worked:** `nextflow -version` prints a version banner, and `conda --version`
-prints a version number.
+**Check it worked:** run `nextflow -version` and then `conda --version`. Each should print a version number.
+{: .check }
 
 ??? tip "Deploying this for other people?"
 
-    The first run of each model pays for a full Conda environment build. If you are setting AIoD up for a group, build them all up front into a shared cache. See [pre-building model environments](../contributing/developing.md#pre-building-model-environments).
+    The first time each model runs, Conda has to build its environment, which can take a while. If you are setting AIoD up for a group, build them all in advance into a shared cache. See [pre-building model environments](../contributing/developing.md#pre-building-model-environments).
+
+### 1.2 AIoD's Python helpers (recommended)
+
+The pipeline itself doesn't need Python, but a few steps below use two of our Python packages to list models, write your image CSV, create a config file, and read results back. We recommend installing them, as they save a lot of typing. WHowever, where a step uses them, it also says how to manage without so this is optional.
+
+Install them into a fresh environment (we use [`uv`](https://docs.astral.sh/uv/getting-started/installation/), but any environment manager works):
+
+```bash
+uv venv aiod-env
+source aiod-env/bin/activate
+uv pip install aiod-registry aiod-utils
+```
+
+### 1.3 A folder to work in
+
+Make a folder for this tutorial (e.g. `mkdir aiod-tutorial && cd aiod-tutorial`) and run everything from there. The commands below refer to `imgs.csv`, `my_config.yml` and `params.yml` by relative path, and [`-resume`](#7-re-run-without-redoing-the-work) only works when you launch from the same directory each time (without more specific configuration explained [here](../nextflow/index.md#running-the-pipeline-directly)).
 
 ## 2. Choose a model, version, and task
 
-Three values decide what runs:
+Three values select the unique model:
 
 | Flag | What it is |
 |---|---|
@@ -69,34 +80,30 @@ Three values decide what runs:
 | `--model_type` | the [version](../concepts/index.md#model-version) within it, e.g. `cyto3` |
 | `--task` | what it segments, e.g. `cyto` |
 
-Every valid combination is listed on the [model reference](../model_registry/models.md) page. You can use `aiod-registry` to query this in the terminal (if you installed `aiod_registry` into an activated environment):
+Every valid combination is listed on the [model reference](../model_registry/models.md) page. For `--model_type`, use the version's short name (e.g. `mitonet_v1`), not its display name (`MitoNet v1`).
 
-```bash
-python -c "
-from aiod_registry import load_manifests
-for name, manifest in load_manifests().items():
-    for version in manifest.versions.values():
-        for task in version.tasks:
-            print(f'--model {name} --model_type {version.slug} --task {task}')
-"
-```
+??? tip "Listing them from the terminal"
 
-!!! tip "Use the slug, not the display name"
+    With the helpers from [step 1.2](#12-aiods-python-helpers-recommended) installed and `aiod-env` activated, this prints every valid combination, one per line, ready to paste into a command:
 
-    Pass `--model_type` the `slug` (`mitonet_v1`), not the display name (`MitoNet v1`).
-    The value is used verbatim as a directory name for your results, so a name with
-    spaces in it gives you a directory with spaces in it.
+    ```bash
+    python -c "
+    from aiod_registry import load_manifests
+    for name, manifest in load_manifests().items():
+        for version in manifest.versions.values():
+            for task in version.tasks:
+                print(f'--model {name} --model_type {version.slug} --task {task}')
+    "
+    ```
 
-**Check it worked:** you have three values, and they appear together on one line of that
-output.
+**Check it worked:** you have three values that appear together on the model reference (or on one line of the listing above).
+{: .check }
 
 ## 3. Describe your images
 
-The pipeline does not discover your images by scanning a folder. You give it a CSV, one row per image, stating each image's dimensions. Image metadata is frequently missing, wrong, or interpreted differently by different readers, and the pipeline has to know the true shape of your data *before* it can split it up. The CSV ensures any mismatches are corrected automatically in the pipeline, and is considered to be the source of truth.
+The pipeline doesn't scan a folder for images. Instead, you give it a CSV file listing each image and its dimensions. Image metadata is often missing or wrong, and the pipeline needs the true (intended) shape of each image before it can split it into pieces, so the CSV is treated as the source of truth.
 
-While this part is easier when automated by `aiod_napari`, we provide a helper function in `aiod_utils` and it is easily automatable.
-
-The CSV has six columns:
+Save it as `imgs.csv` in your working folder. It has six columns:
 
 ```csv
 img_path,num_slices,height,width,channels,dtype
@@ -104,7 +111,7 @@ img_path,num_slices,height,width,channels,dtype
 /data/img2.tif,40,2048,2048,2,uint16
 ```
 
-- `img_path`: the path as seen by the machine that will run the pipeline
+- `img_path`: the full path to the image, as seen by the machine that will run the pipeline
 - `num_slices`: Z, or `1` for a 2D image
 - `height`, `width`: Y and X
 - `channels`: C, or `1`
@@ -112,26 +119,21 @@ img_path,num_slices,height,width,channels,dtype
 
 Column *order* does not matter, only the names.
 
-!!! warning "Locality of `img_path`"
+!!! warning "Paths are on the machine that runs the pipeline"
 
-    Note that above it says "the path as seen by the machine that will run the pipeline". If you are running the pipeline over SSH, the data must be on the remote machine, not local.
+    If you run the pipeline over SSH or on a cluster, `img_path` must point to where the data lives on *that* machine, not on your laptop. For most HPC setups this is already the case, but check it if you are working from a mounted drive.
 
-    For most HPC setups this is inherently true, but it's important to ensure paths are on the filesystem where computation happens.
-
-There are three ways to produce this CSV, and for a handful of images the first is the fastest.
+There are two ways to produce this CSV. For a handful of images, writing it yourself is quickest.
 
 === "Write it yourself"
 
-    *Carefully* type it in, or modify a previous one that you've written/was generated.
-
-    If you have used the Napari plugin, this will be at `~/.nextflow/aiod/aiod_cache/all_img_paths.csv`. Any previous headless run left whatever you wrote last time. Copying a known-good file and editing the paths is the lowest-risk route!
+    Type it in carefully, or copy one you (or the Napari plugin) wrote before and edit the paths. The plugin writes one to `~/.nextflow/aiod/aiod_cache/all_img_paths.csv`. Starting from a file that already works is the safest option.
 
 === "Generate it"
 
-    For a directory too large to type out, `aiod_utils` will write it for you. It needs
-    the dimensions of each image handed to it, so read them first:
+    For a directory too large to type out, `aiod_utils` can write it for you. Save the following as `make_csv.py` in your working folder, change `/data/my_images` to your image folder (and `*.tif` to your file extension):
 
-    ```python
+    ```python title="make_csv.py"
     from pathlib import Path
     from aiod_utils.io import load_image, image_paths_to_csv
 
@@ -149,33 +151,36 @@ There are three ways to produce this CSV, and for a handful of images the first 
     )
     ```
 
-    `Y` and `X` are required in each dict; `Z` and `C` default to `1` if you leave them
-    out. **Without `index=False`, you get an unnamed leading column of row
-    numbers, which is not a valid input.**
+    Then, with `aiod-env` activated, run:
 
-    Note: this code snippet automatically extracts dimensions from the image metadata, which can sometimes be incorrectly encoded. The CSV file must contain the correct dimension information, so treat the result as a first draft and check it!
+    ```bash
+    python make_csv.py
+    ```
+
+    Keep `index=False`: without it, the CSV gets an extra unnamed column of row numbers, which the pipeline rejects.
+
+    The script reads the dimensions from each image's metadata, which can be wrong. Treat the result as a first draft and check it.
 
 !!! warning "Check the numbers before you run"
 
-    A wrong `channels` or `num_slices` is not caught when the run starts. It surfaces later inside the segmentation step, after the environment has been built and the model downloaded, as:
+    A wrong `channels` or `num_slices` is not caught when the run starts. It only shows up later, during segmentation, after the environment has been built and the model downloaded, as an error like:
 
     ```text
-    Image shape {'C': 1, 'Z': 1, 'Y': 120, 'X': 120} does not match expected channels and slices (3, 40).
+    Image shape {'C': 1, 'Z': 1, 'Y': 512, 'X': 512} does not match expected channels and slices (3, 40).
     ```
 
-    A quick check of the CSV saves you finding out the slow way!
+    So it is worth checking the CSV before you start.
 
 ??? tip "No images to hand?"
 
-    Any public image will do to try the mechanics. The volume our Napari tutorial uses is
-    [`em_20nm_z_40_145.tif`](https://zenodo.org/records/7936982/files/em_20nm_z_40_145.tif) (clicking this link will start a direct download of the 263 MB file), a 3D FIB-SEM stack whose CSV row is
-    `<path>,106,1750,1484,1,uint8`, segmentable with `--model empanada --model_type
-    mitonet_mini_v1 --task mito`.
+    Any public image will do to try the mechanics. The volume our Napari tutorial uses is [`em_20nm_z_40_145.tif`](https://zenodo.org/records/7936982/files/em_20nm_z_40_145.tif) (clicking this link will start a direct download of the 263 MB file), a 3D FIB-SEM stack whose CSV row is `<path>,106,1750,1484,1,uint8`, segmentable with `--model empanada --model_type mitonet_mini_v1 --task mito`.
 
-**Check it worked:** your CSV has a header row and one row per image, and the dimensions
-match what you know about your data.
+**Check it worked:** your CSV has a header row and one row per image, and the dimensions match what you know about your data.
+{: .check }
 
 ## 4. Run it
+
+From your working folder, run:
 
 ```bash
 nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.1 \
@@ -186,19 +191,19 @@ nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.1 \
   --task cyto
 ```
 
-- **`-r 0.2.1`** pins the pipeline to a specific (0.2.1) release. Without it the latest code version is used, which can change between runs (the pipeline will warn you when you do this). It is strongly recommended to always specify a pinned version to maintain reproducibility.
-- **`-profile local`** runs on your current machine. On a cluster you would use a different one — see [step 9](#9-running-it-on-hpc).
-- **No `--model_config`.** The model runs on its registry defaults. Later in [step 6](#6-tune-the-model) we will cover changing them.
+- **`-r 0.2.1`** pins the pipeline to a specific (0.2.1) release. Without it, the latest code is used, which can change between runs (the pipeline will warn you when you do this). Always pin a version so your runs are reproducible.
+- **`-profile local`** tells the pipeline what kind of machine it is running on, so it uses that machine's resources sensibly. `local` is for a laptop or workstation; clusters have their own profile (see [step 9](#9-running-it-on-hpc)).
+
+!!! tip "Want TIFFs for Fiji or QuPath?"
+
+    Add `--output_format tiff` to the command. Otherwise, masks are saved in AIoD's compact `.rle` format, which you read back with Python ([step 5](#5-grab-your-results)).
 
 !!! warning "The first run is slow, and that is normal"
 
-    Before segmenting anything, AIoD builds a Conda environment for the model and
-    downloads its weights. That can take several minutes. Every later run with that model
-    skips both.
+    Before segmenting anything, AIoD builds a Conda environment for the model and downloads its weights. That can take several minutes. Every later run with that model skips both.
 
-**Check it worked:** the run opens with a header describing exactly what it is about to
-do. Confirm the model, variant and task are what you meant, and that `Revision` shows the
-tag you pinned:
+**Check it worked:** the run opens with a header describing what it is about to do. Confirm the model, variant and task are what you meant, and that `Revision` shows the tag you pinned:
+{: .check }
 
 ```text
 ════════════════════════════════════════════════════
@@ -228,9 +233,9 @@ Full Command    : nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.1 -prof
 ════════════════════════════════════════════════════
 ```
 
-`Config Hash` identifies this exact combination of parameters, and appears in your output filenames. Note it down if you plan to run several variations so you can link outputs to input (though all configs are stored in the AIoD cache).
+`Config Hash` identifies this exact combination of parameters, and appears in your output filenames. Note it down if you plan to run several variations so you can match outputs to settings (all configs are also stored in the AIoD cache).
 
-Because you passed no config, the run also reports that it fell back to the registry:
+Because you passed no model config, the run uses the model's default parameters from the registry and says so:
 
 ```text
 Written metadata for 'cyto3_cyto' -> model_chkpt_meta.json
@@ -262,8 +267,10 @@ Filenames follow a fixed pattern:
 - `image_id` is your filename with the extension folded in, so `img1.tif` becomes `img1_tif`
 - `prep_hash` only appears if you used preprocessing ([step 8](#8-run-several-preprocessing-recipes-at-once))
 - `config_hash` is the `Config Hash` from the run header
-- `_all` refers to the final mask after the substack results have been combined.
-- `ext` is the file extension. By default masks are written as `.rle`, our [compact run-length encoded format](../utilities/index.md#customised-run-length-encoding-format). To read one back:
+- `_all` marks the final mask, after the pieces the image was split into have been combined
+- `ext` is `.tiff` if you used `--output_format tiff`, otherwise `.rle`
+
+TIFFs open directly in Fiji, QuPath and most other image software. `.rle` is our [compact run-length encoded format](../utilities/index.md#customised-run-length-encoding-format), which you read back with the helpers from [step 1.2](#12-aiods-python-helpers-recommended):
 
 ```python
 import aiod_utils.rle as rle
@@ -275,19 +282,20 @@ print(mask.shape, mask.dtype)   # (120, 120) uint16
 print(metadata)                 # {'metadata': {'mask_type': 'instance'}}
 ```
 
-Two things to expect from that array. Its dtype depends on what the model produced — `uint16` for an instance segmentation where each object has its own ID, `bool` for a semantic one. Singleton dimensions are dropped, so a single-slice image comes back 2D rather than as a stack of one.
+The array's dtype depends on what the model produced: `uint16` for an instance segmentation, where each object has its own ID, or `bool` for a semantic one. Singleton dimensions are dropped, so a single-slice image comes back 2D rather than as a stack of one.
 
-If you would rather open the results in Fiji, QuPath or anything else, add `--output_format tiff` to the run and skip the decoding entirely. The output format is *not* part of the `Config Hash`, so re-running with `--output_format tiff` writes a `.tiff` alongside the existing `.rle` under the same name rather than being treated as a different experiment.
+??? tip "Already ran it, but want TIFFs as well?"
 
-Combined with [`-resume`](#7-re-run-without-redoing-the-work), that makes getting a second format cheap: only the combining step re-runs, so you get the other file in seconds without segmenting anything again.
+    Run the same command again with `--output_format tiff -resume` added. The output format is not part of the `Config Hash`, so nothing is segmented again: only the final combining step re-runs, and it writes a `.tiff` next to each existing `.rle`, with the same name. See [step 7](#7-re-run-without-redoing-the-work) for how `-resume` works.
 
-**Check it worked:** there is one `_all` file per input image, and decoding it (or opening the TIFF) gives an array the same height and width as your input.
+**Check it worked:** there is one `_all` file per input image, and opening it (or decoding the `.rle`) gives an array the same height and width as your input.
+{: .check }
 
 ## 6. Tune the model
 
-Every model exposes parameters, and for some of them performance depends heavily on getting these right. You did not pass any in step 4, so the pipeline used the defaults that ship with the model registry.
+Every model has parameters, and for some models, performance depends heavily on getting these right. We did not pass any in step 4, so the pipeline used the defaults that come with the model registry.
 
-Those defaults are also your template. You can easily create a copy:
+Those defaults make a good starting point for your own config file. With `aiod-env` activated, run this from your working folder to write them to `my_config.yml`:
 
 ```bash
 python -c "
@@ -316,7 +324,15 @@ batch_size: 64
 min_size: 15
 ```
 
-Edit the values you care about, leave the rest, and pass it back:
+Without the helpers, download the model family's default config from the registry's [`default_configs`](https://github.com/FrancisCrickInstitute/aiod_registry/tree/main/aiod_registry/default_configs) folder instead:
+
+```bash
+curl -o my_config.yml https://raw.githubusercontent.com/FrancisCrickInstitute/aiod_registry/main/aiod_registry/default_configs/cellpose.yaml
+```
+
+The downloaded file starts with a "do not edit manually" comment. That applies to the copy in the registry, not yours, so edit your copy freely.
+
+This is a YAML file: one `name: value` per line. Change the values you care about, and leave the names (and any indentation) as they are. Then pass it to the pipeline:
 
 ```bash
 nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.1 -profile local \
@@ -326,12 +342,10 @@ nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.1 -profile local \
 
 !!! tip "What do the parameters mean?"
 
-    The [model reference](../model_registry/models.md) lists every parameter for every
-    model with its description, and links to that model's own documentation. If unsure, change one
-    thing at a time. With a baseline result already in hand, that is the only way to
-    tell what helped!
+    The [model reference](../model_registry/models.md) describes every parameter for every model, and links to that model's own documentation. Change one thing at a time, so you can tell which change made the difference.
 
 **Check it worked:** the run header now shows your file on the `Model config` line instead of `null`, and `Config Hash` has changed, so the new results sit alongside the old ones rather than overwriting them.
+{: .check }
 
 ## 7. Re-run without redoing the work
 
@@ -344,58 +358,10 @@ nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.1 -profile local \
   -resume
 ```
 
-Change one parameter and only the affected steps re-run (running the model and combining the outputs).
+For example, if you change a value in `my_config.yml` and re-run with `-resume`, only the model and the final combining step run again. The environment, model download and image splitting are reused from last time.
 
-!!! note "This is not the same as the plugin's reload"
-
-    The Napari plugin hashes your inputs and reloads previous results automatically. Here
-    you get [Nextflow's `-resume`](https://www.nextflow.io/docs/latest/cache-and-resume.html)
-    instead, which needs two things: the `work` directory intact, and the run launched
-    from the same directory as before — Nextflow keeps its cache in a `.nextflow`
-    folder next to where you ran it, so the same command from elsewhere starts afresh.
-
-    Keep both while you are iterating, and see [clearing the cache](../concepts/index.md#clearing-the-cache) when you are done.
-
-Once a command has more than a few flags, move it into a parameters file:
-
-```yaml title="params.yml"
-img_dir: imgs.csv
-model: cellpose
-model_type: cyto3
-task: cyto
-model_config: my_config.yml
-output_format: tiff
-```
-
-```bash
-nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.1 -profile local \
-  -params-file params.yml -resume
-```
-
-Parameter files serve as a record of the specific configuration of each run. They are also necessary for adding preproccessing to the pipeline, which is explained in the next step.
-
-### Naming your runs
-
-By default the `Config Hash` is computed for you, which is safe but opaque, `..._masks_4e2ebc27_all.rle` tells you nothing six months later if you haven't kept the config for what `4e2ebc27` means. Set `param_hash` yourself and it is used verbatim instead:
-
-```yaml title="params.yml"
-img_dir: imgs.csv
-model: cellpose
-model_type: cyto3
-task: cyto
-model_config: my_config.yml
-param_hash: clahe-baseline-2026-09
-```
-
-giving `example_fluo_jpg_masks_clahe-baseline-2026-09_all.rle`. Keeping it in the parameters file means one file both describes the run and names its outputs, so a result on disk can always be traced back to what produced it. You may also want to embed that into the `params-file` filename itself too!
-
-!!! warning "You take responsibility for uniqueness"
-
-    The computed hash guarantees that two different sets of parameters cannot write to the same filename. Naming the runs yourself menas you need to ensure that, as reusing a name with different parameters will overwrite the old ones.
-
-    Keep the value filesystem-safe (it becomes part of a filename), and choose it *before* the run you care about: changing it alters the mask filename, which re-runs the model and the combining step, though the model download and image splitting stay cached.
-
-**Check it worked:** every step reports `cached`, and the run finishes in seconds rather than minutes:
+**Check it worked:** run the command above a second time without changing anything. Every step reports `cached`, and the run finishes in seconds rather than minutes:
+{: .check }
 
 ```text
 [f1/a6177b] setupModel           | 1 of 1, cached: 1 ✔
@@ -408,11 +374,58 @@ giving `example_fluo_jpg_masks_clahe-baseline-2026-09_all.rle`. Keeping it in th
 AIoD finished SUCCESSFULLY at 2026-09-16 11:52:10 after 1.5s
 ```
 
-Change a parameter and the steps it affects lose their `cached` marker while the rest keep theirs.
+!!! note "This is not the same as the plugin's reload"
+
+    The Napari plugin hashes your inputs and reloads previous results automatically. Here you get [Nextflow's `-resume`](https://www.nextflow.io/docs/latest/cache-and-resume.html) instead, which needs two things: the `work` directory intact, and the run launched from the same folder as before. Nextflow keeps its record of previous runs in a `.nextflow` folder next to where you ran it, so the same command run from elsewhere starts afresh.
+
+    Keep both while you are iterating, and see [clearing the cache](../concepts/index.md#clearing-the-cache) when you are done.
+
+Once a command has more than a few flags, it is easier to keep them in a parameters file. Save this as `params.yml` in your working folder:
+
+```yaml title="params.yml"
+img_dir: imgs.csv
+model: cellpose
+model_type: cyto3
+task: cyto
+model_config: my_config.yml
+output_format: tiff
+```
+
+and pass it with `-params-file`:
+
+```bash
+nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.1 -profile local \
+  -params-file params.yml -resume
+```
+
+You can still add parameters on the command line alongside `-params-file`. If the same parameter appears in both, the command line wins.
+
+A parameters file is also a record of exactly how a run was configured, and it is the only way to add preprocessing, covered in the [next step](#8-run-several-preprocessing-recipes-at-once).
+
+### Naming your runs
+
+By default, the `Config Hash` is computed for you. It avoids clashes, but it is hard to read: `img1_tif_masks_4e2ebc27_all.rle` tells you nothing six months later if you have lost track of what `4e2ebc27` means. Set `param_hash` in your parameters file and it is used in place of the computed hash:
+
+```yaml title="params.yml"
+img_dir: imgs.csv
+model: cellpose
+model_type: cyto3
+task: cyto
+model_config: my_config.yml
+param_hash: cyto3-baseline-2026-09
+```
+
+which gives `img1_tif_masks_cyto3-baseline-2026-09_all.rle`. The parameters file then records both the settings and the output name, so you can always tell which settings produced a result. You could name the parameters file to match (e.g. `cyto3-baseline-2026-09.yml`).
+
+!!! warning "You take responsibility for uniqueness"
+
+    The computed hash guarantees that two different sets of parameters cannot write to the same filename. When you name runs yourself, that is up to you: reusing a name with different parameters overwrites the earlier results.
+
+    Keep the value filesystem-safe, as it becomes part of a filename. Changing `param_hash` on a run you have already done changes the output filename, so the model and combining steps run again (the model download and image splitting are still reused).
 
 ## 8. Run several preprocessing recipes at once
 
-Preprocessing can be as important as the choice of model, and you'll need to try several and compare. The pipeline will run the model over *each* set of preprocessing steps you give it, in one invocation:
+Preprocessing can matter as much as the choice of model, so it is worth trying a few options and comparing them. The pipeline runs the model over *each* set of preprocessing steps you give it, in one run:
 
 ```yaml title="params.yml"
 img_dir: imgs.csv
@@ -431,7 +444,7 @@ preprocess:
       tileGridSize: [12, 12]
 ```
 
-The empty set `- []` means "also run on the untouched data", which is useful for comparing the results with and without preprocessing.
+The indentation here matters, so copy the example and change the values rather than retyping it. The empty set `- []` means "also run on the untouched data", which lets you compare the results with and without preprocessing.
 
 Each set gets a short hash which appears in its output filenames, and the run logs a legend mapping them at the start:
 
@@ -445,16 +458,14 @@ The [available steps and their parameters](../utilities/index.md#preprocessing) 
 
 !!! note "Parameters file only"
 
-    `preprocess` is a nested structure, so it cannot be passed on the command line — it
-    has to come from a `-params-file`.
+    `preprocess` is a nested structure, so it cannot be passed on the command line. It has to come from a `-params-file`.
 
-**Check it worked:** you have one `_all` mask per image *per preprocessing set*, each
-carrying a different `prep_hash` in its filename.
+**Check it worked:** you have one `_all` mask per image *per preprocessing set*, each carrying a different `prep_hash` in its filename.
+{: .check }
 
 ## 9. Running it on HPC
 
-Everything so far runs on one machine. The reason to use Nextflow at all is that moving to
-a cluster is a change of one flag:
+To run on a cluster, you run the same command *on the cluster* (e.g. after logging in over SSH), with that cluster's profile in place of `local`. At the Crick, that profile is `crick`:
 
 ```bash
 nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.1 \
@@ -462,23 +473,23 @@ nextflow run FrancisCrickInstitute/Segment-Flow -r 0.2.1 \
   -params-file params.yml
 ```
 
-The profile carries the executor, queues, and resource requests for that site. If yours does not have one yet, see [adding a profile](../contributing/expanding.md#add-a-profile).
+The profile tells Nextflow how to submit jobs on that cluster: which scheduler it uses, which queues to use, and what resources to request. It does not send work to a cluster from elsewhere; choosing `crick` on your laptop will not run anything on NEMO. If your cluster does not have a profile yet, see [adding a profile](../contributing/expanding.md#add-a-profile).
 
-Three things to watch out for:
+On a cluster, the `nextflow run` command itself becomes the *head job*: a small process that submits each piece of work to the scheduler as a separate job, waits for them, and collects the results. It has to keep running for the whole run. Before you start:
 
-- **The paths in your CSV must resolve on the machine that runs the pipeline**, not on your laptop. If you are working from a mounted drive, the CSV needs the cluster's paths (not the mounted ones!).
-- **The head job has to live somewhere it will not be killed.** It runs for the duration, submitting and collecting jobs, so run it in an interactive session, a `tmux`/`screen` session, or as a batch job of its own, not on a login node!
+- **The paths in your CSV must be the cluster's paths.** If you are working from a mounted drive, use the path on the cluster, not the mounted one.
+- **Run the head job somewhere it will not be killed.** Most clusters stop long-running processes on login nodes, so run it in an interactive session, inside `tmux` or `screen`, or as a batch job of its own.
 - **Put the cache somewhere with space.** `--root_dir` defaults to your home directory, which is usually the smallest volume you have. See [choosing a cache location](../front_ends/napari_plugin/inference.md#basecache-directory).
 
 ??? tip "Tuning how the work is split"
 
-    Two parameters control how your images are divided into parallel jobs: `memory_per_job` in the profile (how much a single job can hold) and `substack_scale` (a blanket multiplier for weaker or stronger hardware). The [tuning section](../nextflow/index.md#tuning-the-pipeline) covers both, and running locally you may want to raise `memory_per_job` from its conservative default to match your actual RAM.
+    Two parameters control how your images are divided into parallel jobs: `memory_per_job` in the profile (how much a single job can hold) and `substack_scale` (scales substacks up or down for stronger or weaker hardware). The [tuning section](../nextflow/index.md#tuning-the-pipeline) covers both, and running locally you may want to raise `memory_per_job` from its conservative default to match your actual RAM.
 
 ## Something went wrong?
 
 ??? failure "`Missing required parameter: --img_dir`"
 
-    `--img_dir` is the only parameter with no default, so this is the one you can forget. `img_dir does not exist: <path>` means the path is wrong!
+    `--img_dir` is the only parameter with no default, so this is the one you can forget. `img_dir does not exist: <path>` means the path is wrong, or you are not running from your working folder.
 
 ??? failure "`Model <x> not yet implemented!`"
 
@@ -486,7 +497,7 @@ Three things to watch out for:
 
 ??? failure "`Version '<x>' not found in manifest`"
 
-    `--model_type` does not match that family. The error lists the valid versions with their slugs, which is what you need to give.
+    `--model_type` does not match that family. The error lists the valid versions with their short names, which is what you need to give.
 
 ??? failure "None of its locations are accessible on this machine"
 
