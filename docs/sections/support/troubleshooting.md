@@ -1,7 +1,7 @@
 # Troubleshooting
 
 Common problems and what they usually mean. If none of these fit, please
-[get in touch or raise an issue](./index.md#raising-an-issue) — including what you selected and the full error message.
+[get in touch or raise an issue](./index.md#raising-an-issue), including what you selected and the full error message.
 
 ## Installation and startup
 
@@ -24,7 +24,7 @@ Common problems and what they usually mean. If none of these fit, please
 ??? failure "The run fails immediately, mentioning `nextflow`"
 
     The plugin runs `nextflow` as a command, so it has to be on your `PATH` *in the
-    environment Napari was started from* — not merely installed somewhere on the
+    environment Napari was started from*, not just installed somewhere on the
     machine. Check with:
 
     ```bash

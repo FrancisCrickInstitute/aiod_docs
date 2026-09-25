@@ -259,7 +259,7 @@ For a walkthrough of writing this by hand, adapting an existing one, or generati
 
 !!! warning "Dimensions are not inferred"
 
-    Whichever route you take, the values are taken at face value — nothing is guessed. A wrong `channels` or `num_slices` is not caught when the run starts; it surfaces inside the segmentation step, after the environment build and model download. Check the numbers before you run.
+    Whichever route you take, the pipeline uses the values exactly as written. A wrong `channels` or `num_slices` is not caught when the run starts; it only shows up during the segmentation step, after the environment build and model download. Check the numbers before you run.
 
 !!! warning "Filepaths"
 

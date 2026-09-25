@@ -162,7 +162,9 @@ Otherwise, you can delete the files however you usually would!
 
 !!! tip "Clearing the `work` directory"
 
-    For the [`work`](#work) directory specifically, Nextflow provides [`nextflow clean`](https://docs.seqera.io/nextflow/reference/cli/clean), which removes the intermediate files for previous runs while leaving your results in [`aiod_cache`](#aiod_cache) alone. It acts on the run history recorded where the pipeline was launched from, so run it from that same directory. On its own it only cleans the *most recent* run — use `nextflow log -q` to list them, then `-before`/`-after`/`-but` to select a range. Preview with `-n` before committing with `-f`.
+    For the [`work`](#work) directory, Nextflow provides [`nextflow clean`](https://docs.seqera.io/nextflow/reference/cli/clean), which deletes the intermediate files from previous runs but leaves your results in [`aiod_cache`](#aiod_cache) untouched. Run it from the directory you launched the pipeline from, as that is where Nextflow keeps its run history.
+
+    By default it only cleans the most recent run. To clean others, list your runs with `nextflow log -q`, then select a range with `-before`, `-after` or `-but`. Use `-n` to see what would be deleted, then `-f` to delete it.
 
     Note that this discards the ability to [`-resume`](#direct-segment-flow-usage) the runs it cleans.
 

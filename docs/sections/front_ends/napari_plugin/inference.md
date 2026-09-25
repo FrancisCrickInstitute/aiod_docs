@@ -28,13 +28,13 @@ If you just want something to try the plugin on, **File :material-arrow-right: O
 
     Images are identified by filename *and* extension, so two files that share both will be rejected before the run starts, even if they live in different directories. `sample1.tiff` in two folders is a conflict; `sample1.tiff` and `sample1.czi` are not.
 
-    Rename or move one of the offending files, or load them in separate runs. Files without an extension, or with one no reader recognises, are rejected for the same reason — the identity cannot be derived.
+    Rename or move one of the offending files, or load them in separate runs. Files without an extension, or with one no reader recognises, are rejected for the same reason: the identity cannot be derived.
 
 #### Advanced Options
 
 Loaded images have their axis order read from file metadata, which is frequently missing or wrong. When it is, the channel and Z dropdowns show the wrong values, and the pipeline will split your data along the wrong dimensions.
 
-**Axes override** lets you state the order yourself, e.g. `ZCYX`, `CZYX`, or `ZYX` — the letters being `T` (time), `C` (channel), `Z` (depth), `Y` (height), `X` (width), and `S` (RGB samples). Clicking "Apply" updates every loaded image layer whose number of dimensions matches the length of what you typed, and reports back the dimensions it derived so you can confirm it took. Leave it blank to let the metadata decide.
+**Axes override** lets you state the order yourself, e.g. `ZCYX`, `CZYX`, or `ZYX`, the letters being `T` (time), `C` (channel), `Z` (depth), `Y` (height), `X` (width), and `S` (RGB samples). Clicking "Apply" updates every loaded image layer whose number of dimensions matches the length of what you typed, and reports back the dimensions it derived so you can confirm it took. Leave it blank to let the metadata decide.
 
 
 ### Preprocessing
@@ -64,7 +64,7 @@ For the execution profile, you should select the profile that matches where you 
 - If you are at the Crick and using NEMO, use `crick`
 - Otherwise, use your relevant institutional profile. If none exists, see [our guidance on adding one](../../contributing/expanding.md#add-a-profile).
 
-The dropdown lists whatever profiles ship with the plugin, currently `local`, `crick`, and `rosalind` (a local-executor profile tuned for a specific GPU workstation — a useful template if you are writing one for a single machine rather than a cluster).
+The dropdown lists whatever profiles come with the plugin, which is currently `local`, `crick`, and `rosalind` (a local-executor profile tuned for a specific GPU workstation, a useful template if you are writing one for a single machine rather than a cluster).
 
 ![Screenshot of Nextflow pipeline options.](../../../assets/screenshots/inference_pipeline.png){width=75%}
 
@@ -93,7 +93,7 @@ The `.rle` format is the most compact, but cannot be read without the use of `ai
 
 !!! tip "Reading masks back in"
 
-    Installing the plugin also teaches Napari the `.rle` format, so exported masks can be dragged straight back into the viewer as a `Labels` layer later (`.pkl` and `.pickle` are read too). The same works through **File :material-arrow-right: Save Selected Layer**, which offers `.rle` for any `Labels` layer — handy if you have postprocessed a mask and want to keep the compact format.
+    Installing the plugin also tells Napari how to read the `.rle` format, so exported masks can be dragged straight back into the viewer as a `Labels` layer later (`.pkl` and `.pickle` are read too). The same works through **File :material-arrow-right: Save Selected Layer**, which offers `.rle` for any `Labels` layer, which is useful if you have postprocessed a mask and want to keep the compact format.
 
 !!! warning "Export for Permanency!"
 
@@ -108,7 +108,7 @@ As discussed in our [AIoD Concepts](../../concepts/index.md#caching) section, th
 
 Where you select to place this cache has a few considerations, namely:
 - If you have any space limits (common with home directories on HPC systems), select a directory you have access to with more space
-- If you want to have a cache at a lab or institute level, select a central location where everyone has write access. This allows for more [reloading previous results](../../concepts/index.md#reloading-results), and reduces the collective storage footprint of downloaded models (at the potential cost of privacy — see note below)
+- If you want to have a cache at a lab or institute level, select a central location where everyone has write access. This allows for more [reloading previous results](../../concepts/index.md#reloading-results), and reduces the collective storage footprint of downloaded models (at the potential cost of privacy, see note below)
 
 The path/directory you select will be remembered in future sessions.
 
@@ -211,9 +211,9 @@ The parameters are as follows:
 
     === "Crick"
 
-        1. Create an interactive session, which you can do via an OnDemand session or an `nint` session.
-        2. Ensure that you have NEMO mounted locally. Change your ["Base directory"](#basecache-directory) to an appropriate location in the mounted drive (i.e. somewhere on NEMO with space, or wherever your current AIoD cache is).
-        3. Configure the SSH settings:
+        4. Create an interactive session, which you can do via an OnDemand session or an `nint` session.
+        5. Ensure that you have NEMO mounted locally. Change your ["Base directory"](#basecache-directory) to an appropriate location in the mounted drive (i.e. somewhere on NEMO with space, or wherever your current AIoD cache is).
+        6. Configure the SSH settings:
             - _"Hostname"_: `login.nemo.thecrick.org`
             - _"Target node"_: The node assigned in step 1, e.g. `cn093`
             - _"Username"_: Your NEMO username
@@ -222,4 +222,4 @@ The parameters are as follows:
             - _"Mounted path prefix"_: `/Volumes/` (for Mac; for Windows use the appropriate letter where you have mounted the drive)
             - _"Command prepend"_: `ml Nextflow/24.04.1`
             - Then select the SSH key you have authenticated for NEMO
-        4. Run the pipeline as normal!
+        7. Run the pipeline as normal!

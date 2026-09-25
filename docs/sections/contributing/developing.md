@@ -152,16 +152,16 @@ Prefer `run` over the separate `swap` and `restore` commands: it restores on eve
 
 !!! danger "Never edit a cached environment by hand"
 
-    Do not `pip install -e` into `~/.nextflow/aiod/conda/env-*` yourself. Those directories are named by a hash of the YAML that describes them, so a hand-edited one silently breaks that promise — every later run reusing that cache gets code the YAML does not describe, and nothing surfaces it until something inexplicable breaks much later. The script exists to make the swap and the restore a single guaranteed unit.
+    Do not `pip install -e` into `~/.nextflow/aiod/conda/env-*` yourself. Those directories are named by a hash of the YAML that describes them, so editing one by hand means it no longer matches its YAML. Every later run that reuses it gets code the YAML does not describe, with no warning until something breaks later on. The script makes sure every swap is followed by a restore.
 
-If you suspect an environment has already drifted — from a swap done before this script existed, or one done by hand — `audit` compares what is actually installed against what the YAML declares, and `fix-drift` repairs it:
+If you suspect an environment no longer matches its YAML (from a swap done before this script existed, or one done by hand), `audit` compares what is actually installed against what the YAML declares, and `fix-drift` repairs it:
 
 ```bash
 $ ./scripts/dev_swap_conda_pkg.sh audit aiod_utils
 $ ./scripts/dev_swap_conda_pkg.sh fix-drift aiod_utils --yes
 ```
 
-`fix-drift` is a dry run unless you pass `--yes`. Both take a single package by design rather than sweeping every pinned dependency: packages such as `torch` are legitimately pinned differently between the `cuda` and `generic` environment variants, so a repo-wide check would be mostly noise. They are most useful for our own packages, which are pinned identically everywhere.
+`fix-drift` is a dry run unless you pass `--yes`. Both take a single package by design rather than sweeping every pinned dependency: packages such as `torch` are intentionally pinned differently between the `cuda` and `generic` environment variants, so a repo-wide check would be mostly noise. They are most useful for our own packages, which are pinned identically everywhere.
 
 !!! note "Agents get this rule automatically"
 
@@ -169,7 +169,7 @@ $ ./scripts/dev_swap_conda_pkg.sh fix-drift aiod_utils --yes
 
 ## Pre-building Model Environments
 
-Each model family runs in its own conda environment, which Nextflow builds on first use. That means the first person to run a given model waits for a full environment build, and a failure partway through (no network, no disk space) surfaces as a confusing mid-run error.
+Each model family runs in its own conda environment, which Nextflow builds on first use. That means the first person to run a given model waits for a full environment build, and a failure partway through (no network, no disk space) shows up as a confusing error partway through the run.
 
 `Segment-Flow` can build them all up front instead:
 
@@ -187,7 +187,7 @@ $ nextflow run prebuild.nf -profile crick --model cellpose
 
 !!! tip "Worth doing at deployment time"
 
-    If you are setting AIoD up for an institution, run this once against a shared `conda.cacheDir` before anyone else uses it. Every subsequent user gets a cache hit rather than a build, which both saves the wait and removes the most common first-run failure.
+    If you are setting AIoD up for an institution, run this once against a shared `conda.cacheDir` before anyone else uses it. Users then reuse those environments instead of building their own, which avoids both the wait and the most common first-run failure.
 
 ## Testing
 
