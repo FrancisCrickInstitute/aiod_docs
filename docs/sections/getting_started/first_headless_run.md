@@ -15,7 +15,7 @@ Use it when you are happy with a model's performance and want to segment a lot o
 **You need:**
 
 - Your own images (any format AIoD can read, such as TIFF, OME-TIFF, CZI, ND2 or Zarr)
-- Some familiarity with the terminal: running commands, moving between folders, and editing text files. If that's new to you, [Your First Segmentation (Napari)](./first_segmentation.md) is a gentler place to start.
+- Some familiarity with the terminal: running commands, moving between folders, and editing text files. If that's new to you, [Your First Segmentation (Napari)](./first_segmentation.md) is an equivalent tutorial using the napari image viewer.
 - About 20 minutes (the first run takes longer while it builds the model's environment)
 - A GPU helps but is not required
 
@@ -56,7 +56,7 @@ These two tools are all the pipeline needs. Nextflow runs the pipeline, and Cond
 
 ### 1.2 AIoD's Python helpers (recommended)
 
-The pipeline itself doesn't need Python, but a few steps below use two of our Python packages to list models, write your image CSV, create a config file, and read results back. We recommend installing them, as they save a lot of typing. WHowever, where a step uses them, it also says how to manage without so this is optional.
+The pipeline itself doesn't need Python, but a few steps below use two of our Python packages to list models, write your image CSV, create a config file, and read results back. We recommend installing them, as they save a lot of typing. However, where a step uses them, it also says how to manage without so this is optional.
 
 Install them into a fresh environment (we use [`uv`](https://docs.astral.sh/uv/getting-started/installation/), but any environment manager works):
 
@@ -96,7 +96,7 @@ Every valid combination is listed on the [model reference](../model_registry/mod
     "
     ```
 
-**Check it worked:** you have three values that appear together on the model reference (or on one line of the listing above).
+**Check it worked:** you have three values that appear together in the model reference (or on one line of the listing above).
 {: .check }
 
 ## 3. Describe your images
@@ -121,7 +121,7 @@ Column *order* does not matter, only the names.
 
 !!! warning "Paths are on the machine that runs the pipeline"
 
-    If you run the pipeline over SSH or on a cluster, `img_path` must point to where the data lives on *that* machine, not on your laptop. For most HPC setups this is already the case, but check it if you are working from a mounted drive.
+    If you run the pipeline over SSH or on a cluster, `img_path` must point to where the data lives on *that* machine, not on your local machine. For most HPC setups this is already the case, but check it if you are working from a mounted drive.
 
 There are two ways to produce this CSV. For a handful of images, writing it yourself is quickest.
 

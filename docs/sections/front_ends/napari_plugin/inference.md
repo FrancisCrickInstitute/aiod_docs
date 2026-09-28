@@ -208,13 +208,13 @@ The parameters are as follows:
             - _"Remote path prefix"_: The remote path start, e.g. `/hpc/lab/my_lab/`
             - _"Mounted path prefix"_: `/Volumes/` (for Mac; for Windows use the appropriate letter where you have mounted the drive)
             - _"Command prepend"_: Anything that you need to do on the remote system to enable Nextflow (if not by default, e.g. `ml Nextflow`)
-            - Then select the SSH key you have authenticated for that machine
+            - Then select the SSH key you have authenticated for the remote machine
 
     === "Crick"
 
-        4. Create an interactive session, which you can do via an OnDemand session or an `nint` session.
-        5. Ensure that you have NEMO mounted locally. Change your ["Base directory"](#basecache-directory) to an appropriate location in the mounted drive (i.e. somewhere on NEMO with space, or wherever your current AIoD cache is).
-        6. Configure the SSH settings:
+        1. Create an interactive session, which you can do via an OnDemand session or an `nint` session.
+        2. Ensure that you have NEMO mounted locally. Change your ["Base directory"](#basecache-directory) to an appropriate location in the mounted drive (i.e. somewhere on NEMO with space, or wherever your current AIoD cache is).
+        3. Configure the SSH settings:
             - _"Hostname"_: `login.nemo.thecrick.org`
             - _"Target node"_: The node assigned in step 1, e.g. `cn093`
             - _"Username"_: Your NEMO username
@@ -223,4 +223,4 @@ The parameters are as follows:
             - _"Mounted path prefix"_: `/Volumes/` (for Mac; for Windows use the appropriate letter where you have mounted the drive)
             - _"Command prepend"_: `ml Nextflow/24.04.1`
             - Then select the SSH key you have authenticated for NEMO
-        7. Run the pipeline as normal!
+        4. Run the pipeline as normal!

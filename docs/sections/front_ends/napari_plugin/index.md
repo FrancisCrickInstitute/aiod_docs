@@ -9,8 +9,8 @@ To easily visualise your data, and select the different models, parameters, and 
     1. Create a virtual environment. We recommend [`uv`](https://docs.astral.sh/uv/getting-started/installation/), though `venv`, `conda`, or `pixi` all work:
 
         ```bash
-        uv venv aiod-env # (1)!
-        source aiod-env/bin/activate # (2)!
+        uv venv aiod-env # (a)
+        source aiod-env/bin/activate # (b)
         ```
 
         1.  Creates an isolated Python environment in a new `aiod-env` folder inside whatever directory your terminal is currently in.
