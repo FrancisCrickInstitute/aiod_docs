@@ -1,0 +1,36 @@
+# Presentation-only data for the home page model cards.
+#
+# `aiod_registry` provides which models exist; this file controls how they are
+# grouped into cards and which logo each one gets. Several registry families are one
+# card here because that is how users think of them (Cellpose and Cellpose-SAM are
+# separate families because they need separate conda environments, not because a
+# user picking a model cares).
+#
+# A family with no entry below still gets a card, without a logo, and the build logs
+# a warning
+#
+# Cards link to their section of the generated model reference. Set `href` on a card
+# to override that.
+cards:
+  - title: "Cellpose<br>(1-3 + SAM)"
+    logo: cellpose_logo.png
+    families: [cellpose, cellposesam]
+
+  - title: StarDist
+    logo: stardist_logo.jpg
+    families: [stardist]
+
+  - title: Segment Anything (1+2)
+    families: [sam, sam2]
+
+  - title: Empanada
+    logo: empanada_logo_icon.png
+    families: [empanada]
+
+  - title: PanSeg
+    logo: panseg_logo.png
+    families: [panseg]
+
+  - title: Etch-a-Cell Models
+    logo: etchacell_logo.jpeg
+    families: [seai_unet]
