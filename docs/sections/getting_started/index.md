@@ -48,9 +48,9 @@ Setting up AIoD is simple, but the steps are different for different environment
         - If your HPC uses another scheduler/setup, then you will need to [submit a new profile](../contributing/expanding.md#hpc) with the appropriate executor and options.
         - In the very unlikely event that Nextflow does not support your executor/scheduler, then you will be restricted to running AIoD locally and thus limited in scale. In that instance, we recommend contacting the Nextflow team to request support for your executor!
     3. An internet connection (specifically, the ability to allow downloading from a URL) to download any models from the model registry specified by a URL, which are then downloaded and cached. Without this, only models specified by local, accessible filepaths will be available.
-        - If firewalls or other cybersecurity is in place that makes this a problem, then I recommend that the relevant models are downloaded by a privileged user, moved in a centrally-accessible location, and then you [add a new filepath for that model](../contributing/expanding.md#add-a-new-model-location) so that your users can see it.
+        - If firewalls or other cybersecurity is in place that makes this a problem, then we recommend that the relevant models are downloaded by a privileged user, moved to a centrally-accessible location, and then you [add a new filepath for that model](../contributing/expanding.md#add-a-new-model-location) so that your users can see it.
 
-    Once the profile is in place, we strongly recommend [pre-building the model environments](../contributing/developing.md#pre-building-model-environments) into your shared conda cache. Otherwise the first user to try each model waits for a full environment build, and any failure during it surfaces as a confusing mid-run error.
+    Once the profile is in place, we strongly recommend [pre-building the model environments](../contributing/developing.md#pre-building-model-environments) into your shared conda cache. Otherwise the first user to try each model waits for a full environment build, and any failure during it shows up as a confusing error partway through the run.
 
 
 ## Tutorials
@@ -73,8 +73,8 @@ A recorded talk introducing AIoD for a general audience. It's an hour in total, 
   allowfullscreen></iframe>
 
 ### Running Models (via Napari)
-For a step-by-step written walkthrough of a first run, see [Your First Segmentation](./first_segmentation.md).
+For a step-by-step written walkthrough of a first run, see [Your First Segmentation (Napari)](./first_segmentation.md).
 
 
 ### Running Models (via Nextflow only)
-To run the pipeline straight from the terminal (with no Napari at all), see [Your First Headless Run](./first_headless_run.md).
+To run the pipeline straight from the terminal (with no Napari at all), see [Your First Segmentation (Command Line)](./first_headless_run.md).

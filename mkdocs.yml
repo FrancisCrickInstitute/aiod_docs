@@ -50,14 +50,15 @@ theme:
     - content.tabs.link
     - content.code.select
     - content.code.copy
+    - content.code.annotate
   
 nav:
   - Overview:
     - index.md
   - Getting Started:
     - sections/getting_started/index.md
-    - Your First Segmentation: sections/getting_started/first_segmentation.md
-    - Your First Headless Run: sections/getting_started/first_headless_run.md
+    - Your First Segmentation (Napari): sections/getting_started/first_segmentation.md
+    - Your First Segmentation (Command Line): sections/getting_started/first_headless_run.md
   - AIoD Framework:
     - Concepts:
       - sections/concepts/index.md
